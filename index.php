@@ -169,55 +169,20 @@
       </div>
     </div>
 
-
-    <!-- Customizer modal -->
-    <div class="modal fade" id="customizer-modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Your custom styles</h4>
-            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body py-4">
-            <p class="mb-3">Grab the generated styles below. Wrap them inside <code>&lt;style&gt;</code> tag and put in the <code>&lt;head&gt;</code> section of your HTML document.</p>
-            <p class="mb-4"><span class="fw-medium">IMPORTANT:</span> In order for these styles to take effect you have to placed them below:<br><code>&lt;link rel=&quot;stylesheet&quot; media=&quot;screen&quot; href=&quot;assets/css/theme.min.css&quot;&gt;</code></p>
-            <div class="bg-secondary overflow-hidden rounded-4">
-              <pre class="text-wrap bg-transparent border-0 text-dark p-4" id="custom-generated-styles"></pre>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary w-100 w-sm-auto mb-3 mb-sm-0" type="button" data-bs-dismiss="modal">Close</button>
-            <button class="btn btn-primary w-100 w-sm-auto ms-sm-3" type="button" id="copy-styles-btn">
-              <i class="ai-copy me-2 ms-n1"></i>
-              Copy styles
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Customizer toggler -->
-    <a class="position-fixed top-50 bg-light text-dark fw-medium border rounded-pill shadow text-decoration-none" href="#customizer" data-bs-toggle="offcanvas" style="right: -1.75rem; margin-top: -1rem; padding: .25rem .75rem; transform: rotate(-90deg); font-size: calc(var(--ar-body-font-size) * .8125); letter-spacing: .075rem; z-index: 1030;">
-      <i class="ai-settings text-primary fs-base me-1 ms-n1"></i>
-      Customize
-    </a>
-
-
-
     <!-- Page wrapper -->
     <main class="page-wrapper">
       <div class="d-lg-flex position-relative h-100">
 
         <!-- Home button -->
-        <a class="text-nav btn btn-icon bg-light border rounded-circle position-absolute top-0 end-0 p-0 mt-3 me-3 mt-sm-4 me-sm-4" href="index.html" data-bs-toggle="tooltip" data-bs-placement="left" title="Back to home" aria-label="Back to home">
+        <a class="text-nav btn btn-icon bg-light border rounded-circle position-absolute top-0 end-0 p-0 mt-3 me-3 mt-sm-4 me-sm-4" href="<?= PROOT; ?>index" data-bs-toggle="tooltip" data-bs-placement="left" title="Back to home" aria-label="Back to home">
           <i class="ai-home"></i>
         </a>
 
         <!-- Sign in form -->
         <div class="d-flex flex-column align-items-center w-lg-50 h-100 px-3 px-lg-5 pt-5">
           <div class="w-100 mt-auto" style="max-width: 526px;">
-            <h1>Sign in to Around</h1>
-            <p class="pb-3 mb-3 mb-lg-4">Don't have an account yet?&nbsp;&nbsp;<a href="account-signup.html">Register here!</a></p>
+            <h1>Sign in to Lavina</h1>
+            <p class="pb-3 mb-3 mb-lg-4">Don't have an account yet?&nbsp;&nbsp;<a href="<?= PROOT; ?>auth/signup">Register here!</a></p>
             <form class="needs-validation" novalidate>
               <div class="pb-3 mb-3">
                 <div class="position-relative">
@@ -241,12 +206,12 @@
                   <input class="form-check-input" type="checkbox" id="keep-signedin">
                   <label class="form-check-label ms-1" for="keep-signedin">Keep me signed in</label>
                 </div>
-                <a class="fs-sm fw-semibold text-decoration-none my-1" href="account-password-recovery.html">Forgot password?</a>
+                <a class="fs-sm fw-semibold text-decoration-none my-1" href="<?= PROOT; ?>password-recovery">Forgot password?</a>
               </div>
               <button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Sign in</button>
 
               <!-- Sign in with social account -->
-              <h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Or sign in with your social account</h2>
+              <!-- <h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Or sign in with your social account</h2>
               <div class="row row-cols-1 row-cols-sm-2 gy-3">
                 <div class="col">
                   <a class="btn btn-icon btn-outline-secondary btn-google btn-lg w-100" href="#">
@@ -260,17 +225,17 @@
                     Facebook
                   </a>
                 </div>
-              </div>
+              </div> -->
             </form>
           </div>
 
           <!-- Copyright -->
-          <p class="nav w-100 fs-sm pt-5 mt-auto mb-5" style="max-width: 526px;"><span class="text-body-secondary">&copy; All rights reserved. Made by</span><a class="nav-link d-inline-block p-0 ms-1" href="https://createx.studio/" target="_blank" rel="noopener">Createx Studio</a></p>
+          <p class="nav w-100 fs-sm pt-5 mt-auto mb-5" style="max-width: 526px;"><span class="text-body-secondary">&copy; All rights reserved. Made by</span><a class="nav-link d-inline-block p-0 ms-1" href="https://namibra.com/" target="_blank" rel="noopener">Namibra Inc.</a></p>
         </div>
 
         
         <!-- Cover image -->
-        <div class="w-50 bg-size-cover bg-repeat-0 bg-position-center" style="background-image: url(assets/img/account/cover.jpg);"></div>
+        <div class="w-50 bg-size-cover bg-repeat-0 bg-position-center" style="background-image: url(<?= PROOT; ?>assets/media/cover.jpg);"></div>
       </div>
     </main>
 
