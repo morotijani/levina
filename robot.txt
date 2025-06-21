@@ -1,0 +1,4 @@
+User-agent: * 
+Disallow: /admin/
+Disallow: /xd192/
+Disallow: /ajax/
