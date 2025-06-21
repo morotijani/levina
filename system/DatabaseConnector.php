@@ -20,11 +20,11 @@
     session_start();
 
 
-    if (isset($_SESSION['XPUser'])) {
-        $user_id = $_SESSION['XPUser'];
+    if (isset($_SESSION['LVNUser'])) {
+        $user_id = $_SESSION['LVNUser'];
         $data = array($user_id);
         $sql = "
-            SELECT * FROM xpto_users 
+            SELECT * FROM lavina_users 
             WHERE user_id = ? 
             LIMIT 1
         ";
@@ -40,7 +40,7 @@
                 $user_name = ucwords($user_data['user_firstname'] . " " . $user_data['user_lastname']);
             }
         } else {
-            unset($_SESSION['XPUser']);
+            unset($_SESSION['LVNUser']);
             redirect(PROOT . 'app/');
         }
 
