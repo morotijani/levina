@@ -8,10 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
     
     <!-- SEO meta tags -->
-    <title>Around | Account - Sign In</title>
-    <meta name="description" content="Around - Multipurpose Bootstrap HTML Template">
-    <meta name="keywords" content="bootstrap, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, saas, multipurpose, product landing, shop, software, ui kit, web studio, landing, light and dark mode, html5, css3, javascript, gallery, slider, touch, creative">
-    <meta name="author" content="Createx Studio">
+    <title>Namibra . Ref&Earn | Account - Sign In</title>
+    <meta name="description" content="Namibra - Refer and earn money on Namibra products">
+    <meta name="keywords" content="namibra, business, corporate, coworking space, services, creative agency, dashboard, e-commerce, mobile app showcase, product, multipurpose, product landing, shop, software, ui kit, web studio, landing, light and dark mode, refer, earn, points, money, cash, software, creative">
+    <meta name="author" content="Namibra Inc.">
 
     <!-- Webmanifest + Favicon / App icons -->
     <link rel="manifest" href="/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="apple-touch-icon" href="assets/app-icons/icon-180x180.png">
         
     <!-- Theme switcher (color modes) -->
-    <script src="assets/js/theme-switcher.js"></script>
+    <script src="<?= PROOT; ?>assets/js/theme-switcher.js"></script>
 
     <!-- Import Google font (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,10 +27,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" id="google-font">
 
     <!-- Font icons -->
-    <link rel="stylesheet" href="assets/icons/around-icons.min.css">
+    <link rel="stylesheet" href="<?= PROOT; ?>assets/icons/around-icons.min.css">
 
     <!-- Theme styles + Bootstrap -->
-    <link rel="stylesheet" media="screen" href="assets/css/theme.min.css">
+    <link rel="stylesheet" media="screen" href="<?= PROOT; ?>assets/css/theme.min.css">
 
     <!-- Customizer generated styles -->
     <style id="customizer-styles"></style>
@@ -418,9 +418,9 @@
 
 
     <!-- Bootstrap + Theme scripts -->
-    <script src="assets/js/theme.min.js"></script>
+    <script src="<?= PROOT; ?>assets/js/theme.min.js"></script>
 
     <!-- Customizer -->
-    <script src="assets/js/customizer.min.js"></script>
+    <script src="<?= PROOT; ?>assets/js/customizer.min.js"></script>
   </body>
 </html>
