@@ -49,12 +49,16 @@
                     <div class="dropdown-divider"></div>
                     <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Dashboard</h6>
                     <a class="dropdown-item" href="<?= PROOT; ?>app/account-referrals">
-                        <i class="ai-cart fs-lg opacity-70 me-2"></i>
+                        <i class="ai-target fs-lg opacity-70 me-2"></i>
                         Referrals
                     </a>
                     <a class="dropdown-item" href="<?= PROOT; ?>app/account-earnings">
                         <i class="ai-activity fs-lg opacity-70 me-2"></i>
                         Earnings
+                    </a>
+                    <a class="dropdown-item" href="<?= PROOT; ?>app/resources">
+                        <i class="ai-bulb fs-lg opacity-70 me-2"></i>
+                        Resources
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?= PROOT; ?>auth/signout">
@@ -104,12 +108,16 @@
                             </a>
                             <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pt-3 pb-1">Dashboard</h6>
                             <a class="dropdown-item" href="<?= PROOT; ?>app/account-referrals">
-                                <i class="ai-cart fs-lg opacity-70 me-2"></i>
+                                <i class="ai-target fs-lg opacity-70 me-2"></i>
                                 Referrals
                             </a>
                             <a class="dropdown-item" href="<?= PROOT; ?>app/account-earnings">
                                 <i class="ai-activity fs-lg opacity-70 me-2"></i>
                                 Earnings
+                            </a>
+                            <a class="dropdown-item" href="<?= PROOT; ?>app/resources">
+                                <i class="ai-bulb fs-lg opacity-70 me-2"></i>
+                                Resources
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<?= PROOT; ?>auth/signout">

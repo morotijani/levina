@@ -8,6 +8,7 @@
         <i class="ai-arrow-up"></i>
     </a>
 
+    <script src="<?= PROOT; ?>assets/js/swiper-bundle.min.js"></script>
     <!-- Bootstrap + Theme scripts -->
     <script src="<?= PROOT; ?>assets/js/theme.min.js"></script>
 
