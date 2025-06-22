@@ -13,5 +13,20 @@
 
     <!-- Customizer -->
     <script src="<?= PROOT; ?>assets/js/customizer.min.js"></script>
+
+    <script>
+        // Get the current URL
+        var currentUrl = window.location.href;
+
+        // Get all the links in the sidebar
+        var sidebarLinks = document.querySelectorAll('#sidebarAccount .nav-link');
+
+        // Loop through the links and add the 'active' class to the one that matches the current URL
+        sidebarLinks.forEach(function(link) {
+            if (link.href === currentUrl) {
+                link.classList.add('active');
+            } 
+        })
+    </script>
 </body>
 </html>

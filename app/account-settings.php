@@ -3,15 +3,13 @@
     require ('../system/DatabaseConnector.php');
     $title = 'Account Settings - Lavina - Namibra';
     $body_class = "bg-secondary";
-    $left_active_link = "active";
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
 ?>
-
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
-                <h1 class="h2 mb-4">Overview</h1>
+                <h1 class="h2 mb-4">Settings</h1>
 
                 <!-- Basic info -->
                 <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
@@ -19,150 +17,212 @@
                         <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
                             <i class="ai-user text-primary lead pe-1 me-2"></i>
                             <h2 class="h4 mb-0">Basic info</h2>
-                            <a class="btn btn-sm btn-secondary ms-auto" href="account-settings.html">
-                                <i class="ai-edit ms-n1 me-2"></i>
-                                Edit info
-                            </a>
                         </div>
-                        <div class="d-md-flex align-items-center">
-                            <div class="d-sm-flex align-items-center">
-                                <div class="rounded-circle bg-size-cover bg-position-center flex-shrink-0" style="width: 80px; height: 80px; background-image: url(<?= PROOT; ?>assets/media/avatar.png);"></div>
-                                <div class="pt-3 pt-sm-0 ps-sm-3">
-                                    <h3 class="h5 mb-2">Hamza Zero<i class="ai-circle-check-filled fs-base text-success ms-2"></i></h3>
-                                    <div class="text-body-secondary fw-medium d-flex flex-wrap flex-sm-nowrap align-iteems-center">
-                                        <div class="d-flex align-items-center me-3">
-                                            <i class="ai-mail me-1"></i>
-                                            email@example.com
-                                        </div>
-                                        <div class="d-flex align-items-center text-nowrap">
-                                            <i class="ai-map-pin me-1"></i>
-                                            GH, ₵
-                                        </div>
-                                    </div>
+                        <div class="d-flex align-items-center">
+                            <div class="dropdown">
+                                <a class="d-flex flex-column justify-content-end position-relative overflow-hidden rounded-circle bg-size-cover bg-position-center flex-shrink-0" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="width: 80px; height: 80px; background-image: url(<?= PROOT; ?>assets/media/avatar.png);" aria-label="Upload picture">
+                                    <span class="d-block text-light text-center lh-1 pb-1" style="background-color: rgba(0,0,0,.5)">
+                                        <i class="ai-camera"></i>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu my-1">
+                                    <a class="dropdown-item fw-normal" href="#">
+                                        <i class="ai-camera fs-base opacity-70 me-2"></i>
+                                        Upload new photo
+                                    </a>
+                                    <a class="dropdown-item text-danger fw-normal" href="#">
+                                        <i class="ai-trash fs-base me-2"></i>
+                                        Delete photo
+                                    </a>
                                 </div>
                             </div>
-                            <div class="w-100 pt-3 pt-md-0 ms-md-auto" style="max-width: 212px;">
-                                <div class="d-flex justify-content-between fs-sm pb-1 mb-2">
-                                    Profile completion
-                                    <strong class="ms-2">62%</strong>
-                                </div>
-                                <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                            <div class="ps-3">
+                                <h3 class="h6 mb-1">Profile picture</h3>
+                                <p class="fs-sm text-body-secondary mb-0">PNG or JPG no bigger than 1000px wide and tall.</p>
                             </div>
                         </div>
-                        <div class="row py-4 mb-2 mb-sm-3">
-                            <div class="col-md-6 mb-4 mb-md-0">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <tr>
-                                            <td class="border-0 text-body-secondary py-1 px-0">Phone</td>
-                                            <td class="border-0 text-dark fw-medium py-1 ps-3">+233 234 567 890</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0 text-body-secondary py-1 px-0">Language</td>
-                                            <td class="border-0 text-dark fw-medium py-1 ps-3">English</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0 text-body-secondary py-1 px-0">Gender</td>
-                                            <td class="border-0 text-dark fw-medium py-1 ps-3">Female</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0 text-body-secondary py-1 px-0">Communication</td>
-                                            <td class="border-0 text-dark fw-medium py-1 ps-3">Mobile, email</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="fn">First name</label>
+                                <input class="form-control" type="text" value="Isabella" id="fn">
                             </div>
-                            <div class="col-md-6 d-md-flex justify-content-end">
-                                <div class="w-100 border rounded-3 p-4" style="max-width: 212px;">
-                                    <img class="d-block mb-2" src="<?= PROOT; ?>assets/media/gift-icon.svg" width="24" alt="Gift icon">
-                                    <h4 class="h5 lh-base mb-0">123 bonuses</h4>
-                                    <p class="fs-sm text-body-secondary mb-0">1 bonus = ₵1</p>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="ln">Last name</label>
+                                <input class="form-control" type="text" value="Bocouse" id="ln">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="email">Email address</label>
+                                <input class="form-control" type="email" value="bocouse@example.com" id="email">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="phone">Phone <span class="text-body-secondary">(optional)</span></label>
+                                <input class="form-control" type="tel" data-format='{"numericOnly": true, "delimiters": ["+233 ", " ", " "], "blocks": [0, 3, 3, 2]}' placeholder="+1 ___ ___ __" id="phone">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="country">Country</label>
+                                <input class="form-control" id="country" name="country">
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="currency">Currency</label>
+                                <select class="form-select" id="currency">
+                                    <option value="" selected disabled>Select currency</option>
+                                    <option value="gbp">₵ GHS</option>
+                                    <option value="usd">$ USD</option>
+                                    <option value="eur">€ EUR</option>
+                                    <option value="ukp">£ UKP</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="bio">Bio</label>
+                                <textarea class="form-control" rows="5" placeholder="Add a bio" id="bio"></textarea>
+                            </div>
+                            <div class="col-12 d-sm-flex align-items-center pt-sm-2 pt-md-3">
+                                <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Gender:</div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="gender" value="Male" id="male">
+                                    <label class="form-check-label" for="male">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="gender" value="Female" checked id="female">
+                                    <label class="form-check-label" for="female">Female</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="radio" name="gender" value="Other" id="other">
+                                    <label class="form-check-label" for="other">Other</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="alert alert-info d-flex mb-0" role="alert">
-                            <i class="ai-circle-info fs-xl"></i>
-                            <div class="ps-2">Fill in the information 100% to receive more suitable offers.<a class="alert-link ms-1" href="account-settings.html">Go to settings!</a></div>
+                            <div class="col-12 d-sm-flex align-items-center">
+                                <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Communication:</div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="checkbox" name="com-email" value="Email" checked id="c-email">
+                                    <label class="form-check-label" for="c-email">Email</label>
+                                </div>
+                                <div class="form-check form-check-inline mb-0">
+                                    <input class="form-check-input" type="checkbox" name="com-phone" value="Phone" id="c-phone">
+                                    <label class="form-check-label" for="c-phone">Phone</label>
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-end pt-3">
+                                <button class="btn btn-secondary" type="button">Cancel</button>
+                                <button class="btn btn-primary ms-3" type="button">Save changes</button>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
-                    <!-- Address -->
-                    <section class="col">
-                        <div class="card h-100 border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2">
-                                    <i class="ai-map-pin text-primary lead pe-1 me-2"></i>
-                                    <h2 class="h4 mb-0">Address</h2>
-                                    <a class="btn btn-sm btn-secondary ms-auto" href="account-settings.html">
-                                    <i class="ai-edit ms-n1 me-2"></i>
-                                    Edit info
-                                    </a>
-                                </div>
-                                <div class="d-flex align-items-center pb-1 mb-2">
-                                    <h3 class="h6 mb-0 me-3">Shipping address</h3>
-                                    <span class="badge bg-primary bg-opacity-10 text-primary">Primary</span>
-                                </div>
-                                <p class="mb-0">Kumasi,<br>Airport, rounadbout, Street<br>Boukrom</p>
-                                <div class="d-flex align-items-center pt-4 pb-1 my-2">
-                                    <h3 class="h6 mb-0 me-3">Billing address 1</h3>
-                                    <span class="badge bg-primary bg-opacity-10 text-primary">Primary</span>
-                                </div>
-                                <p class="mb-0">Kumasi Dekeyemso St,<br>Moshiezongo, First station,<br>GH</p>
-                            </div>
+                <!-- Password -->
+                <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3">
+                            <i class="ai-lock-closed text-primary lead pe-1 me-2"></i>
+                            <h2 class="h4 mb-0">Password change</h2>
                         </div>
-                    </section>
-
-                    <!-- Billing -->
-                    <section class="col">
-                        <div class="card h-100 border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-1 mb-lg-2">
-                                    <i class="ai-wallet text-primary lead pe-1 me-2"></i>
-                                    <h2 class="h4 mb-0">Billing</h2>
-                                    <a class="btn btn-sm btn-secondary ms-auto" href="account-billing.html">
-                                        <i class="ai-edit ms-n1 me-2"></i>
-                                        Edit info
-                                    </a>
+                        <div class="row align-items-center g-3 g-sm-4 pb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label" for="current-pass">Current password</label>
+                                <div class="password-toggle">
+                                    <input class="form-control" type="password" value="hidden@password" id="current-pass">
+                                    <label class="password-toggle-btn" aria-label="Show/hide password">
+                                        <input class="password-toggle-check" type="checkbox">
+                                        <span class="password-toggle-indicator"></span>
+                                    </label>
                                 </div>
-                                <div class="d-flex align-items-center pb-1 mb-2">
-                                    <h3 class="h6 mb-0 me-3">Hamza Zero</h3>
-                                    <span class="badge bg-primary bg-opacity-10 text-primary">Primary</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <a class="d-inline-block fs-sm fw-semibold text-decoration-none mt-sm-4" href="account-password-recovery.html">Forgot password?</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="new-pass">New password</label>
+                                <div class="password-toggle">
+                                    <input class="form-control" type="password" id="new-pass">
+                                    <label class="password-toggle-btn" aria-label="Show/hide password">
+                                        <input class="password-toggle-check" type="checkbox">
+                                        <span class="password-toggle-indicator"></span>
+                                    </label>
                                 </div>
-                                <div class="d-flex align-items-center pb-4 mb-2 mb-sm-3">
-                                    <svg width="52" height="42" viewBox="0 0 52 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M22.6402 28.2865H18.5199L21.095 12.7244H25.2157L22.6402 28.2865ZM15.0536 12.7244L11.1255 23.4281L10.6607 21.1232L10.6611 21.124L9.27467 14.1256C9.27467 14.1256 9.10703 12.7244 7.32014 12.7244H0.8262L0.75 12.9879C0.75 12.9879 2.73586 13.3942 5.05996 14.7666L8.63967 28.2869H12.9327L19.488 12.7244H15.0536ZM47.4619 28.2865H51.2453L47.9466 12.7239H44.6345C43.105 12.7239 42.7324 13.8837 42.7324 13.8837L36.5873 28.2865H40.8825L41.7414 25.9749H46.9793L47.4619 28.2865ZM42.928 22.7817L45.093 16.9579L46.3109 22.7817H42.928ZM36.9095 16.4667L37.4975 13.1248C37.4975 13.1248 35.6831 12.4463 33.7916 12.4463C31.7469 12.4463 26.8913 13.3251 26.8913 17.5982C26.8913 21.6186 32.5902 21.6685 32.5902 23.7803C32.5902 25.8921 27.4785 25.5137 25.7915 24.182L25.1789 27.6763C25.1789 27.6763 27.0187 28.555 29.8296 28.555C32.6414 28.555 36.8832 27.1234 36.8832 23.2271C36.8832 19.1808 31.1331 18.8041 31.1331 17.0449C31.1335 15.2853 35.1463 15.5113 36.9095 16.4667Z" fill="#2566AF"/>
-                                    <path d="M10.6611 22.1235L9.2747 15.1251C9.2747 15.1251 9.10705 13.7239 7.32016 13.7239H0.8262L0.75 13.9874C0.75 13.9874 3.87125 14.6235 6.86507 17.0066C9.72766 19.2845 10.6611 22.1235 10.6611 22.1235Z" fill="#E6A540"/>
-                                    </svg>
-                                    <div class="ps-3 fs-sm">
-                                        <div class="text-dark">Visa •••• 9016</div>
-                                        <div class="text-body-secondary">Debit - Expires 03/24</div>
-                                    </div>
-                                </div>
-                                <div class="alert alert-danger d-flex mb-0">
-                                    <i class="ai-octagon-alert fs-xl me-2"></i>
-                                    <p class="mb-0">Your primary credit card expired on 01/04/2023. Please add a new card or update this one.</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label" for="confirm-pass">Confirm new password</label>
+                                <div class="password-toggle">
+                                    <input class="form-control" type="password" id="confirm-pass">
+                                    <label class="password-toggle-btn" aria-label="Show/hide password">
+                                        <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                                    </label>
                                 </div>
                             </div>
                         </div>
-                    </section>
-                </div>
+                        <div class="alert alert-info d-flex my-3 my-sm-4">
+                            <i class="ai-circle-info fs-xl me-2"></i>
+                            <p class="mb-0">Password must be minimum 8 characters long - the more, the better.</p>
+                        </div>
+                        <div class="d-flex justify-content-end pt-3">
+                            <button class="btn btn-secondary" type="button">Cancel</button>
+                            <button class="btn btn-primary ms-3" type="button">Save changes</button>
+                        </div>
+                    </div>
+                </section>
 
-                <!-- Orders -->
+                <!-- Notifications -->
+                <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3">
+                            <i class="ai-bell text-primary lead pe-1 me-2"></i>
+                            <h2 class="h4 mb-0">Notifications</h2>
+                            <button class="btn btn-sm btn-outline-secondary ms-auto" type="button" data-bs-toggle="checkbox" data-bs-target="#checkboxList">Toggle all</button>
+                        </div>
+                        <div id="checkboxList">
+                            <div class="form-check form-switch d-flex pb-md-2 mb-4">
+                                <input class="form-check-input flex-shrink-0" type="checkbox" checked id="product-sold">
+                                <label class="form-check-label ps-3 ps-sm-4" for="product-sold">
+                                    <span class="h6 d-block mb-2">Product sold notifications</span>
+                                    <span class="fs-sm text-body-secondary">Send an email when someone purchased one of my products</span>
+                                </label>
+                            </div>
+                            <div class="form-check form-switch d-flex pb-md-2 mb-4">
+                                <input class="form-check-input flex-shrink-0" type="checkbox" checked id="product-update">
+                                <label class="form-check-label ps-3 ps-sm-4" for="product-update">
+                                    <span class="h6 d-block mb-2">Product update notifications</span>
+                                    <span class="fs-sm text-body-secondary">Send an email when a product I've purchased is updated</span>
+                                </label>
+                            </div>
+                            <div class="form-check form-switch d-flex pb-md-2 mb-4">
+                                <input class="form-check-input flex-shrink-0" type="checkbox" checked id="product-review">
+                                <label class="form-check-label ps-3 ps-sm-4" for="product-review">
+                                    <span class="h6 d-block mb-2">Product review notifications</span>
+                                    <span class="fs-sm text-body-secondary">Send an email when someone leaves a review with his/her rating</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-check form-switch d-flex">
+                            <input class="form-check-input flex-shrink-0" type="checkbox" disabled id="daily-summary">
+                            <label class="form-check-label opacity-100 ps-3 ps-sm-4" for="daily-summary">
+                                <span class="h6 text-body-secondary d-block mb-2">Daily summary emails<span class="badge bg-danger bg-opacity-10 text-danger ms-3">Only for premium</span></span>
+                                <span class="fs-sm text-body-secondary">Send an email when someone leaves a review with his/her rating</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Delete account -->
                 <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
                     <div class="card-body">
-                        <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
-                            <i class="ai-cart text-primary lead pe-1 me-2"></i>
-                            <h2 class="h4 mb-0">Referrals</h2>
-                            <a class="btn btn-sm btn-secondary ms-auto" href="<?= PROOT; ?>app/account-referals">View all</a>
+                        <div class="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3">
+                            <i class="ai-trash text-primary lead pe-1 me-2"></i>
+                            <h2 class="h4 mb-0">Delete account</h2>
                         </div>
-
-                        <!-- Orders accordion -->
-                        <div class="accordion accordion-alt accordion-orders" id="orders">
-                            lorem  
+                        <div class="alert alert-warning d-flex mb-4">
+                            <i class="ai-triangle-alert fs-xl me-2"></i>
+                            <p class="mb-0">When you delete your account, your public profile will be deactivated immediately. If you change your mind before the 14 days are up, sign in with your email and password, and we'll send a link to reactivate account. <a href="#" class="alert-link">Learn more</a></p>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="confirm">
+                            <label class="form-check-label text-dark fw-medium" for="confirm">Yes, I want to delete my account</label>
+                        </div>
+                        <div class="d-flex flex-column flex-sm-row justify-content-end pt-4 mt-sm-2 mt-md-3">
+                            <button class="btn btn-danger" type="button">
+                                <i class="ai-trash ms-n1 me-2"></i>
+                                Delete account
+                            </button>
                         </div>
                     </div>
                 </section>
