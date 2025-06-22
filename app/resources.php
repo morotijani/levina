@@ -12,9 +12,9 @@
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
                 <div class="d-flex align-items-center mb-4">
                     <h1 class="h2 mb-0">Resources <span class="fs-base fw-normal text-body-secondary">(6 products)</span></h1>
-                    <button class="btn btn-sm btn-outline-danger ms-auto" type="button">
-                        <i class="ai-trash ms-n1 me-2"></i>
-                        Clear all
+                    <button class="btn btn-sm btn-outline-primary ms-auto" type="button">
+                        <i class="ai-rotate-left ms-n1 me-2"></i>
+                        Refresh
                     </button>
                 </div>
                 <div class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
@@ -25,10 +25,10 @@
                             <div class="col pb-2 pb-sm-3">
                                 <div class="card-hover position-relative bg-secondary rounded-1 p-3 mb-4">
                                     <button class="btn btn-icon btn-sm btn-light bg-light border-0 rounded-circle position-absolute top-0 end-0 mt-3 me-3 z-5 opacity-0" type="button" aria-label="Remove">
-                                        <i class="ai-trash fs-xl text-danger"></i>
+                                        <i class="ai-show fs-xl text-dark"></i>
                                     </button>
                                     <div class="swiper swiper-nav-onhover" data-swiper-options='{"loop": true, "navigation": {"prevEl": ".btn-prev", "nextEl": ".btn-next"}}'>
-                                        <a class="swiper-wrapper" href="shop-single.html">
+                                        <a class="swiper-wrapper" href="<?= PROOT; ?>app/resources/school-management-system">
                                             <div class="swiper-slide p-2 p-xl-4">
                                                 <img class="d-block mx-auto" src="<?= PROOT; ?>assets/media/product.jpg" width="226" alt="Product">
                                             </div>
@@ -43,14 +43,14 @@
                                 </div>
                                 <div class="d-flex mb-1">
                                     <h3 class="h6 mb-0">
-                                        <a href="shop-single.html">Dispenser for soap</a>
+                                        <a href="<?= PROOT; ?>app/resources/school-management-system">School management system</a>
                                     </h3>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <span class="me-2">$16.00</span>
-                                    <div class="nav ms-auto" data-bs-toggle="tooltip" data-bs-template="<div class='tooltip fs-xs' role='tooltip'><div class='tooltip-inner bg-light text-body-secondary p-0'></div></div>" data-bs-placement="left" title="Add to cart">
-                                        <a class="nav-link fs-lg py-2 px-1" href="#" aria-label="Add to Cart">
-                                            <i class="ai-cart"></i>
+                                    <span class="me-2">₵1006.00</span>
+                                    <div class="nav ms-auto" data-bs-toggle="tooltip" data-bs-template="<div class='tooltip fs-xs' role='tooltip'><div class='tooltip-inner bg-light text-body-secondary p-0'></div></div>" data-bs-placement="left" title="Add a lead">
+                                        <a class="nav-link fs-lg py-2 px-1" href="#" aria-label="Add a lead">
+                                            <i class="ai-user-plus"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                 <div class="card-hover position-relative bg-secondary rounded-1 p-3 mb-4">
                                     <span class="badge bg-danger bg-opacity-10 text-danger position-absolute top-0 start-0 mt-3 ms-3">Sale</span>
                                     <button class="btn btn-icon btn-sm btn-light bg-light border-0 rounded-circle position-absolute top-0 end-0 mt-3 me-3 z-5 opacity-0" type="button" aria-label="Remove">
-                                        <i class="ai-trash fs-xl text-danger"></i>
+                                        <i class="ai-show fs-xl text-dark"></i>
                                     </button>
                                     <div class="swiper swiper-nav-onhover" data-swiper-options='{"loop": true, "navigation": {"prevEl": ".btn-prev", "nextEl": ".btn-next"}}'>
                                         <a class="swiper-wrapper" href="shop-single.html">
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="d-flex mb-1">
                                     <h3 class="h6 mb-0">
-                                        <a href="shop-single.html">Loft style lamp</a>
+                                        <a href="<?= PROOT; ?>app/resources/pos">POS</a>
                                     </h3>
                                     <div class="d-flex ps-2 mt-n1 ms-auto">
                                         <div class="ms-1">
@@ -103,11 +103,11 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <span class="me-2">$21.00</span>
-                                    <del class="fs-sm text-body-secondary">$35.00</del>
-                                    <div class="nav ms-auto" data-bs-toggle="tooltip" data-bs-template="<div class='tooltip fs-xs' role='tooltip'><div class='tooltip-inner bg-light text-body-secondary p-0'></div></div>" data-bs-placement="left" title="Add to cart">
-                                        <a class="nav-link fs-lg py-2 px-1" href="#" aria-label="Add to Cart">
-                                            <i class="ai-cart"></i>
+                                    <span class="me-2">₵10000.00</span>
+                                    <del class="fs-sm text-body-secondary">₵12000.00</del>
+                                    <div class="nav ms-auto" data-bs-toggle="tooltip" data-bs-template="<div class='tooltip fs-xs' role='tooltip'><div class='tooltip-inner bg-light text-body-secondary p-0'></div></div>" data-bs-placement="left" title="Add a lead">
+                                        <a class="nav-link fs-lg py-2 px-1" href="#" aria-label="Add a lead">
+                                            <i class="ai-user-plus"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                             <div class="col pb-2 pb-sm-3">
                                 <div class="card-hover position-relative bg-secondary rounded-1 p-3 mb-4">
                                     <button class="btn btn-icon btn-sm btn-light bg-light border-0 rounded-circle position-absolute top-0 end-0 mt-3 me-3 z-5 opacity-0" type="button" aria-label="Remove">
-                                        <i class="ai-trash fs-xl text-danger"></i>
+                                        <i class="ai-show fs-xl text-dark"></i>
                                     </button>
                                     <div class="swiper swiper-nav-onhover" data-swiper-options='{"loop": true, "navigation": {"prevEl": ".btn-prev", "nextEl": ".btn-next"}}'>
                                         <a class="swiper-wrapper" href="shop-single.html">
@@ -159,10 +159,10 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <span class="me-2">$15.00</span>
-                                    <div class="nav ms-auto" data-bs-toggle="tooltip" data-bs-template="<div class='tooltip fs-xs' role='tooltip'><div class='tooltip-inner bg-light text-body-secondary p-0'></div></div>" data-bs-placement="left" title="Add to cart">
-                                        <a class="nav-link fs-lg py-2 px-1" href="#" aria-label="Add to Cart">
-                                            <i class="ai-cart"></i>
+                                    <span class="me-2">₵10005.00</span>
+                                    <div class="nav ms-auto" data-bs-toggle="tooltip" data-bs-template="<div class='tooltip fs-xs' role='tooltip'><div class='tooltip-inner bg-light text-body-secondary p-0'></div></div>" data-bs-placement="left" title="Add a lead">
+                                        <a class="nav-link fs-lg py-2 px-1" href="#" aria-label="Add a lead">
+                                            <i class="ai-user-plus"></i>
                                         </a>
                                     </div>
                                 </div>
