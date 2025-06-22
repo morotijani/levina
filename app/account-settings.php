@@ -1,8 +1,9 @@
 <?php
     
     require ('../system/DatabaseConnector.php');
-    $title = 'Dashboard - Lavina - Namibra';
+    $title = 'Account Settings - Lavina - Namibra';
     $body_class = "bg-secondary";
+    $left_active_link = "active";
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
