@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="phone">Phone <span class="text-body-secondary">(optional)</span></label>
-                                <input class="form-control" type="tel" data-format='{"numericOnly": true, "delimiters": ["+233 ", " ", " "], "blocks": [0, 3, 3, 2]}' placeholder="+1 ___ ___ __" id="phone">
+                                <input class="form-control" type="tel" data-format='{"numericOnly": true, "delimiters": ["+233 ", " ", " "], "blocks": [0, 3, 3, 2]}' placeholder="+233 ___ ___ __" id="phone" name="phone">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="country">Country</label>
