@@ -2,6 +2,7 @@
     
     require ('../system/DatabaseConnector.php');
     $title = 'Account - Sign Up | ';
+    $body_class = "";
     require ('../system/inc/head.php');
 ?>
 

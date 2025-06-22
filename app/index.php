@@ -13,204 +13,185 @@
         <header class="navbar navbar-expand-lg fixed-top">
             <div class="container">
 
-            <!-- Navbar brand (Logo) -->
-            <a class="navbar-brand pe-sm-3" href="index.html">
-                <span class="text-primary flex-shrink-0 me-2">
-                    <svg width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z"></path>
-                    </svg>
-                </span>
-                Lavina
-            </a>
+                <!-- Navbar brand (Logo) -->
+                <a class="navbar-brand pe-sm-3" href="index.html">
+                    <img src="<?= PROOT; ?>assets/media/logo/logo.png" width="35" height="32" class="img-fluid flex-shrink-0 me-2" />
+                    <!-- <span class="text-primary flex-shrink-0 me-2">
+                        <svg width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="currentColor" d="M35.6,29c-1.1,3.4-5.4,4.4-7.9,1.9c-2.3-2.2-6.1-3.7-9.4-3.7c-3.1,0-7.5,1.8-10,4.1c-2.2,2-5.8,1.5-7.3-1.1c-1-1.8-1.2-4.1,0-6.2l0.6-1.1l0,0c0.6-0.7,4.4-5.2,12.5-5.7c0.5,1.8,2,3.1,3.9,3.1c2.2,0,4.1-1.9,4.1-4.2s-1.8-4.2-4.1-4.2c-2,0-3.6,1.4-4,3.3H7.7c-0.8,0-1.3-0.9-0.9-1.6l5.6-9.8c2.5-4.5,8.8-4.5,11.3,0L35.1,24C36,25.7,36.1,27.5,35.6,29z"></path>
+                        </svg>
+                    </span> -->
+                    Lavina
+                </a>
 
-        <!-- Theme switcher -->
-        <div class="form-check form-switch mode-switch order-lg-2 me-3 me-lg-4 ms-auto" data-bs-toggle="mode">
-            <input class="form-check-input" type="checkbox" id="theme-mode">
-            <label class="form-check-label" for="theme-mode">
-                <i class="ai-sun fs-lg"></i>
-            </label>
-            <label class="form-check-label" for="theme-mode">
-                <i class="ai-moon fs-lg"></i>
-            </label>
-        </div>
-
-        <!-- User signed in state. Account dropdown on screens > 576px -->
-        <div class="dropdown nav d-none d-sm-block order-lg-3">
-            <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                <img class="border rounded-circle" src="<?= PROOT; ?>assets/media/avatar.png" width="48" alt="Hamza Zero">
-                <div class="ps-2">
-                    <div class="fs-xs lh-1 opacity-60">Hello,</div>
-                    <div class="fs-sm dropdown-toggle">Zero</div>
+                <!-- Theme switcher -->
+                <div class="form-check form-switch mode-switch order-lg-2 me-3 me-lg-4 ms-auto" data-bs-toggle="mode">
+                    <input class="form-check-input" type="checkbox" id="theme-mode">
+                    <label class="form-check-label" for="theme-mode">
+                        <i class="ai-sun fs-lg"></i>
+                    </label>
+                    <label class="form-check-label" for="theme-mode">
+                        <i class="ai-moon fs-lg"></i>
+                    </label>
                 </div>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end my-1">
-                <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
-                <a class="dropdown-item" href="account-overview.html">
-                    <i class="ai-user-check fs-lg opacity-70 me-2"></i>
-                    Overview
+
+            <!-- User signed in state. Account dropdown on screens > 576px -->
+            <div class="dropdown nav d-none d-sm-block order-lg-3">
+                <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img class="border rounded-circle" src="<?= PROOT; ?>assets/media/avatar.png" width="48" alt="Hamza Zero">
+                    <div class="ps-2">
+                        <div class="fs-xs lh-1 opacity-60">Hello,</div>
+                        <div class="fs-sm dropdown-toggle">Zero</div>
+                    </div>
                 </a>
-                <a class="dropdown-item" href="account-settings.html">
-                    <i class="ai-settings fs-lg opacity-70 me-2"></i>
-                    Settings
-                </a>
-                <a class="dropdown-item" href="account-billing.html">
-                    <i class="ai-wallet fs-base opacity-70 me-2 mt-n1"></i>
-                    Billing
-                </a>
-                <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Dashboard</h6>
-                <a class="dropdown-item" href="account-orders.html">
-                    <i class="ai-cart fs-lg opacity-70 me-2"></i>
-                    Orders
-                </a>
-                <a class="dropdown-item" href="account-earnings.html">
-                    <i class="ai-activity fs-lg opacity-70 me-2"></i>
-                    Earnings
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="account-chat.html">
-                    <i class="ai-messages fs-lg opacity-70 me-2"></i>
-                    Chat
-                <span class="badge bg-danger ms-auto">4</span>
-                </a>
-                <a class="dropdown-item" href="account-favorites.html">
-                    <i class="ai-heart fs-lg opacity-70 me-2"></i>
-                    Favorites
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="account-signin.html">
-                    <i class="ai-logout fs-lg opacity-70 me-2"></i>
-                    Sign out
-                </a>
+                <div class="dropdown-menu dropdown-menu-end my-1">
+                    <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
+                    <a class="dropdown-item" href="<?= PROOT; ?>app/">
+                        <i class="ai-user-check fs-lg opacity-70 me-2"></i>
+                        Overview
+                    </a>
+                    <a class="dropdown-item" href="<?= PROOT; ?>app/account-settings">
+                        <i class="ai-settings fs-lg opacity-70 me-2"></i>
+                        Settings
+                    </a>
+                    <a class="dropdown-item" href="<?= PROOT; ?>app/account-billing">
+                        <i class="ai-wallet fs-base opacity-70 me-2 mt-n1"></i>
+                        Billing
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Dashboard</h6>
+                    <a class="dropdown-item" href="<?= PROOT; ?>app/account-referrals">
+                        <i class="ai-cart fs-lg opacity-70 me-2"></i>
+                        Referrals
+                    </a>
+                    <a class="dropdown-item" href="<?= PROOT; ?>app/account-earnings">
+                        <i class="ai-activity fs-lg opacity-70 me-2"></i>
+                        Earnings
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="<?= PROOT; ?>auth/signout">
+                        <i class="ai-logout fs-lg opacity-70 me-2"></i>
+                        Sign out
+                    </a>
+                </div>
             </div>
+
+            <!-- Mobile menu toggler (Hamburger) -->
+            <button class="navbar-toggler ms-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar collapse (Main navigation) -->
+            <nav class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav navbar-nav-scroll me-auto" style="--ar-scroll-height: 520px;">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= PROOT; ?>app">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= PROOT; ?>app/resources">Resources</a>
+                    </li>
+
+                    <!-- User signed in state. Account dropdown on screens > 576px -->
+                    <li class="nav-item dropdown d-sm-none border-top mt-2 pt-2">
+                        <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="border rounded-circle" src="<?= PROOT; ?>assets/media/avatar.png" width="48" alt="Hamza Zero">
+                            <div class="ps-2">
+                                <div class="fs-xs lh-1 opacity-60">Hello,</div>
+                                <div class="fs-sm dropdown-toggle">Zero</div>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu">
+                            <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
+                            <a class="dropdown-item" href="<?= PROOT; ?>app/">
+                                <i class="ai-user-check fs-lg opacity-70 me-2"></i>
+                                Overview
+                            </a>
+                            <a class="dropdown-item" href="<?= PROOT; ?>app/account-settings">
+                                <i class="ai-settings fs-lg opacity-70 me-2"></i>
+                                Settings
+                            </a>
+                            <a class="dropdown-item" href="<?= PROOT; ?>app/account-billing">
+                                <i class="ai-wallet fs-base opacity-70 me-2 mt-n1"></i>
+                                Billing
+                            </a>
+                            <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pt-3 pb-1">Dashboard</h6>
+                            <a class="dropdown-item" href="<?= PROOT; ?>app/account-referrals">
+                                <i class="ai-cart fs-lg opacity-70 me-2"></i>
+                                Referrals
+                            </a>
+                            <a class="dropdown-item" href="<?= PROOT; ?>app/account-earnings">
+                                <i class="ai-activity fs-lg opacity-70 me-2"></i>
+                                Earnings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="<?= PROOT; ?>auth/signout">
+                                <i class="ai-logout fs-lg opacity-70 me-2"></i>
+                                Sign out
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
         </div>
-
-        <!-- Mobile menu toggler (Hamburger) -->
-        <button class="navbar-toggler ms-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Navbar collapse (Main navigation) -->
-        <nav class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav navbar-nav-scroll me-auto" style="--ar-scroll-height: 520px;">
-                <li class="nav-item">
-                    <a class="nav-link" href="components/typography.html">UI Kit</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="docs/getting-started.html">Docs</a>
-                </li>
-
-        <!-- User signed in state. Account dropdown on screens > 576px -->
-        <li class="nav-item dropdown d-sm-none border-top mt-2 pt-2">
-          <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-            <img class="border rounded-circle" src="<?= PROOT; ?>assets/media/avatar.png" width="48" alt="Hamza Zero">
-            <div class="ps-2">
-              <div class="fs-xs lh-1 opacity-60">Hello,</div>
-              <div class="fs-sm dropdown-toggle">Zero</div>
-            </div>
-          </a>
-          <div class="dropdown-menu">
-            <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
-            <a class="dropdown-item" href="account-overview.html">
-              <i class="ai-user-check fs-lg opacity-70 me-2"></i>
-              Overview
-            </a>
-            <a class="dropdown-item" href="account-settings.html">
-              <i class="ai-settings fs-lg opacity-70 me-2"></i>
-              Settings
-            </a>
-            <a class="dropdown-item" href="account-billing.html">
-              <i class="ai-wallet fs-base opacity-70 me-2 mt-n1"></i>
-              Billing
-            </a>
-            <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pt-3 pb-1">Dashboard</h6>
-            <a class="dropdown-item" href="account-orders.html">
-              <i class="ai-cart fs-lg opacity-70 me-2"></i>
-              Orders
-            </a>
-            <a class="dropdown-item" href="account-earnings.html">
-              <i class="ai-activity fs-lg opacity-70 me-2"></i>
-              Earnings
-            </a>
-            <a class="dropdown-item d-flex align-items-center" href="account-chat.html">
-              <i class="ai-messages fs-lg opacity-70 me-2"></i>
-              Chat
-              <span class="badge bg-danger ms-3">4</span>
-            </a>
-            <a class="dropdown-item" href="account-favorites.html"><i class="ai-heart fs-lg opacity-70 me-2"></i>Favorites</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="account-signin.html">
-              <i class="ai-logout fs-lg opacity-70 me-2"></i>
-              Sign out
-            </a>
-          </div>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</header>
+    </header>
 
 
-<!-- Page container -->
-<div class="container py-5 mt-4 mt-lg-5 mb-lg-4 my-xl-5">
-  <div class="row pt-sm-2 pt-lg-0">
+    <!-- Page container -->
+    <div class="container py-5 mt-4 mt-lg-5 mb-lg-4 my-xl-5">
+        <div class="row pt-sm-2 pt-lg-0">
 
-    <!-- Sidebar (offcanvas on sreens < 992px) -->
-    <aside class="col-lg-3 pe-lg-4 pe-xl-5 mt-n3">
-      <div class="position-lg-sticky top-0">
-        <div class="d-none d-lg-block" style="padding-top: 105px;"></div>
-        <div class="offcanvas-lg offcanvas-start" id="sidebarAccount">
-          <button class="btn-close position-absolute top-0 end-0 mt-3 me-3 d-lg-none" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarAccount" aria-label="Close"></button>
-          <div class="offcanvas-body">
-            <div class="pb-2 pb-lg-0 mb-4 mb-lg-5">
-              <img class="d-block rounded-circle mb-2" src="<?= PROOT; ?>assets/media/avatar.png" width="80" alt="Hamza Zero">
-              <h3 class="h5 mb-1">Hamza Zero</h3>
-              <p class="fs-sm text-body-secondary mb-0">zero@lavina.com</p>
-            </div>
-            <nav class="nav flex-column pb-2 pb-lg-4 mb-3">
-              <h4 class="fs-xs fw-medium text-body-secondary text-uppercase pb-1 mb-2">Account</h4>
-              <a class="nav-link fw-semibold py-2 px-0 active" href="account-overview.html">
-                <i class="ai-user-check fs-5 opacity-60 me-2"></i>
-                Overview
-              </a>
-              <a class="nav-link fw-semibold py-2 px-0" href="account-settings.html">
-                <i class="ai-settings fs-5 opacity-60 me-2"></i>
-                Settings
-              </a>
-              <a class="nav-link fw-semibold py-2 px-0" href="account-billing.html">
-                <i class="ai-wallet fs-5 opacity-60 me-2"></i>
-                Billing
-              </a>
-            </nav>
-            <nav class="nav flex-column pb-2 pb-lg-4 mb-1">
-              <h4 class="fs-xs fw-medium text-body-secondary text-uppercase pb-1 mb-2">Dashboard</h4>
-              <a class="nav-link fw-semibold py-2 px-0" href="account-orders.html">
-                <i class="ai-cart fs-5 opacity-60 me-2"></i>
-                Orders
-              </a>
-              <a class="nav-link fw-semibold py-2 px-0" href="account-earnings.html">
-                <i class="ai-activity fs-5 opacity-60 me-2"></i>
-                Earnings
-              </a>
-              <a class="nav-link fw-semibold py-2 px-0" href="account-chat.html">
-                <i class="ai-messages fs-5 opacity-60 me-2"></i>
-                Chat
-                <span class="badge bg-danger ms-auto">4</span>
-              </a>
-              <a class="nav-link fw-semibold py-2 px-0" href="account-favorites.html">
-                <i class="ai-heart fs-5 opacity-60 me-2"></i>
-                Favorites
-              </a>
-            </nav>
-            <nav class="nav flex-column">
-              <a class="nav-link fw-semibold py-2 px-0" href="account-signin.html">
-                <i class="ai-logout fs-5 opacity-60 me-2"></i>
-                Sign out
-              </a>
-            </nav>
-          </div>
-        </div>
-      </div>
-    </aside>
+            <!-- Sidebar (offcanvas on sreens < 992px) -->
+            <aside class="col-lg-3 pe-lg-4 pe-xl-5 mt-n3">
+                <div class="position-lg-sticky top-0">
+                    <div class="d-none d-lg-block" style="padding-top: 105px;"></div>
+                    <div class="offcanvas-lg offcanvas-start" id="sidebarAccount">
+                        <button class="btn-close position-absolute top-0 end-0 mt-3 me-3 d-lg-none" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarAccount" aria-label="Close"></button>
+                        <div class="offcanvas-body">
+                            <div class="pb-2 pb-lg-0 mb-4 mb-lg-5">
+                                <img class="d-block rounded-circle mb-2" src="<?= PROOT; ?>assets/media/avatar.png" width="80" alt="Hamza Zero">
+                                <h3 class="h5 mb-1">Hamza Zero</h3>
+                                <p class="fs-sm text-body-secondary mb-0">zero@lavina.com</p>
+                            </div>
+                            <nav class="nav flex-column pb-2 pb-lg-4 mb-3">
+                                <h4 class="fs-xs fw-medium text-body-secondary text-uppercase pb-1 mb-2">Account</h4>
+                                <a class="nav-link fw-semibold py-2 px-0 active" href="<?= PROOT; ?>app/">
+                                    <i class="ai-user-check fs-5 opacity-60 me-2"></i>
+                                    Overview
+                                </a>
+                                <a class="nav-link fw-semibold py-2 px-0" href="<?= PROOT; ?>app/account-settings">
+                                    <i class="ai-settings fs-5 opacity-60 me-2"></i>
+                                    Settings
+                                </a>
+                                <a class="nav-link fw-semibold py-2 px-0" href="<?= PROOT; ?>app/account-billing">
+                                    <i class="ai-wallet fs-5 opacity-60 me-2"></i>
+                                    Billing
+                                </a>
+                            </nav>
+                            <nav class="nav flex-column pb-2 pb-lg-4 mb-1">
+                                <h4 class="fs-xs fw-medium text-body-secondary text-uppercase pb-1 mb-2">Dashboard</h4>
+                                <a class="nav-link fw-semibold py-2 px-0" href="<?= PROOT; ?>app/account-referrals">
+                                    <i class="ai-cart fs-5 opacity-60 me-2"></i>
+                                    Referrals
+                                </a>
+                                <a class="nav-link fw-semibold py-2 px-0" href="<?= PROOT; ?>app/account-earnings">
+                                    <i class="ai-activity fs-5 opacity-60 me-2"></i>
+                                    Earnings
+                                </a>
+                                <a class="nav-link fw-semibold py-2 px-0" href="account-favorites.html">
+                                    <i class="ai-heart fs-5 opacity-60 me-2"></i>
+                                    Favorites
+                                </a>
+                            </nav>
+                            <nav class="nav flex-column">
+                                <a class="nav-link fw-semibold py-2 px-0" href="<?= PROOT; ?>auth/signout">
+                                    <i class="ai-logout fs-5 opacity-60 me-2"></i>
+                                    Sign out
+                                </a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </aside>
 
 
     <!-- Page content -->
@@ -240,7 +221,7 @@
                   </div>
                   <div class="d-flex align-items-center text-nowrap">
                     <i class="ai-map-pin me-1"></i>
-                    USA, $
+                    GH, ₵
                   </div>
                 </div>
               </div>
@@ -261,7 +242,7 @@
                 <tbody>
                   <tr>
                     <td class="border-0 text-body-secondary py-1 px-0">Phone</td>
-                    <td class="border-0 text-dark fw-medium py-1 ps-3">+1 234 567 890</td>
+                    <td class="border-0 text-dark fw-medium py-1 ps-3">+233 234 567 890</td>
                   </tr>
                   <tr>
                     <td class="border-0 text-body-secondary py-1 px-0">Language</td>
@@ -282,7 +263,7 @@
               <div class="w-100 border rounded-3 p-4" style="max-width: 212px;">
                 <img class="d-block mb-2" src="<?= PROOT; ?>assets/media/gift-icon.svg" width="24" alt="Gift icon">
                 <h4 class="h5 lh-base mb-0">123 bonuses</h4>
-                <p class="fs-sm text-body-secondary mb-0">1 bonus = $1</p>
+                <p class="fs-sm text-body-secondary mb-0">1 bonus = ₵1</p>
               </div>
             </div>
           </div>
@@ -312,7 +293,7 @@
                 <h3 class="h6 mb-0 me-3">Shipping address</h3>
                 <span class="badge bg-primary bg-opacity-10 text-primary">Primary</span>
               </div>
-              <p class="mb-0">401 Magnetic Drive Unit 2,<br>Toronto, Ontario, M3J 3H9<br>Canada</p>
+              <p class="mb-0">Kumasi,<br>Airport, rounadbout, Street<br>Boukrom</p>
               <div class="d-flex align-items-center pt-4 pb-1 my-2">
                 <h3 class="h6 mb-0 me-3">Billing address 1</h3>
                 <span class="badge bg-primary bg-opacity-10 text-primary">Primary</span>
@@ -359,447 +340,18 @@
       </div>
 
 
-      <!-- Orders -->
-      <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
-        <div class="card-body">
-          <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
-            <i class="ai-cart text-primary lead pe-1 me-2"></i>
-            <h2 class="h4 mb-0">Orders</h2>
-            <a class="btn btn-sm btn-secondary ms-auto" href="account-orders.html">View all</a>
-          </div>
-
-          <!-- Orders accordion -->
-          <div class="accordion accordion-alt accordion-orders" id="orders">
-
-            <!-- Order -->
-            <div class="accordion-item border-top mb-0">
-              <div class="accordion-header">
-                <a class="accordion-button d-flex fs-4 fw-normal text-decoration-none py-3 collapsed" href="#orderOne" data-bs-toggle="collapse" aria-expanded="false" aria-controls="orderOne">
-                  <div class="d-flex justify-content-between w-100" style="max-width: 440px;">
-                    <div class="me-3 me-sm-4">
-                      <div class="fs-sm text-body-secondary">#78A6431D409</div>
-                      <span class="badge bg-info bg-opacity-10 text-info fs-xs">In progress</span>
-                    </div>
-                    <div class="me-3 me-sm-4">
-                      <div class="d-none d-sm-block fs-sm text-body-secondary mb-2">Order date</div>
-                      <div class="d-sm-none fs-sm text-body-secondary mb-2">Date</div>
-                      <div class="fs-sm fw-medium text-dark">Jan 27, 2023</div>
-                    </div>
-                    <div class="me-3 me-sm-4">
-                      <div class="fs-sm text-body-secondary mb-2">Total</div>
-                      <div class="fs-sm fw-medium text-dark">$16.00</div>
-                    </div>
-                  </div>
-                  <div class="accordion-button-img d-none d-sm-flex ms-auto">
-                    <div class="mx-1">
-                      <img src="assets/img/account/orders/01.png" width="48" alt="Product">
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="accordion-collapse collapse" id="orderOne" data-bs-parent="#orders">
-                <div class="accordion-body">
-                  <div class="table-responsive pt-1">
-                    <table class="table align-middle w-100" style="min-width: 450px;">
-                      <tbody>
-                        <tr>
-                          <td class="border-0 py-1 px-0">
-                            <div class="d-flex align-items-center">
-                              <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-md-2 p-lg-3" href="shop-single.html">
-                                <img src="assets/img/shop/cart/01.png" width="110" alt="Product">
-                              </a>
-                              <div class="ps-3 ps-sm-4">
-                                <h4 class="h6 mb-2">
-                                  <a href="shop-single.html">Candle in concrete bowl</a>
-                                </h4>
-                                <div class="text-body-secondary fs-sm me-3">Color: <span class="text-dark fw-medium">Gray night</span></div>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Quantity</div>
-                            <div class="fs-sm fw-medium text-dark">1</div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Price</div>
-                            <div class="fs-sm fw-medium text-dark">$16</div>
-                          </td>
-                          <td class="border-0 text-end py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Total</div>
-                            <div class="fs-sm fw-medium text-dark">$16</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="bg-secondary rounded-1 p-4 my-2">
-                    <div class="row">
-                      <div class="col-sm-5 col-md-3 col-lg-4 mb-3 mb-md-0">
-                        <div class="fs-sm fw-medium text-dark mb-1">Payment:</div>
-                        <div class="fs-sm">Upon the delivery</div>
-                        <a class="btn btn-link py-1 px-0 mt-2" href="#">
-                          <i class="ai-time me-2 ms-n1"></i>
-                          Order history
-                        </a>
-                      </div>
-                      <div class="col-sm-7 col-md-5 mb-4 mb-md-0">
-                        <div class="fs-sm fw-medium text-dark mb-1">Delivery address:</div>
-                        <div class="fs-sm">401 Magnetic Drive Unit 2,<br>Toronto, Ontario, M3J 3H9, Canada</div>
-                      </div>
-                      <div class="col-md-4 col-lg-3 text-md-end">
-                        <button class="btn btn-sm btn-outline-primary w-100 w-md-auto" type="button">
-                          <i class="ai-star me-2 ms-n1"></i>
-                          Leave a review
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+        <!-- Orders -->
+        <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
+                    <i class="ai-cart text-primary lead pe-1 me-2"></i>
+                    <h2 class="h4 mb-0">Referrals</h2>
+                    <a class="btn btn-sm btn-secondary ms-auto" href="<?= PROOT; ?>app/account-referals">View all</a>
                 </div>
-              </div>
-            </div>
 
-            <!-- Order -->
-            <div class="accordion-item border-top mb-0">
-              <div class="accordion-header">
-                <a class="accordion-button d-flex fs-4 fw-normal text-decoration-none py-3 collapsed" href="#orderTwo" data-bs-toggle="collapse" aria-expanded="false" aria-controls="orderTwo">
-                  <div class="d-flex justify-content-between w-100" style="max-width: 440px;">
-                    <div class="me-3 me-sm-4">
-                      <div class="fs-sm text-body-secondary">#47H76G09F33</div>
-                      <span class="badge bg-danger bg-opacity-10 text-danger fs-xs">Canceled</span>
-                    </div>
-                    <div class="me-3 me-sm-4">
-                      <div class="d-none d-sm-block fs-sm text-body-secondary mb-2">Order date</div>
-                      <div class="d-sm-none fs-sm text-body-secondary mb-2">Date</div>
-                      <div class="fs-sm fw-medium text-dark">Sep 14, 2023</div>
-                    </div>
-                    <div class="me-3 me-sm-4">
-                      <div class="fs-sm text-body-secondary mb-2">Total</div>
-                      <div class="fs-sm fw-medium text-dark">$59.00</div>
-                    </div>
-                  </div>
-                  <div class="accordion-button-img d-none d-sm-flex ms-auto">
-                    <div class="mx-1">
-                      <img src="assets/img/account/orders/02.png" width="48" alt="Product">
-                    </div>
-                    <div class="mx-1">
-                      <img src="assets/img/account/orders/03.png" width="48" alt="Product">
-                    </div>
-                    <div class="mx-1">
-                      <img src="assets/img/account/orders/04.png" width="48" alt="Product">
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="accordion-collapse collapse" id="orderTwo" data-bs-parent="#orders">
-                <div class="accordion-body">
-                  <div class="table-responsive pt-1">
-                    <table class="table align-middle w-100" style="min-width: 450px;">
-                      <tbody>
-                        <tr>
-                          <td class="border-0 py-1 px-0">
-                            <div class="d-flex align-items-center">
-                              <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-md-2 p-lg-3" href="shop-single.html">
-                                <img src="assets/img/shop/cart/04.png" width="110" alt="Product">
-                              </a>
-                              <div class="ps-3 ps-sm-4">
-                                <h4 class="h6 mb-2">
-                                  <a href="shop-single.html">Analogue wall clock</a>
-                                </h4>
-                                <div class="text-body-secondary fs-sm me-3">Color: <span class="text-dark fw-medium">Turquoise</span></div>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Quantity</div>
-                            <div class="fs-sm fw-medium text-dark">1</div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Price</div>
-                            <div class="fs-sm fw-medium text-dark">$25</div>
-                          </td>
-                          <td class="border-0 text-end py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Total</div>
-                            <div class="fs-sm fw-medium text-dark">$25</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="border-0 py-1 px-0">
-                            <div class="d-flex align-items-center">
-                              <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-md-2 p-lg-3" href="shop-single.html">
-                                <img src="assets/img/shop/cart/05.png" width="110" alt="Product">
-                              </a>
-                              <div class="ps-3 ps-sm-4">
-                                <h4 class="h6 mb-2">
-                                  <a href="shop-single.html">Glossy round vase</a>
-                                </h4>
-                                <div class="text-body-secondary fs-sm me-3">Color: <span class="text-dark fw-medium">White</span></div>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Quantity</div>
-                            <div class="fs-sm fw-medium text-dark">1</div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Price</div>
-                            <div class="fs-sm fw-medium text-dark">$15</div>
-                          </td>
-                          <td class="border-0 text-end py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Total</div>
-                            <div class="fs-sm fw-medium text-dark">$15</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="border-0 py-1 px-0">
-                            <div class="d-flex align-items-center"><a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-md-2 p-lg-3" href="shop-single.html"><img src="assets/img/shop/cart/06.png" width="110" alt="Product"></a>
-                              <div class="ps-3 ps-sm-4">
-                                <h4 class="h6 mb-2"><a href="shop-single.html">Ceramic flower pot</a></h4>
-                                <div class="text-body-secondary fs-sm me-3">Color: <span class="text-dark fw-medium">Gray concrete</span></div>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Quantity</div>
-                            <div class="fs-sm fw-medium text-dark">1</div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Price</div>
-                            <div class="fs-sm fw-medium text-dark">$19</div>
-                          </td>
-                          <td class="border-0 text-end py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Total</div>
-                            <div class="fs-sm fw-medium text-dark">$19</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="bg-secondary rounded-1 p-4 my-2">
-                    <div class="row">
-                      <div class="col-sm-5 col-md-3 col-lg-4 mb-3 mb-md-0">
-                        <div class="fs-sm fw-medium text-dark mb-1">Payment:</div>
-                        <div class="fs-sm">Upon the delivery</div>
-                        <a class="btn btn-link py-1 px-0 mt-2" href="#">
-                          <i class="ai-time me-2 ms-n1"></i>
-                          Order history
-                        </a>
-                      </div>
-                      <div class="col-sm-7 col-md-5 mb-4 mb-md-0">
-                        <div class="fs-sm fw-medium text-dark mb-1">Delivery address:</div>
-                        <div class="fs-sm">401 Magnetic Drive Unit 2,<br>Toronto, Ontario, M3J 3H9, Canada</div>
-                      </div>
-                      <div class="col-md-4 col-lg-3 text-md-end">
-                        <button class="btn btn-sm btn-outline-primary w-100 w-md-auto" type="button">
-                          <i class="ai-star me-2 ms-n1"></i>
-                          Leave a review
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Order -->
-            <div class="accordion-item border-top mb-0">
-              <div class="accordion-header">
-                <a class="accordion-button fs-4 fw-normal text-decoration-none py-3 collapsed" href="#orderThree" data-bs-toggle="collapse" aria-expanded="false" aria-controls="orderThree">
-                  <div class="d-flex justify-content-between w-100" style="max-width: 440px;">
-                    <div class="me-3 me-sm-4">
-                      <div class="fs-sm text-body-secondary">#34VB5540K83</div><span class="badge bg-primary bg-opacity-10 text-primary fs-xs">Delivered</span>
-                    </div>
-                    <div class="me-3 me-sm-4">
-                      <div class="d-none d-sm-block fs-sm text-body-secondary mb-2">Order date</div>
-                      <div class="d-sm-none fs-sm text-body-secondary mb-2">Date</div>
-                      <div class="fs-sm fw-medium text-dark">Jul 10, 2023</div>
-                    </div>
-                    <div class="me-3 me-sm-4">
-                      <div class="fs-sm text-body-secondary mb-2">Total</div>
-                      <div class="fs-sm fw-medium text-dark">$38.00</div>
-                    </div>
-                  </div>
-                  <div class="accordion-button-img d-none d-sm-flex ms-auto">
-                    <div class="mx-1">
-                      <img src="assets/img/account/orders/01.png" width="48" alt="Product">
-                    </div>
-                    <div class="mx-1">
-                      <img src="assets/img/account/orders/05.png" width="48" alt="Product">
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="accordion-collapse collapse" id="orderThree" data-bs-parent="#orders">
-                <div class="accordion-body">
-                  <div class="table-responsive pt-1">
-                    <table class="table align-middle w-100" style="min-width: 450px;">
-                      <tbody>
-                        <tr>
-                          <td class="border-0 py-1 px-0">
-                            <div class="d-flex align-items-center">
-                              <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-md-2 p-lg-3" href="shop-single.html">
-                                <img src="assets/img/shop/cart/01.png" width="110" alt="Product">
-                              </a>
-                              <div class="ps-3 ps-sm-4">
-                                <h4 class="h6 mb-2"><a href="shop-single.html">Candle in concrete bowl</a></h4>
-                                <div class="text-body-secondary fs-sm me-3">Color: <span class="text-dark fw-medium">Gray night</span></div>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Quantity</div>
-                            <div class="fs-sm fw-medium text-dark">1</div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Price</div>
-                            <div class="fs-sm fw-medium text-dark">$16</div>
-                          </td>
-                          <td class="border-0 text-end py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Total</div>
-                            <div class="fs-sm fw-medium text-dark">$16</div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="border-0 py-1 px-0">
-                            <div class="d-flex align-items-center">
-                              <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-md-2 p-lg-3" href="shop-single.html">
-                                <img src="assets/img/shop/cart/02.png" width="110" alt="Product">
-                              </a>
-                              <div class="ps-3 ps-sm-4">
-                                <h4 class="h6 mb-2">
-                                  <a href="shop-single.html">Exquisite glass vase </a>
-                                </h4>
-                                <div class="text-body-secondary fs-sm me-3">Color: <span class="text-dark fw-medium">Rose</span></div>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Quantity</div>
-                            <div class="fs-sm fw-medium text-dark">2</div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Price</div>
-                            <div class="fs-sm fw-medium text-dark">$11</div>
-                          </td>
-                          <td class="border-0 text-end py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Total</div>
-                            <div class="fs-sm fw-medium text-dark">$22</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="bg-secondary rounded-1 p-4 my-2">
-                    <div class="row">
-                      <div class="col-sm-5 col-md-3 col-lg-4 mb-3 mb-md-0">
-                        <div class="fs-sm fw-medium text-dark mb-1">Payment:</div>
-                        <div class="fs-sm">Upon the delivery</div>
-                        <a class="btn btn-link py-1 px-0 mt-2" href="#">
-                          <i class="ai-time me-2 ms-n1"></i>
-                          Order history
-                        </a>
-                      </div>
-                      <div class="col-sm-7 col-md-5 mb-4 mb-md-0">
-                        <div class="fs-sm fw-medium text-dark mb-1">Delivery address:</div>
-                        <div class="fs-sm">401 Magnetic Drive Unit 2,<br>Toronto, Ontario, M3J 3H9, Canada</div>
-                      </div>
-                      <div class="col-md-4 col-lg-3 text-md-end">
-                        <button class="btn btn-sm btn-outline-primary w-100 w-md-auto" type="button">
-                          <i class="ai-star me-2 ms-n1"></i>
-                          Leave a review
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Order -->
-            <div class="accordion-item border-top border-bottom mb-0">
-              <div class="accordion-header">
-                <a class="accordion-button d-flex fs-4 fw-normal text-decoration-none py-3 collapsed" href="#orderFour" data-bs-toggle="collapse" aria-expanded="false" aria-controls="orderFour">
-                  <div class="d-flex justify-content-between w-100" style="max-width: 440px;">
-                    <div class="me-3 me-sm-4">
-                      <div class="fs-sm text-body-secondary">#502TR872W2</div>
-                      <span class="badge bg-primary bg-opacity-10 text-primary fs-xs">Delivered</span>
-                    </div>
-                    <div class="me-3 me-sm-4">
-                      <div class="d-none d-sm-block fs-sm text-body-secondary mb-2">Order date</div>
-                      <div class="d-sm-none fs-sm text-body-secondary mb-2">Date</div>
-                      <div class="fs-sm fw-medium text-dark">May 11, 2023</div>
-                    </div>
-                    <div class="me-3 me-sm-4">
-                      <div class="fs-sm text-body-secondary mb-2">Total</div>
-                      <div class="fs-sm fw-medium text-dark">$17.00</div>
-                    </div>
-                  </div>
-                  <div class="accordion-button-img d-none d-sm-flex ms-auto">
-                    <div class="mx-1">
-                      <img src="assets/img/account/orders/06.png" width="48" alt="Product">
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="accordion-collapse collapse" id="orderFour" data-bs-parent="#orders">
-                <div class="accordion-body">
-                  <div class="table-responsive pt-1">
-                    <table class="table align-middle w-100" style="min-width: 450px;">
-                      <tbody>
-                        <tr>
-                          <td class="border-0 py-1 px-0">
-                            <div class="d-flex align-items-center">
-                              <a class="d-inline-block flex-shrink-0 bg-secondary rounded-1 p-md-2 p-lg-3" href="shop-single.html">
-                                <img src="assets/img/shop/cart/07.png" width="110" alt="Product">
-                              </a>
-                              <div class="ps-3 ps-sm-4">
-                                <h4 class="h6 mb-2">
-                                  <a href="shop-single.html">Dispenser for soap</a>
-                                </h4>
-                                <div class="text-body-secondary fs-sm me-3">Color: <span class="text-dark fw-medium">White marble</span></div>
-                              </div>
-                            </div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Quantity</div>
-                            <div class="fs-sm fw-medium text-dark">1</div>
-                          </td>
-                          <td class="border-0 py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Price</div>
-                            <div class="fs-sm fw-medium text-dark">$17</div>
-                          </td>
-                          <td class="border-0 text-end py-1 pe-0 ps-3 ps-sm-4">
-                            <div class="fs-sm text-body-secondary mb-2">Total</div>
-                            <div class="fs-sm fw-medium text-dark">$17</div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="bg-secondary rounded-1 p-4 my-2">
-                    <div class="row">
-                      <div class="col-sm-5 col-md-3 col-lg-4 mb-3 mb-md-0">
-                        <div class="fs-sm fw-medium text-dark mb-1">Payment:</div>
-                        <div class="fs-sm">Upon the delivery</div>
-                        <a class="btn btn-link py-1 px-0 mt-2" href="#">
-                          <i class="ai-time me-2 ms-n1"></i>
-                          Order history
-                        </a>
-                      </div>
-                      <div class="col-sm-7 col-md-5 mb-4 mb-md-0">
-                        <div class="fs-sm fw-medium text-dark mb-1">Delivery address:</div>
-                        <div class="fs-sm">401 Magnetic Drive Unit 2,<br>Toronto, Ontario, M3J 3H9, Canada</div>
-                      </div>
-                      <div class="col-md-4 col-lg-3 text-md-end">
-                        <button class="btn btn-sm btn-outline-primary w-100 w-md-auto" type="button">
-                          <i class="ai-star me-2 ms-n1"></i>
-                          Leave a review
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                <!-- Orders accordion -->
+                <div class="accordion accordion-alt accordion-orders" id="orders">
+                   lorem  
           </div>
         </div>
       </section>
