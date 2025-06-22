@@ -1,6 +1,9 @@
 <?php
     
     require ('../system/DatabaseConnector.php');
+    if (user_is_logged_in()) {
+        redirect(PROOT . 'app/');
+    }
     $title = 'Account - Sign In | ';
     $body_class = "";
     require ('../system/inc/head.php');

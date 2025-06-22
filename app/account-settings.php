@@ -1,6 +1,9 @@
 <?php
     
     require ('../system/DatabaseConnector.php');
+    if (!user_is_logged_in()) {
+        user_login_redirect()
+    }
     $title = 'Account Settings - Lavina - Namibra';
     $body_class = "bg-secondary";
     require ('../system/inc/head.php');
