@@ -56,7 +56,7 @@
  	 	$flash_user = '
 			<div aria-live="polite" aria-atomic="true" class="position-fixed top-0 start-50 translate-middle-x rounded-3" style="z-index: 9999;">
 				<div class="p-3">
-					<div class="toast show alert-success" id="temporary">
+					<div class="toast show bg-success" id="temporary">
                         <div class="toast-body">
                             ' . $_SESSION['flash_success'] . '
                         </div>
@@ -71,7 +71,7 @@
  	 	$flash_user = '
             <div aria-live="polite" aria-atomic="true" class="position-fixed top-0 start-50 translate-middle-x rounded-3" style="z-index: 9999;">
                 <div class="p-3">
-                    <div class="toast show alert-danger" id="temporary">
+                    <div class="toast show bg-danger" id="temporary">
                         <div class="toast-body">
                             ' . $_SESSION['flash_error'] . '
                         </div>
