@@ -36,26 +36,24 @@
 			}
 
 			if(empty($errors)) {
-				$user = findUserByEmail($email);
 				$sql = "
 					SELECT * FROM lavina_users 
 					WHERE user_email = :user_email 
 					AND user_verified = :user_verified
 					AND user_trash = :user_trash
 				";
-				$statement = $conn->prepare($sql);
+				$statement = $dbConnection->prepare($sql);
 				$statement->execute([
 					':user_email' => $email, 
 					':user_trash' => 0, 
 					':user_verified' => 0
 				]);
                 $sub_rows = $statement->fetchAll();
-                $sub_row = $sub_rows[0];
+                $sub_row = $sub_rows[0] ?? $sub_rows;
 
 				if($statement->rowCount() > 0) {
 					$vericode = md5(time());
 
-					
 					$name = ucwords($sub_row['user_fullname']);
 					$to = $sub_row['user_email'];
 					$subject = "Please Verify Your Account.";
@@ -74,7 +72,7 @@
 							SET user_vericode = :user_vericode 
 							WHERE user_email = :user_email
 						";
-						$statement = $conn->prepare($sql);
+						$statement = $dbConnection->prepare($sql);
 						$result = $statement->execute([
 							':user_vericode' => $vericode,
 							':user_email' => $email
@@ -128,6 +126,7 @@
                 </ul>
                 <div class="card border-0 bg-primary" data-bs-theme="dark">
                     <form class="card-body" method="POST">
+						<?= $errors; ?>
                         <div class="mb-4">
                             <div class="position-relative">
                                 <i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y text-light opacity-80 ms-3"></i>
@@ -136,7 +135,7 @@
                             </div>
                         <!-- div to show reCAPTCHA -->
                         <div class="g-recaptcha mb-3" data-sitekey="<?= RECAPTCHA_KEY; ?>"></div>
-                            <button class="btn btn-light" type="submit">Get new password</button>
+                            <button class="btn btn-light" type="submit">Resend verification email</button>
                         </form>
                     </div>
                 </div>

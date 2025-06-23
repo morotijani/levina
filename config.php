@@ -16,4 +16,6 @@
 
     define('IPINFO_KEY', $_ENV['IPINFO_KEY']);
 
+    define('ARKESEL_SMS_API_KEY', $_ENV['ARKESEL_SMS_API_KEY']);
+
     define ('COINCAP_APIKEY', $_ENV['COINCAP_APIKEY']);

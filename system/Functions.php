@@ -1,5 +1,11 @@
 <?php 
 
+    // Import PHPMailer classes into the global namespace
+    // These must be at the top of your script, not inside a function
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
 	function dnd($data) {
 		echo "<pre>";
 		print_r($data);
@@ -128,16 +134,39 @@
 
 	// 
 	function sms_otp($msg, $phone) {
-		$sender = urlencode("Inqoins VER");
-	    $api_url = "https://api.innotechdev.com/sendmessage.php?key=".SMS_API_KEY."&message={$msg}&senderid={$sender}&phone={$phone}";
-	    $json_data = file_get_contents($api_url);
-	    $response_data = json_decode($json_data);
+		$sender = urlencode("Levina");
+		// SEND SMS //eEVFQnhKSHltV3VXaGRVUURxQ0I
+		$curl = curl_init();
+		curl_setopt_array($curl, 
+			array(
+				CURLOPT_URL => "https://sms.arkesel.com/sms/api?action=send-sms&api_key=".ARKESEL_SMS_API_KEY."&to={$phone}&from={$sender}&sms={$msg}",
+				# When sending SMS to Nigerian contacts, the use_case field is required |
+				# CURLOPT_URL => 'https://sms.arkesel.com/sms/api?action=send-sms&api_key=cE9QRUkdjsjdfjkdsj9kdiieieififiw=&to=2349541111111&from=Arkesel&use_case=promotional&sms=Hello%20world.%20Spreading%20peace%20and%20joy%20only.%20Remeber%20to%20put%20on%20your%20face%20mask.%20Stay%20safe!',
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_ENCODING => '',
+				CURLOPT_MAXREDIRS => 10,
+				CURLOPT_TIMEOUT => 10,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+				CURLOPT_CUSTOMREQUEST => 'GET', 
+			)
+		);
+		$json_data = curl_exec($curl);
+		curl_close($curl);
+		$response_data = json_decode($json_data);
+		if (is_array($response_data)) {
+			if ($response_data['code'] == 'ok') {
+				return 1;
+			}
+		}
+		return 0;
+
 	    // Can be use for checks on finished / unfinished balance
-	    $fromAPI = 'insufficient balance, kindly credit your account';  
-	    if ($api_url)
-	    	return 1;
-		else
-			return 0;
+	    // $fromAPI = 'insufficient balance, kindly credit your account';  
+	    // if ($api_url)
+	    // 	return 1;
+		// else
+		// 	return 0;
 	}
 
 	//
@@ -146,8 +175,8 @@
 		try {
 	        $fn = $name;
 	        $to = $to;
-	        $from = MAIL_MAIL;
-	        $from_name = 'Garypie, Shop.';
+	        $from = MAIL_EMAIL;
+	        $from_name = 'Lavina, Namibra.io 🤞';
 	        $subject = $subject;
 	        $body = $body;
 
@@ -183,13 +212,13 @@
 
 	// send mail to server
 	function send_mail_to_server($subject, $body) {
-		$to_server = MAIL_MAIL;
+		$to_server = MAIL_EMAIL;
 
-	    $headers = "MIME-Version: 1.0" . "\r\n";
-	    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-	    $headers .= "From:" . $contact_email;
-	                
-	    mail($to_server, $subject, $body, $headers);
+		$headers = "MIME-Version: 1.0" . "\r\n";
+		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+		$headers .= "From:" . $to_server;
+					
+		mail($to_server, $subject, $body, $headers);
 	}
 
 
