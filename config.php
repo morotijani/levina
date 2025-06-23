@@ -1,8 +1,8 @@
 <?php
 
-    define('BASEURL', $_SERVER['DOCUMENT_ROOT'] . '/namibra_product_referral_system/');
+    define('BASEURL', $_SERVER['DOCUMENT_ROOT'] . '/levina/');
         
-    define('PROOT', '/namibra_product_referral_system/');
+    define('PROOT', '/levina/');
 
     // Load the environment variables from the .env file
     define('RECAPTCHA_SITE_KEY_PUBLIC', $_ENV['RECAPTCHA_SITE_KEY_PUBLIC']);

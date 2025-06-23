@@ -94,7 +94,7 @@
         <!-- Sign in form -->
         <div class="d-flex flex-column align-items-center w-lg-50 h-100 px-3 px-lg-5 pt-5">
             <div class="w-100 mt-auto" style="max-width: 526px;">
-                <h1>Sign in to Lavina</h1>
+                <h1>Sign in to Levina</h1>
                 <p class="pb-3 mb-3 mb-lg-4">Don't have an account yet?&nbsp;&nbsp;<a href="<?= PROOT; ?>auth/signup">Register here!</a></p>
                 <form class="needs-validation" method="POST" novalidate>
                     <?= $errors; ?>

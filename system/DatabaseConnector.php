@@ -33,12 +33,14 @@
         if ($statement->rowCount() > 0) {
             $user_data = $statement->fetchAll();
             $user_data = $user_data[0];
-            $user_name = '';
-            if ($user_data['user_firstname'] == '' && $user_data['user_lastname'] == '') {
-                $user_name = $user_data['user_email'];
-            } else {
-                $user_name = ucwords($user_data['user_firstname'] . " " . $user_data['user_lastname']);
+
+            $fn = explode(' ', $user_data['user_fullname']);
+            $user_data['first'] = ucwords($fn[0]);
+            $user_data['last'] = '';
+            if (count($fn) > 1) {
+                $user_data['last'] = ucwords($fn[1]);
             }
+
         } else {
             unset($_SESSION['LVNUser']);
             redirect(PROOT . 'app/');

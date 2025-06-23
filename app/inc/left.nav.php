@@ -11,8 +11,8 @@
                         <div class="offcanvas-body">
                             <div class="pb-2 pb-lg-0 mb-4 mb-lg-5">
                                 <img class="d-block rounded-circle mb-2" src="<?= PROOT; ?>assets/media/avatar.png" width="80" alt="Hamza Zero">
-                                <h3 class="h5 mb-1">Hamza Zero</h3>
-                                <p class="fs-sm text-body-secondary mb-0">zero@lavina.com</p>
+                                <h3 class="h5 mb-1"><?= ucwords($user_data['user_fullname']); ?>!</h3>
+                                <p class="fs-sm text-body-secondary mb-0"><?= $user_data['user_email']; ?></p>
                             </div>
                             <nav class="nav flex-column pb-2 pb-lg-4 mb-3">
                                 <h4 class="fs-xs fw-medium text-body-secondary text-uppercase pb-1 mb-2">Account</h4>

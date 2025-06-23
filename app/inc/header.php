@@ -9,7 +9,7 @@
                 <!-- Navbar brand (Logo) -->
                 <a class="navbar-brand pe-sm-3" href="index.html">
                     <img src="<?= PROOT; ?>assets/media/logo/logo.png" width="35" height="32" class="img-fluid flex-shrink-0 me-2" />
-                    Lavina
+                    Levina
                 </a>
 
                 <!-- Theme switcher -->
@@ -29,7 +29,7 @@
                     <img class="border rounded-circle" src="<?= PROOT; ?>assets/media/avatar.png" width="48" alt="Hamza Zero">
                     <div class="ps-2">
                         <div class="fs-xs lh-1 opacity-60">Hello,</div>
-                        <div class="fs-sm dropdown-toggle">Zero</div>
+                        <div class="fs-sm dropdown-toggle"><?= ucwords($user_data['first']); ?>!</div>
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end my-1">
@@ -89,7 +89,7 @@
                             <img class="border rounded-circle" src="<?= PROOT; ?>assets/media/avatar.png" width="48" alt="Hamza Zero">
                             <div class="ps-2">
                                 <div class="fs-xs lh-1 opacity-60">Hello,</div>
-                                <div class="fs-sm dropdown-toggle">Zero</div>
+                                <div class="fs-sm dropdown-toggle"><?= ucwords($user_data['first']); ?>!</div>
                             </div>
                         </a>
                         <div class="dropdown-menu">
