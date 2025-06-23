@@ -8,6 +8,74 @@
     $body_class = "";
     require ('../system/inc/head.php');
 
+    $errors = '';
+    if (isset($_POST['submit_login'])) {
+
+        // Storing google recaptcha response
+        // in $recaptcha variable
+        $recaptcha = $_POST['g-recaptcha-response'];
+    
+        // Hitting request to the URL, Google will
+        // respond with success or error scenario
+        $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . RECAPTCHA_SITE_KEY_SECRETE . '&response=' . $recaptcha;
+    
+        // Making request to verify captcha
+        $response = file_get_contents($url);
+    
+        // Response return by google is in
+        // JSON format, so we have to parse
+        // that json
+        $response = json_decode($response);
+    
+        // Checking, if response is true or not
+        if ($response->success == true) {
+        
+            if (empty($_POST['email']) || empty($_POST['password'])) {
+                $errors = '<div class="alert alert-secondary" role="alert">You must provide email and password</div>';
+            }
+    
+            $query = "
+                SELECT * FROM garypie_user 
+                WHERE user_email = :user_email 
+                LIMIT 1
+            ";
+            $statement = $conn->prepare($query);
+            $statement->execute(
+                array(
+                    ':user_email' => $email
+                )
+            );
+            if ($statement->rowCount() < 1) {
+                $errors = '<div class="alert alert-secondary" role="alert">That email does\'nt exist in our database!</div>';
+            } else {
+                foreach ($statement->fetchAll() as $row) {
+                    if ($row['user_verified'] != 1) {
+                        redirect(PROOT . 'store/resend-vericode');
+                    } else {
+                        if (!password_verify($password, $row['user_password'])) {
+                            $errors = '<div class="alert alert-secondary" role="alert">User cannot be found!</div>';
+                        } else {
+                            if (!empty($errors)) {
+                                $errors;
+                            } else {
+                                if ($row['user_trash'] == 0) {
+                                    $user_id = $row['user_id'];
+                                    userLogin($user_id);
+                                } else {
+                                    $errors = '<div class="alert alert-secondary" role="alert">User account Terminated!</div>';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    
+        } else {
+            $errors = '<div class="alert alert-secondary" role="alert">Error in Google reCAPTACHA!</div>';
+        }
+    }
+    
+
 ?>
 
     <!-- Page wrapper -->
@@ -25,6 +93,7 @@
                 <h1>Sign in to Lavina</h1>
                 <p class="pb-3 mb-3 mb-lg-4">Don't have an account yet?&nbsp;&nbsp;<a href="<?= PROOT; ?>auth/signup">Register here!</a></p>
                 <form class="needs-validation" method="POST" novalidate>
+                <?= $errors; ?>
                     <div class="pb-3 mb-3">
                         <div class="position-relative">
                             <i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
@@ -42,6 +111,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- div to show reCAPTCHA -->
+                    <div class="g-recaptcha mb-3" data-sitekey="<?= RECAPTCHA_KEY; ?>"></div>
                     <div class="d-flex flex-wrap align-items-center justify-content-between pb-4">
                         <div class="form-check my-1">
                             <input class="form-check-input" type="checkbox" id="keep-signedin">
@@ -49,7 +120,7 @@
                         </div>
                         <a class="fs-sm fw-semibold text-decoration-none my-1" href="<?= PROOT; ?>password-recovery">Forgot password?</a>
                     </div>
-                    <button class="btn btn-lg btn-primary w-100 mb-4" name="submit" id="submit" type="submit">Sign in</button>
+                    <button class="btn btn-lg btn-primary w-100 mb-4" name="submit_login" id="submit" type="submit">Sign in</button>
                 </form>
             </div>
 
@@ -60,5 +131,8 @@
             <!-- Cover image -->
             <div class="w-50 bg-size-cover bg-repeat-0 bg-position-center" style="background-image: url(<?= PROOT; ?>assets/media/cover.jpg);"></div>
         </div>
+
+    <!-- Google reCAPTCHA CDN -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <?php require('../system/inc/footer.php'); ?>
