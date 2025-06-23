@@ -8,6 +8,10 @@
     $body_class = "";
     require ('../system/inc/head.php');
 
+    $email = ((isset($_POST['email'])) ? sanitize($_POST['email']) : '');
+    $email = trim($email);
+    $password = ((isset($_POST['password'])) ? sanitize($_POST['password']) :'');
+    $password = trim($password);
     $errors = '';
     if (isset($_POST['submit_login'])) {
 
@@ -31,29 +35,29 @@
         if ($response->success == true) {
         
             if (empty($_POST['email']) || empty($_POST['password'])) {
-                $errors = '<div class="alert alert-secondary" role="alert">You must provide email and password</div>';
+                $errors = '<div class="alert alert-danger" role="alert">You must provide email and password</div>';
             }
     
             $query = "
-                SELECT * FROM garypie_user 
+                SELECT * FROM lavina_users 
                 WHERE user_email = :user_email 
                 LIMIT 1
             ";
-            $statement = $conn->prepare($query);
+            $statement = $dbConnection->prepare($query);
             $statement->execute(
                 array(
                     ':user_email' => $email
                 )
             );
             if ($statement->rowCount() < 1) {
-                $errors = '<div class="alert alert-secondary" role="alert">That email does\'nt exist in our database!</div>';
+                $errors = '<div class="alert alert-danger" role="alert">That email does\'nt exist in our database!</div>';
             } else {
                 foreach ($statement->fetchAll() as $row) {
                     if ($row['user_verified'] != 1) {
-                        redirect(PROOT . 'store/resend-vericode');
+                        redirect(PROOT . 'auth/resend-vericode');
                     } else {
                         if (!password_verify($password, $row['user_password'])) {
-                            $errors = '<div class="alert alert-secondary" role="alert">User cannot be found!</div>';
+                            $errors = '<div class="alert alert-danger" role="alert">User cannot be found!</div>';
                         } else {
                             if (!empty($errors)) {
                                 $errors;
@@ -62,7 +66,7 @@
                                     $user_id = $row['user_id'];
                                     userLogin($user_id);
                                 } else {
-                                    $errors = '<div class="alert alert-secondary" role="alert">User account Terminated!</div>';
+                                    $errors = '<div class="alert alert-danger" role="alert">User account Terminated!</div>';
                                 }
                             }
                         }
@@ -71,7 +75,7 @@
             }
     
         } else {
-            $errors = '<div class="alert alert-secondary" role="alert">Error in Google reCAPTACHA!</div>';
+            $errors = '<div class="alert alert-danger" role="alert">Error in Google reCAPTACHA!</div>';
         }
     }
     
@@ -93,18 +97,18 @@
                 <h1>Sign in to Lavina</h1>
                 <p class="pb-3 mb-3 mb-lg-4">Don't have an account yet?&nbsp;&nbsp;<a href="<?= PROOT; ?>auth/signup">Register here!</a></p>
                 <form class="needs-validation" method="POST" novalidate>
-                <?= $errors; ?>
+                    <?= $errors; ?>
                     <div class="pb-3 mb-3">
                         <div class="position-relative">
                             <i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                            <input class="form-control form-control-lg ps-5" type="email" name="email" id="email" placeholder="Email address" required>
+                            <input class="form-control form-control-lg ps-5" type="email" name="email" id="email" placeholder="Email address" value="<?= $email; ?>" required>
                         </div>
                     </div>
                     <div class="mb-4">
                         <div class="position-relative">
                             <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                             <div class="password-toggle">
-                                <input class="form-control form-control-lg ps-5" type="password" name="password" id="password" placeholder="Password" required>
+                                <input class="form-control form-control-lg ps-5" type="password" name="password" id="password" placeholder="Password" value="<?= $password; ?>" required>
                                 <label class="password-toggle-btn" aria-label="Show/hide password">
                                     <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
                                 </label>
