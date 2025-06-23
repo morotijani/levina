@@ -24,18 +24,18 @@
             <div class="w-100 mt-auto" style="max-width: 526px;">
                 <h1>Sign in to Lavina</h1>
                 <p class="pb-3 mb-3 mb-lg-4">Don't have an account yet?&nbsp;&nbsp;<a href="<?= PROOT; ?>auth/signup">Register here!</a></p>
-                <form class="needs-validation" novalidate>
+                <form class="needs-validation" method="POST" novalidate>
                     <div class="pb-3 mb-3">
                         <div class="position-relative">
                             <i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                            <input class="form-control form-control-lg ps-5" type="email" placeholder="Email address" required>
+                            <input class="form-control form-control-lg ps-5" type="email" name="email" id="email" placeholder="Email address" required>
                         </div>
                     </div>
                     <div class="mb-4">
                         <div class="position-relative">
                             <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                             <div class="password-toggle">
-                                <input class="form-control form-control-lg ps-5" type="password" placeholder="Password" required>
+                                <input class="form-control form-control-lg ps-5" type="password" name="password" id="password" placeholder="Password" required>
                                 <label class="password-toggle-btn" aria-label="Show/hide password">
                                     <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
                                 </label>
@@ -49,7 +49,7 @@
                         </div>
                         <a class="fs-sm fw-semibold text-decoration-none my-1" href="<?= PROOT; ?>password-recovery">Forgot password?</a>
                     </div>
-                    <button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Sign in</button>
+                    <button class="btn btn-lg btn-primary w-100 mb-4" name="submit" id="submit" type="submit">Sign in</button>
                 </form>
             </div>
 

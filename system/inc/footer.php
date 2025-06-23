@@ -1,4 +1,5 @@
     </main>
+    <?= $flash_user; ?>
 
     <!-- Back to top button -->
     <a class="btn-scroll-top" href="#top" data-scroll aria-label="Scroll back to top">
@@ -16,6 +17,9 @@
     <script src="<?= PROOT; ?>assets/js/customizer.min.js"></script>
 
     <script>
+		// Fade out messages 
+		$("#temporary").fadeOut(5000);
+
         // Get the current URL
         var currentUrl = window.location.href;
 
