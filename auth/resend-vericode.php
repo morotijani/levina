@@ -37,7 +37,7 @@
 
 			if(empty($errors)) {
 				$sql = "
-					SELECT * FROM lavina_users 
+					SELECT * FROM levina_users 
 					WHERE user_email = :user_email 
 					AND user_verified = :user_verified
 					AND user_trash = :user_trash
@@ -56,19 +56,25 @@
 
 					$name = ucwords($sub_row['user_fullname']);
 					$to = $sub_row['user_email'];
-					$subject = "Please Verify Your Account.";
+					$subject = "Please Verify Your Account 😒.";
 					$body = "
 						<h3>
 							{$name},</h3>
 							<p>
 								Thank you for registering. Please verify your account by clicking 
-								<a href=\"https://sites.local/lavina/auth/verified/{$vericode}\" target=\"_blank\">here</a>.
-						</p>
+								<a href=\"https://sites.local/levina/auth/verified/{$vericode}\" target=\"_blank\">here</a>.
+								<br>
+								or copy and paste this link in your url: https://sites.local/levina/auth/verified/{$vericode}
+								<br><br>
+								Best regards,
+								<br>
+								- Leviana, Namibra Inc. 🤞
+							</p>
 					";
 					$mail_result = send_email($name, $to, $subject, $body);
 					if ($mail_result) {
 						$sql = "
-							UPDATE lavina_users 
+							UPDATE levina_users 
 							SET user_vericode = :user_vericode 
 							WHERE user_email = :user_email
 						";
@@ -77,7 +83,7 @@
 							':user_vericode' => $vericode,
 							':user_email' => $email
 						]);
-						echo '<script>alert("Check your email for re-verification link");</script>';
+						$_SESSION['flash_success'] = 'Check your email for re-verification link 🤞.';
 						redirect(PROOT . 'auth/signin');
 					} else {
 						//echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

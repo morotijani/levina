@@ -24,7 +24,7 @@
         $user_id = $_SESSION['LVNUser'];
         $data = array($user_id);
         $sql = "
-            SELECT * FROM lavina_users 
+            SELECT * FROM levina_users 
             WHERE user_id = ? 
             LIMIT 1
         ";

@@ -176,7 +176,7 @@
 	        $fn = $name;
 	        $to = $to;
 	        $from = MAIL_EMAIL;
-	        $from_name = 'Lavina, Namibra.io 🤞';
+	        $from_name = 'Levina, Namibra.io 🤞';
 	        $subject = $subject;
 	        $body = $body;
 

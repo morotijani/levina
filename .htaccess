@@ -1,6 +1,7 @@
 RewriteEngine on
 
 RewriteRule ^xd192/delete.transaction/([0-9a-zA-Z-]+)$ xd192/delete.transaction.php?id=$1 [NC,L]
+RewriteRule ^auth/verified/([0-9a-zA-Z]+)$ auth/verified.php?vericode=$1 [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 

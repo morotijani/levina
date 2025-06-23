@@ -39,7 +39,7 @@
             }
     
             $query = "
-                SELECT * FROM lavina_users 
+                SELECT * FROM levina_users 
                 WHERE user_email = :user_email 
                 LIMIT 1
             ";
