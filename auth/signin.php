@@ -49,6 +49,8 @@
                     ':user_email' => $email
                 )
             );
+            // $rows = $statement->fetchALl();
+            // $row = $rows[0] ?? $rows;
             if ($statement->rowCount() < 1) {
                 $errors = '<div class="alert alert-danger" role="alert">That email does\'nt exist in our database!</div>';
             } else {
@@ -56,20 +58,44 @@
                     if ($row['user_verified'] != 1) {
                         redirect(PROOT . 'auth/resend-vericode');
                     } else {
-                        if (!password_verify($password, $row['user_password'])) {
-                            $errors = '<div class="alert alert-danger" role="alert">User cannot be found!</div>';
+                        $code = rand(100000, 999999); // Or use a more secure generator
+                        $_SESSION['LVNLC'] = $code;
+
+                        $name = ucwords($row['user_fullname']);
+                        $to = $email;
+                        $subject = "Sign in code 👨‍💻.";
+                        $body = "
+                            <h3>
+                                {$name},</h3>
+                                <p>
+                                    <h2>Your sign in code is</h2>: <strong>{$code}</strong>
+                                    <br><br>
+                                    Best regards,
+                                    <br>
+                                    - Leviana, Namibra Inc. 🤞
+                                </p>
+                        ";
+                        $mail_result = send_email($name, $to, $subject, $body);
+                        if ($mail_result) {
+                            $_SESSION['flash_success'] = 'Sign in code sent to your email 👨‍💻.';
+                            redirect(PROOT . 'auth/signin-vericode');
                         } else {
-                            if (!empty($errors)) {
-                                $errors;
-                            } else {
-                                if ($row['user_trash'] == 0) {
-                                    $user_id = $row['user_id'];
-                                    userLogin($user_id);
-                                } else {
-                                    $errors = '<div class="alert alert-danger" role="alert">User account Terminated!</div>';
-                                }
-                            }
+                            $errors = '<div class="alert alert-danger" role="alert">Error sending email!</div>';
                         }
+                        // if (!password_verify($password, $row['user_password'])) {
+                        //     $errors = '<div class="alert alert-danger" role="alert">User cannot be found!</div>';
+                        // } else {
+                        //     if (!empty($errors)) {
+                        //         $errors;
+                        //     } else {
+                        //         if ($row['user_trash'] == 0) {
+                        //             $user_id = $row['user_id'];
+                        //             userLogin($user_id);
+                        //         } else {
+                        //             $errors = '<div class="alert alert-danger" role="alert">User account Terminated!</div>';
+                        //         }
+                        //     }
+                        // }
                     }
                 }
             }
@@ -105,7 +131,7 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <div class="position-relative">
+                        <!-- <div class="position-relative">
                             <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                             <div class="password-toggle">
                                 <input class="form-control form-control-lg ps-5" type="password" name="password" id="password" placeholder="Password" value="<?= $password; ?>" required>
@@ -113,17 +139,17 @@
                                     <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <!-- div to show reCAPTCHA -->
                     <div class="g-recaptcha mb-3" data-sitekey="<?= RECAPTCHA_KEY; ?>"></div>
-                    <div class="d-flex flex-wrap align-items-center justify-content-between pb-4">
+                    <!-- <div class="d-flex flex-wrap align-items-center justify-content-between pb-4">
                         <div class="form-check my-1">
                             <input class="form-check-input" type="checkbox" id="keep-signedin">
                             <label class="form-check-label ms-1" for="keep-signedin">Keep me signed in</label>
                         </div>
                         <a class="fs-sm fw-semibold text-decoration-none my-1" href="<?= PROOT; ?>password-recovery">Forgot password?</a>
-                    </div>
+                    </div> -->
                     <button class="btn btn-lg btn-primary w-100 mb-4" name="submit_login" id="submit" type="submit">Sign in</button>
                 </form>
             </div>
