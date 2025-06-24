@@ -10,11 +10,28 @@
 
     $title = 'Dashboard - Lavina - Namibra';
     $body_class = "bg-secondary";
-    
+
     require ('../system/inc/head.php');
+    // 
+    if (!isset($_SESSION['sound_played'])) {
+        $_SESSION['sound_played'] = true;
+        $playSound = true;
+    }
     require ('inc/header.php');
     require ('inc/left.nav.php');
 ?>
+            <?php if ($playSound): ?>
+                <script>
+                    function playWelcomeSound() {
+                        const username = <?php echo json_encode($user_data['user_fullname']); ?>;
+                        const msg = new SpeechSynthesisUtterance(`Levina welcome you, ${username}!`);
+                        msg.pitch = 1;
+                        msg.rate = 1;
+                        msg.lang = 'en-US'; // You can adjust language as needed
+                        speechSynthesis.speak(msg);
+                    }
+                </script>
+            <?php endif; ?>
 
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
@@ -187,3 +204,11 @@
     </button>
 
 <?php require('../system/inc/footer.php'); ?>
+<!-- <script>
+    function playWelcomeSound() {
+        const audio = document.getElementById('welcomeAudio');
+        audio.play().catch(e => {
+            console.log("Autoplay prevented, waiting for user interaction.");
+        });
+    }
+</script> -->
