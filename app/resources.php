@@ -2,7 +2,7 @@
     
     require ('../system/DatabaseConnector.php');
     if (!user_is_logged_in()) {
-        user_login_redirect()
+        user_login_redirect();
     }
     $title = 'Resources - Lavina - Namibra';
     $body_class = "bg-secondary";
@@ -69,7 +69,7 @@
                                     <div class="swiper swiper-nav-onhover" data-swiper-options='{"loop": true, "navigation": {"prevEl": ".btn-prev", "nextEl": ".btn-next"}}'>
                                         <a class="swiper-wrapper" href="shop-single.html">
                                             <div class="swiper-slide p-2 p-xl-4">
-                                                <img class="d-block mx-auto" src="<?= PROOT; ?>assets/media/product.jpg" width="226" alt="Product">
+                                                <img class="d-block mx-auto" src="<?= PROOT; ?>assets/media/pos.jpeg" width="226" alt="Product">
                                             </div>
                                         </a>
                                         <button class="btn btn-prev btn-icon btn-sm btn-light bg-light border-0 rounded-circle start-0" type="button" aria-label="Prev">
@@ -125,7 +125,7 @@
                                     <div class="swiper swiper-nav-onhover" data-swiper-options='{"loop": true, "navigation": {"prevEl": ".btn-prev", "nextEl": ".btn-next"}}'>
                                         <a class="swiper-wrapper" href="shop-single.html">
                                             <div class="swiper-slide p-2 p-xl-4">
-                                                <img class="d-block mx-auto" src="<?= PROOT; ?>assets/media/product.jpg" width="226" alt="Product">
+                                                <img class="d-block mx-auto" src="<?= PROOT; ?>assets/media/laundry.png" width="226" alt="Product">
                                             </div>
                                         </a>
                                         <button class="btn btn-prev btn-icon btn-sm btn-light bg-light border-0 rounded-circle start-0" type="button" aria-label="Prev">
@@ -138,7 +138,7 @@
                                 </div>
                                 <div class="d-flex mb-1">
                                     <h3 class="h6 mb-0">
-                                        <a href="shop-single.html">Glossy round vase</a>
+                                        <a href="shop-single.html">Laundry management system</a>
                                     </h3>
                                     <div class="d-flex ps-2 mt-n1 ms-auto">
                                         <div class="ms-1">

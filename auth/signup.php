@@ -23,7 +23,7 @@
         <div class="d-flex flex-column align-items-center w-lg-50 h-100 px-3 px-lg-5 pt-5">
             <div class="w-100 mt-auto" style="max-width: 526px;">
                 <h1>No account? Sign up</h1>
-                <p class="pb-3 mb-3 mb-lg-4">Have an account already?&nbsp;&nbsp;<a href="<?= PROOT; ?>signin">Sign in here!</a></p>
+                <p class="pb-3 mb-3 mb-lg-4">Have an account already?&nbsp;&nbsp;<a href="<?= PROOT; ?>auth/signin">Sign in here!</a></p>
                 <form class="needs-validation" novalidate>
                     <div class="row row-cols-1 row-cols-sm-2">
                         <div class="col mb-4">

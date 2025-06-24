@@ -2,7 +2,7 @@
     
     require ('../system/DatabaseConnector.php');
     if (!user_is_logged_in()) {
-        user_login_redirect()
+        user_login_redirect();
     }
     $title = 'Account Earnings - Lavina - Namibra';
     $body_class = "bg-secondary";

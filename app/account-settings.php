@@ -2,7 +2,7 @@
     
     require ('../system/DatabaseConnector.php');
     if (!user_is_logged_in()) {
-        user_login_redirect()
+        user_login_redirect();
     }
     $title = 'Account Settings - Lavina - Namibra';
     $body_class = "bg-secondary";
@@ -47,15 +47,15 @@
                         <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
                             <div class="col-sm-6">
                                 <label class="form-label" for="fn">First name</label>
-                                <input class="form-control" type="text" value="Isabella" id="fn">
+                                <input class="form-control" type="text" value="Ibrahim" id="fn">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="ln">Last name</label>
-                                <input class="form-control" type="text" value="Bocouse" id="ln">
+                                <input class="form-control" type="text" value="Hamza" id="ln">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="email">Email address</label>
-                                <input class="form-control" type="email" value="bocouse@example.com" id="email">
+                                <input class="form-control" type="email" value="zero@example.com" id="email">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="phone">Phone <span class="text-body-secondary">(optional)</span></label>
