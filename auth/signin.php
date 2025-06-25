@@ -124,17 +124,6 @@
                             <input class="form-control form-control-lg ps-5" type="email" name="email" id="email" placeholder="Email address" value="<?= $email; ?>" required>
                         </div>
                     </div>
-                    <div class="mb-4">
-                        <!-- <div class="position-relative">
-                            <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                            <div class="password-toggle">
-                                <input class="form-control form-control-lg ps-5" type="password" name="password" id="password" placeholder="Password" value="<?= $password; ?>" required>
-                                <label class="password-toggle-btn" aria-label="Show/hide password">
-                                    <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
-                                </label>
-                            </div>
-                        </div> -->
-                    </div>
                     <!-- div to show reCAPTCHA -->
                     <div class="g-recaptcha mb-3" data-sitekey="<?= RECAPTCHA_KEY; ?>"></div>
                     <!-- <div class="d-flex flex-wrap align-items-center justify-content-between pb-4">
