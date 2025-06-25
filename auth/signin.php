@@ -126,13 +126,6 @@
                     </div>
                     <!-- div to show reCAPTCHA -->
                     <div class="g-recaptcha mb-3" data-sitekey="<?= RECAPTCHA_KEY; ?>"></div>
-                    <!-- <div class="d-flex flex-wrap align-items-center justify-content-between pb-4">
-                        <div class="form-check my-1">
-                            <input class="form-check-input" type="checkbox" id="keep-signedin">
-                            <label class="form-check-label ms-1" for="keep-signedin">Keep me signed in</label>
-                        </div>
-                        <a class="fs-sm fw-semibold text-decoration-none my-1" href="<?= PROOT; ?>password-recovery">Forgot password?</a>
-                    </div> -->
                     <button class="btn btn-lg btn-primary w-100 mb-4" name="submit_login" id="submit" type="submit">Sign in</button>
                 </form>
             </div>
