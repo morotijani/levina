@@ -56,7 +56,7 @@
                                     <div class="text-body-secondary fw-medium d-flex flex-wrap flex-sm-nowrap align-iteems-center">
                                         <div class="d-flex align-items-center me-3">
                                             <i class="ai-mail me-1"></i>
-                                            email@example.com
+                                            <?= $user_data['user_email']; ?>
                                         </div>
                                         <div class="d-flex align-items-center text-nowrap">
                                             <i class="ai-map-pin me-1"></i>
@@ -89,7 +89,7 @@
                                         </tr>
                                         <tr>
                                             <td class="border-0 text-body-secondary py-1 px-0">Gender</td>
-                                            <td class="border-0 text-dark fw-medium py-1 ps-3">Female</td>
+                                            <td class="border-0 text-dark fw-medium py-1 ps-3">Male</td>
                                         </tr>
                                         <tr>
                                             <td class="border-0 text-body-secondary py-1 px-0">Communication</td>
