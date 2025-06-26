@@ -1,8 +1,3 @@
-<?php 
-    // Check if sound should play
-    // $playSound = false;
-
-?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
