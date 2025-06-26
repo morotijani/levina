@@ -10,13 +10,13 @@
 
     $title = 'Dashboard - Lavina - Namibra';
     $body_class = "bg-secondary";
-
-    require ('../system/inc/head.php');
     // 
+    $playSound = false;
     if (!isset($_SESSION['sound_played'])) {
         $_SESSION['sound_played'] = true;
         $playSound = true;
     }
+    require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
 ?>

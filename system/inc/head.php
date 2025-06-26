@@ -1,6 +1,6 @@
 <?php 
     // Check if sound should play
-    $playSound = false;
+    // $playSound = false;
 
 ?>
 <!DOCTYPE html>
@@ -28,8 +28,7 @@
     <!-- Import Google font (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" id="google-font"> -->
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
     <!-- Font icons -->
     <link rel="stylesheet" href="<?= PROOT; ?>assets/icons/around-icons.min.css">
 
