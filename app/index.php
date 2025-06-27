@@ -204,11 +204,3 @@
     </button>
 
 <?php require('../system/inc/footer.php'); ?>
-<!-- <script>
-    function playWelcomeSound() {
-        const audio = document.getElementById('welcomeAudio');
-        audio.play().catch(e => {
-            console.log("Autoplay prevented, waiting for user interaction.");
-        });
-    }
-</script> -->
