@@ -10,7 +10,8 @@
 
     $title = 'Dashboard - Lavina - Namibra';
     $body_class = "bg-secondary";
-    // 
+    
+    // Check if sound should play
     $playSound = false;
     if (!isset($_SESSION['sound_played'])) {
         $_SESSION['sound_played'] = true;
