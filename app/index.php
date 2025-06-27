@@ -28,7 +28,7 @@
                         const msg = new SpeechSynthesisUtterance(`Levina welcome you, ${username}!`);
                         msg.pitch = 1;
                         msg.rate = 1;
-                        msg.lang = 'en-US'; // You can adjust language as needed
+                        msg.lang = 'en-US';
                         speechSynthesis.speak(msg);
                     }
                 </script>
