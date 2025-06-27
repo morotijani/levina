@@ -1,4 +1,3 @@
-<?php $playSound = false; ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
@@ -156,7 +155,7 @@
 </head>
 
 <!-- Body --> 
-<body class="<?= $body_class; ?>" <?= (($playSound) ? 'onload="playWelcomeSound()"' : 'naa'); ?>>
+<body class="<?= $body_class; ?>">
 <!-- <body onload="playWelcomeSound()"> -->
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5TPMX83M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

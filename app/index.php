@@ -21,6 +21,8 @@
     require ('inc/header.php');
     require ('inc/left.nav.php');
 ?>
+<body class="<?= $body_class; ?>" <?= (($playSound) ? 'onload="playWelcomeSound()"' : 'naa'); ?>>
+    
             <?php if ($playSound): ?>
                 <script>
                     function playWelcomeSound() {
