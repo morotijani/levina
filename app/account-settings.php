@@ -17,6 +17,7 @@
     $country = ((isset($_POST['country']) && !empty($_POST['country'])) ? sanitize($_POST['country']) : $user_data['user_country']);
     $currency = ((isset($_POST['currency']) && !empty($_POST['currency'])) ? sanitize($_POST['currency']) : $user_data['user_currency']);
     $bio = ((isset($_POST['bio']) && !empty($_POST['bio'])) ? sanitize($_POST['bio']) : $user_data['user_bio']);
+    $gender = ((isset($_POST['gender']) && !empty($_POST['gender'])) ? sanitize($_POST['gender']) : $user_data['user_gender']);
 ?>
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
@@ -72,27 +73,27 @@
                             <div class="col-sm-6">
                                 <label class="form-label" for="currency">Currency</label>
                                 <select class="form-select" id="currency">
-                                    <option value="" disabled>Select currency</option>
+                                    <option value="" selected disabled>Select currency</option>
                                     <option value="ghs" <?= (($currency == 'ghs') ? 'selected' : ''); ?>>₵ GHS</option>
                                     <option value="usd" <?= (($currency == 'usd') ? 'selected' : ''); ?>>$ USD</option>
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label class="form-label" for="bio">Bio</label>
+                                <label class="form-label" for="bio">Bio<$gender/label>
                                 <textarea class="form-control" rows="5" placeholder="Add a bio" id="bio"><?= $bio; ?></textarea>
                             </div>
                             <div class="col-12 d-sm-flex align-items-center pt-sm-2 pt-md-3">
                                 <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Gender:</div>
                                 <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="radio" name="gender" value="Male" id="male">
+                                    <input class="form-check-input" type="radio" name="gender" <?= (( == 'Male') ? 'checked' : ''); ?> value="Male" id="male">
                                     <label class="form-check-label" for="male">Male</label>
                                 </div>
                                 <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="radio" name="gender" value="Female" checked id="female">
+                                    <input class="form-check-input" type="radio" name="gender" value="Female" <?= (($gender == 'Female') ? 'checked' : ''); ?> id="female">
                                     <label class="form-check-label" for="female">Female</label>
                                 </div>
                                 <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="radio" name="gender" value="Other" id="other">
+                                    <input class="form-check-input" type="radio" name="gender" value="Other" <?= (($gender == 'Other') ? 'checked' : ''); ?> id="other">
                                     <label class="form-check-label" for="other">Other</label>
                                 </div>
                             </div>
