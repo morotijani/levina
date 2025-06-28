@@ -22,15 +22,25 @@
     $comphone = ((isset($_POST['com-phone']) && !empty($_POST['com-phone'])) ? sanitize($_POST['com-phone']) : $user_data['user_comm_phone']);
 
     if (isset($_POST['saveSettings'])) {
-        $comemail = ((!empty($comemail) || $comemail != '') ? 1 : null);
-        $comphone = ((!empty($comphone) || $comphone != '') ? 1 : null);
+        $comemail = 0;
+        $comphone = 0;
+
+        if (!empty($comemail) || $comemail != '') {
+            $comemail = 1;
+            $comphone = ((!isset($_POST['com-phone'])) ? null : 'email');
+        }
+
+        if (!empty($comphone) || $comphone != '') {
+            $comphone = 1;
+            $comemail = ((!isset($_POST['com-email'])) ? null : 'phone');
+        }
 
         $sql = "
-            UPDATE levina_user SET user_fullname = ?, user_email = ?, user_phone = ?, user_country = ?, user_currency = ?, user_bio = ?, user_gender = ?, user_comm_email = ?, user_comm_phone = ? 
+            UPDATE levina_users SET user_fullname = ?, user_email = ?, user_phone = ?, user_country = ?, user_currency = ?, user_bio = ?, user_gender = ?, user_comm_email = ?, user_comm_phone = ? 
             WHERE user_id = ?
         ";
-        $statement = $conn->prepare($sql);
-        $result = $statement->execute([$fullname, $email, $phone, $country, $currency, $bio, $gender, $comemail, $comphone]); 
+        $statement = $dbConnection->prepare($sql);
+        $result = $statement->execute([$fullname, $email, $phone, $country, $currency, $bio, $gender, $comemail, $comphone, $user_id]); 
         if (isset($result)) {
             $_SESSION['flash_success'] = 'Profile settings updated 👌!';
             redirect(PROOT . 'app/account-settings');
@@ -87,7 +97,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="form-label" for="country">Country</label>
-                                    <input class="form-control" id="country" name="country" value="<?= $country; ?>">
+                                    <input class="form-control" id="country" name="country" value="<?= $country; ?>" required>
                                 </div>
                                 <div class="col-sm-6">
                                     <label class="form-label" for="currency">Currency</label>
