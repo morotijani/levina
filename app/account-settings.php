@@ -81,6 +81,27 @@
                                 <p class="fs-sm text-body-secondary mb-0">PNG or JPG no bigger than 1000px wide and tall.</p>
                             </div>
                         </div>
+
+                        <div class="d-flex align-items-center">
+                        <a href="<?= (($admin_data['admin_profile'] != NULL) ? PROOT . $admin_data['admin_profile'] : 'javascript:;'); ?>" class="avatar avatar-lg bg-warning rounded-circle text-white">
+                            <img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'assets/media/avatar.png' : $admin_data['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data['admin_fullname']); ?>'s profile.">
+                        </a>
+                        <div class="hstack gap-2 ms-5">
+                            <?php if ($admin_data['admin_profile'] == NULL): ?>
+                            <label for="file_upload" class="btn btn-sm btn-neutral">
+                                <span>Upload</span> 
+                                <input type="file" name="file_upload" id="file_upload" class="visually-hidden">
+                            </label>
+                            <?php else: ?>
+                            <a href="javascript:;" class="btn d-inline-flex btn-sm btn-neutral text-danger change-profile-picture" id="<?=  $admin_data['admin_profile']; ?>">
+                                <span><i class="bi bi-trash"></i> </span>
+                                <span class="d-none d-sm-block me-2">Remove</span>
+                            </a>
+                            <?php endif; ?>
+                        </div>
+
+
+
                         <form class="needs-validation" method="POST" novalidate>
                             <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
                                 <div class="col-12">
@@ -147,7 +168,7 @@
                 </section>
 
                 <!-- Password -->
-                <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
+                <!-- <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
                     <div class="card-body">
                         <div class="d-flex align-items-center pb-4 mt-sm-n1 mb-0 mb-lg-1 mb-xl-3">
                             <i class="ai-lock-closed text-primary lead pe-1 me-2"></i>
@@ -196,7 +217,7 @@
                             <button class="btn btn-primary ms-3" type="button">Save changes</button>
                         </div>
                     </div>
-                </section>
+                </section> -->
 
                 <!-- Notifications -->
                 <section class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4 mb-4">
@@ -276,3 +297,65 @@
     </button>
 
 <?php require('../system/inc/footer.php'); ?>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // Upload IMAGE Temporary
+        $(document).on('change','#file_upload', function() {
+
+            var property = document.getElementById("file_upload").files[0];
+            var image_name = property.name;
+
+            var image_extension = image_name.split(".").pop().toLowerCase();
+            if (jQuery.inArray(image_extension, ['jpeg', 'png', 'jpg']) == -1) {
+                alert("The file extension must be .jpg, .png, .jpeg");
+                $('#file_upload').val('');
+                return false;
+            }
+
+            var image_size = property.size;
+            if (image_size > 15000000) {
+                alert('The file size must be under 15MB');
+                return false;
+            } else {
+
+                var form_data = new FormData();
+                form_data.append("file_upload", property);
+                $.ajax({
+                    url: "<?= PROOT; ?>auth/upload.user.profile.picture.php",
+                    method: "POST",
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $("#upload_profile").html("<div class='text-success font-weight-bolder'>Uploading profile picture ...</div>");
+                    },
+                    success: function(data) {
+                        if (data == '') {
+                            location.reload();
+                        } else {
+                            alert(data);
+                        }
+                    }
+                });
+            }
+        });
+
+        // DELETE TEMPORARY UPLOADED IMAGE
+        $(document).on('click', '.change-profile-picture', function() {
+            var tempuploded_file_id = $(this).attr('id');
+
+            $.ajax ({
+                url : "<?= PROOT; ?>auth/delete.user.profile.picture.php",
+                method : "POST",
+                data : {
+                    tempuploded_file_id : tempuploded_file_id
+                },
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        });
+        });
+</script>
