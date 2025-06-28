@@ -18,6 +18,8 @@
     $currency = ((isset($_POST['currency']) && !empty($_POST['currency'])) ? sanitize($_POST['currency']) : $user_data['user_currency']);
     $bio = ((isset($_POST['bio']) && !empty($_POST['bio'])) ? sanitize($_POST['bio']) : $user_data['user_bio']);
     $gender = ((isset($_POST['gender']) && !empty($_POST['gender'])) ? sanitize($_POST['gender']) : $user_data['user_gender']);
+    $comemail = ((isset($_POST['com-email']) && !empty($_POST['com-email'])) ? sanitize($_POST['com-email']) : $user_data['user_communication']);
+    $comphone = ((isset($_POST['com-phone']) && !empty($_POST['com-phone'])) ? sanitize($_POST['com-phone']) : $user_data['user_communication']);
 ?>
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
@@ -79,13 +81,13 @@
                                 </select>
                             </div>
                             <div class="col-12">
-                                <label class="form-label" for="bio">Bio<$gender/label>
+                                <label class="form-label" for="bio">Bio</label>
                                 <textarea class="form-control" rows="5" placeholder="Add a bio" id="bio"><?= $bio; ?></textarea>
                             </div>
                             <div class="col-12 d-sm-flex align-items-center pt-sm-2 pt-md-3">
                                 <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Gender:</div>
                                 <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="radio" name="gender" <?= (( == 'Male') ? 'checked' : ''); ?> value="Male" id="male">
+                                    <input class="form-check-input" type="radio" name="gender" <?= (($gender == 'Male') ? 'checked' : ''); ?> value="Male" id="male">
                                     <label class="form-check-label" for="male">Male</label>
                                 </div>
                                 <div class="form-check form-check-inline mb-0">
@@ -100,11 +102,11 @@
                             <div class="col-12 d-sm-flex align-items-center">
                                 <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Communication:</div>
                                 <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="checkbox" name="com-email" value="Email" checked id="c-email">
+                                    <input class="form-check-input" type="checkbox" name="com-email" value="email" <?= (($comemail == 'email') ? 'checked' : ''); ?> id="c-email">
                                     <label class="form-check-label" for="c-email">Email</label>
                                 </div>
                                 <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="checkbox" name="com-phone" value="Phone" id="c-phone">
+                                    <input class="form-check-input" type="checkbox" name="com-phone" value="phone" <?= (($comphone == 'phone') ? 'checked' : ''); ?> id="c-phone">
                                     <label class="form-check-label" for="c-phone">Phone</label>
                                 </div>
                             </div>
