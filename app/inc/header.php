@@ -25,8 +25,8 @@
 
             <!-- User signed in state. Account dropdown on screens > 576px -->
             <div class="dropdown nav d-none d-sm-block order-lg-3">
-                <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img class="border rounded-circle" src="<?= PROOT; ?>assets/media/avatar.png" width="48" alt="Hamza Zero">
+                <a class="nav-link d-flex align-items-center p-0" href="javascript:;" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img class="border rounded-circle" src="<?= PROOT . (($user_data['user_profile'] == null) ? 'assets/media/avatar.png' : $user_data['user_profile']); ?>" width="48" style="height: 48px; width: 48px; object-fit: cover; object-position: center;" alt="Hamza Zero">
                     <div class="ps-2">
                         <div class="fs-xs lh-1 opacity-60">Hello,</div>
                         <div class="fs-sm dropdown-toggle"><?= ucwords($user_data['first']); ?>!</div>

@@ -2,7 +2,7 @@
 
 	// Upload user profile
 
-	require_once ("../db_connection/conn.php");
+    require ('../system/DatabaseConnector.php');
 
 	if ($_FILES["file_upload"]["name"]  != '') {
 
@@ -24,7 +24,7 @@
 				SET user_profile = ?
 				WHERE user_id  = ? 
 			";
-			$statement = $conn->prepare($sql);
+			$statement = $dbConnection->prepare($sql);
 			$result = $statement->execute([$name, $user_data['user_id']]);
 
 			if (isset($result)) {
