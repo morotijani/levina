@@ -6,9 +6,17 @@
     }
     $title = 'Account Settings - Lavina - Namibra';
     $body_class = "bg-secondary";
+    $playSound = false;
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
+
+    $fullname = ((isset($_POST['fullname']) && !empty($_POST['fullname'])) ? sanitize($_POST['fullname']) : $user_data['user_fullname']);
+    $email = ((isset($_POST['email']) && !empty($_POST['email'])) ? sanitize($_POST['email']) : $user_data['user_email']);
+    $phone = ((isset($_POST['phone']) && !empty($_POST['phone'])) ? sanitize($_POST['phone']) : $user_data['user_phone']);
+    $country = ((isset($_POST['country']) && !empty($_POST['country'])) ? sanitize($_POST['country']) : $user_data['user_country']);
+    $currency = ((isset($_POST['currency']) && !empty($_POST['currency'])) ? sanitize($_POST['currency']) : $user_data['user_currency']);
+    $bio = ((isset($_POST['bio']) && !empty($_POST['bio'])) ? sanitize($_POST['bio']) : $user_data['user_bio']);
 ?>
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
@@ -45,39 +53,33 @@
                             </div>
                         </div>
                         <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
-                            <div class="col-sm-6">
-                                <label class="form-label" for="fn">First name</label>
-                                <input class="form-control" type="text" value="Ibrahim" id="fn">
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="ln">Last name</label>
-                                <input class="form-control" type="text" value="Hamza" id="ln">
+                            <div class="col-12">
+                                <label class="form-label" for="fn">Full name</label>
+                                <input class="form-control" type="text" name="fullname" value="<?= $fullname; ?>" id="fn">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="email">Email address</label>
-                                <input class="form-control" type="email" value="zero@example.com" id="email">
+                                <input class="form-control" type="email" name="email" value="<?= $email; ?>" id="email">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="phone">Phone <span class="text-body-secondary">(optional)</span></label>
-                                <input class="form-control" type="tel" data-format='{"numericOnly": true, "delimiters": ["+233 ", " ", " "], "blocks": [0, 3, 3, 2]}' placeholder="+233 ___ ___ __" id="phone" name="phone">
+                                <input class="form-control" type="tel" data-format='{"numericOnly": true, "delimiters": ["+233 ", " ", " "], "blocks": [0, 3, 3, 2]}' placeholder="+233 ___ ___ __" id="phone" name="phone" value="<?= $phone; ?>">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="country">Country</label>
-                                <input class="form-control" id="country" name="country">
+                                <input class="form-control" id="country" name="country" value="<?= $country; ?>">
                             </div>
                             <div class="col-sm-6">
                                 <label class="form-label" for="currency">Currency</label>
                                 <select class="form-select" id="currency">
-                                    <option value="" selected disabled>Select currency</option>
-                                    <option value="gbp">₵ GHS</option>
-                                    <option value="usd">$ USD</option>
-                                    <option value="eur">€ EUR</option>
-                                    <option value="ukp">£ UKP</option>
+                                    <option value="" disabled>Select currency</option>
+                                    <option value="ghs" <?= (($currency == 'ghs') ? 'selected' : ''); ?>>₵ GHS</option>
+                                    <option value="usd" <?= (($currency == 'usd') ? 'selected' : ''); ?>>$ USD</option>
                                 </select>
                             </div>
                             <div class="col-12">
                                 <label class="form-label" for="bio">Bio</label>
-                                <textarea class="form-control" rows="5" placeholder="Add a bio" id="bio"></textarea>
+                                <textarea class="form-control" rows="5" placeholder="Add a bio" id="bio"><?= $bio; ?></textarea>
                             </div>
                             <div class="col-12 d-sm-flex align-items-center pt-sm-2 pt-md-3">
                                 <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Gender:</div>
