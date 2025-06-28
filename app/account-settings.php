@@ -18,8 +18,24 @@
     $currency = ((isset($_POST['currency']) && !empty($_POST['currency'])) ? sanitize($_POST['currency']) : $user_data['user_currency']);
     $bio = ((isset($_POST['bio']) && !empty($_POST['bio'])) ? sanitize($_POST['bio']) : $user_data['user_bio']);
     $gender = ((isset($_POST['gender']) && !empty($_POST['gender'])) ? sanitize($_POST['gender']) : $user_data['user_gender']);
-    $comemail = ((isset($_POST['com-email']) && !empty($_POST['com-email'])) ? sanitize($_POST['com-email']) : $user_data['user_communication']);
-    $comphone = ((isset($_POST['com-phone']) && !empty($_POST['com-phone'])) ? sanitize($_POST['com-phone']) : $user_data['user_communication']);
+    $comemail = ((isset($_POST['com-email']) && !empty($_POST['com-email'])) ? sanitize($_POST['com-email']) : $user_data['user_comm_email']);
+    $comphone = ((isset($_POST['com-phone']) && !empty($_POST['com-phone'])) ? sanitize($_POST['com-phone']) : $user_data['user_comm_phone']);
+
+    if (isset($_POST['saveSettings'])) {
+        $comemail = ((!empty($comemail) || $comemail != '') ? 1 : null);
+        $comphone = ((!empty($comphone) || $comphone != '') ? 1 : null);
+
+        $sql = "
+            UPDATE levina_user SET user_fullname = ?, user_email = ?, user_phone = ?, user_country = ?, user_currency = ?, user_bio = ?, user_gender = ?, user_comm_email = ?, user_comm_phone = ? 
+            WHERE user_id = ?
+        ";
+        $statement = $conn->prepare($sql);
+        $result = $statement->execute([$fullname, $email, $phone, $country, $currency, $bio, $gender, $comemail, $comphone]); 
+        if (isset($result)) {
+            $_SESSION['flash_success'] = 'Profile settings updated 👌!';
+            redirect(PROOT . 'app/account-settings');
+        }
+    }
 ?>
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
@@ -55,66 +71,68 @@
                                 <p class="fs-sm text-body-secondary mb-0">PNG or JPG no bigger than 1000px wide and tall.</p>
                             </div>
                         </div>
-                        <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
-                            <div class="col-12">
-                                <label class="form-label" for="fn">Full name</label>
-                                <input class="form-control" type="text" name="fullname" value="<?= $fullname; ?>" id="fn">
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="email">Email address</label>
-                                <input class="form-control" type="email" name="email" value="<?= $email; ?>" id="email">
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="phone">Phone <span class="text-body-secondary">(optional)</span></label>
-                                <input class="form-control" type="tel" data-format='{"numericOnly": true, "delimiters": ["+233 ", " ", " "], "blocks": [0, 3, 3, 2]}' placeholder="+233 ___ ___ __" id="phone" name="phone" value="<?= $phone; ?>">
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="country">Country</label>
-                                <input class="form-control" id="country" name="country" value="<?= $country; ?>">
-                            </div>
-                            <div class="col-sm-6">
-                                <label class="form-label" for="currency">Currency</label>
-                                <select class="form-select" id="currency">
-                                    <option value="" selected disabled>Select currency</option>
-                                    <option value="ghs" <?= (($currency == 'ghs') ? 'selected' : ''); ?>>₵ GHS</option>
-                                    <option value="usd" <?= (($currency == 'usd') ? 'selected' : ''); ?>>$ USD</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label" for="bio">Bio</label>
-                                <textarea class="form-control" rows="5" placeholder="Add a bio" id="bio"><?= $bio; ?></textarea>
-                            </div>
-                            <div class="col-12 d-sm-flex align-items-center pt-sm-2 pt-md-3">
-                                <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Gender:</div>
-                                <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="radio" name="gender" <?= (($gender == 'Male') ? 'checked' : ''); ?> value="Male" id="male">
-                                    <label class="form-check-label" for="male">Male</label>
+                        <form class="needs-validation" method="POST" novalidate>
+                            <div class="row g-3 g-sm-4 mt-0 mt-lg-2">
+                                <div class="col-12">
+                                    <label class="form-label" for="fn">Full name</label>
+                                    <input class="form-control" type="text" name="fullname" value="<?= $fullname; ?>" id="fn" required>
                                 </div>
-                                <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="radio" name="gender" value="Female" <?= (($gender == 'Female') ? 'checked' : ''); ?> id="female">
-                                    <label class="form-check-label" for="female">Female</label>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="email">Email address</label>
+                                    <input class="form-control" type="email" name="email" value="<?= $email; ?>" id="email" required>
                                 </div>
-                                <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="radio" name="gender" value="Other" <?= (($gender == 'Other') ? 'checked' : ''); ?> id="other">
-                                    <label class="form-check-label" for="other">Other</label>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="phone">Phone <span class="text-body-secondary">(optional)</span></label>
+                                    <input class="form-control" type="tel" data-format='{"numericOnly": true, "delimiters": ["+233 ", " ", " "], "blocks": [0, 3, 3, 2]}' placeholder="+233 ___ ___ __" id="phone" name="phone" value="<?= $phone; ?>">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="country">Country</label>
+                                    <input class="form-control" id="country" name="country" value="<?= $country; ?>">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="currency">Currency</label>
+                                    <select class="form-select" name="currency" id="currency" required>
+                                        <option value="" selected disabled>Select currency</option>
+                                        <option value="ghs" <?= (($currency == 'ghs') ? 'selected' : ''); ?>>₵ GHS</option>
+                                        <option value="usd" <?= (($currency == 'usd') ? 'selected' : ''); ?>>$ USD</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="bio">Bio</label>
+                                    <textarea class="form-control" rows="5" placeholder="Add a bio" id="bio" name="bio"><?= $bio; ?></textarea>
+                                </div>
+                                <div class="col-12 d-sm-flex align-items-center pt-sm-2 pt-md-3">
+                                    <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Gender:</div>
+                                    <div class="form-check form-check-inline mb-0">
+                                        <input class="form-check-input" type="radio" name="gender" <?= (($gender == 'Male') ? 'checked' : ''); ?> value="Male" id="male">
+                                        <label class="form-check-label" for="male">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline mb-0">
+                                        <input class="form-check-input" type="radio" name="gender" value="Female" <?= (($gender == 'Female') ? 'checked' : ''); ?> id="female">
+                                        <label class="form-check-label" for="female">Female</label>
+                                    </div>
+                                    <div class="form-check form-check-inline mb-0">
+                                        <input class="form-check-input" type="radio" name="gender" value="Other" <?= (($gender == 'Other') ? 'checked' : ''); ?> id="other">
+                                        <label class="form-check-label" for="other">Other</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-sm-flex align-items-center">
+                                    <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Communication:</div>
+                                    <div class="form-check form-check-inline mb-0">
+                                        <input class="form-check-input" type="checkbox" name="com-email" value="email" <?= (($comemail == 'email') ? 'checked' : ''); ?> id="c-email">
+                                        <label class="form-check-label" for="c-email">Email</label>
+                                    </div>
+                                    <div class="form-check form-check-inline mb-0">
+                                        <input class="form-check-input" type="checkbox" name="com-phone" value="phone" <?= (($comphone == 'phone') ? 'checked' : ''); ?> id="c-phone">
+                                        <label class="form-check-label" for="c-phone">Phone</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end pt-3">
+                                    <button class="btn btn-secondary" type="button">Cancel</button>
+                                    <button class="btn btn-primary ms-3"  type="submit" name="saveSettings">Save changes</button>
                                 </div>
                             </div>
-                            <div class="col-12 d-sm-flex align-items-center">
-                                <div class="form-label text-body-secondary mb-2 mb-sm-0 me-sm-4">Communication:</div>
-                                <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="checkbox" name="com-email" value="email" <?= (($comemail == 'email') ? 'checked' : ''); ?> id="c-email">
-                                    <label class="form-check-label" for="c-email">Email</label>
-                                </div>
-                                <div class="form-check form-check-inline mb-0">
-                                    <input class="form-check-input" type="checkbox" name="com-phone" value="phone" <?= (($comphone == 'phone') ? 'checked' : ''); ?> id="c-phone">
-                                    <label class="form-check-label" for="c-phone">Phone</label>
-                                </div>
-                            </div>
-                            <div class="col-12 d-flex justify-content-end pt-3">
-                                <button class="btn btn-secondary" type="button">Cancel</button>
-                                <button class="btn btn-primary ms-3" type="button">Save changes</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </section>
 
