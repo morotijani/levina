@@ -60,20 +60,26 @@
                         </div>
                         <div class="d-flex align-items-center">
                             <div class="dropdown">
-                                <a class="d-flex flex-column justify-content-end position-relative overflow-hidden rounded-circle bg-size-cover bg-position-center flex-shrink-0" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="width: 80px; height: 80px; background-image: url(<?= PROOT; ?>assets/media/avatar.png);" aria-label="Upload picture">
+                                <a class="d-flex flex-column justify-content-end position-relative overflow-hidden rounded-circle bg-size-cover bg-position-center flex-shrink-0" href="#" data-bs-toggle="dropdown" aria-expanded="false" style="width: 80px; height: 80px; background-image: url(<?= PROOT . (($user_data['user_profile'] == null) ? 'assets/media/avatar.png' : $user_data['user_profile']); ?>);" aria-label="Upload picture">
                                     <span class="d-block text-light text-center lh-1 pb-1" style="background-color: rgba(0,0,0,.5)">
                                         <i class="ai-camera"></i>
                                     </span>
                                 </a>
                                 <div class="dropdown-menu my-1">
+                                    <?php if ($user_data['user_profile'] == null): ?>
                                     <a class="dropdown-item fw-normal" href="#">
-                                        <i class="ai-camera fs-base opacity-70 me-2"></i>
-                                        Upload new photo
+                                        <label for="file_upload">
+                                            <i class="ai-camera fs-base opacity-70 me-2"></i>
+                                            Upload new photo
+                                        </label>
+                                        <input type="file" name="file_upload" id="file_upload" class="visually-hidden">
                                     </a>
-                                    <a class="dropdown-item text-danger fw-normal" href="#">
+                                    <?php else: ?>
+                                    <a class="dropdown-item text-danger fw-normal change-profile-picture" id="<?= $user_data['user_profile']; ?>" href="javascript:;">
                                         <i class="ai-trash fs-base me-2"></i>
                                         Delete photo
                                     </a>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="ps-3">
@@ -82,7 +88,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex align-items-center">
+                        <!-- <div class="d-flex align-items-center">
                         <a href="<?= (($admin_data['admin_profile'] != NULL) ? PROOT . $admin_data['admin_profile'] : 'javascript:;'); ?>" class="avatar avatar-lg bg-warning rounded-circle text-white">
                             <img src="<?= PROOT . (($admin_data['admin_profile'] == NULL) ? 'assets/media/avatar.png' : $admin_data['admin_profile']); ?>" style="object-fit: cover; object-position: center; width: 35px; height: 35px" alt="<?=ucwords($admin_data['admin_fullname']); ?>'s profile.">
                         </a>
@@ -98,7 +104,7 @@
                                 <span class="d-none d-sm-block me-2">Remove</span>
                             </a>
                             <?php endif; ?>
-                        </div>
+                        </div> -->
 
 
 
