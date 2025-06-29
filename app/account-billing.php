@@ -6,6 +6,7 @@
     }
     $title = 'Account Billing - Lavina - Namibra';
     $body_class = "bg-secondary";
+    $playSound = false;
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
