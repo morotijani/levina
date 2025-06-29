@@ -20,7 +20,7 @@
                             <h4 class="modal-title">Add new payment method</h4>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form class="modal-body needs-validation pt-0" novalidate>
+                        <form class="modal-body pt-0" id="methodForm">
                             <div class="mb-4">
                                 <label class="form-label" for="card-name">Select payment method</label>
                                 <select class="form-select" type="text" required id="method" name="method">
@@ -61,7 +61,7 @@
                             <div id="crca" class="d-none">
                                 <div class="mb-4">
                                     <label class="form-label" for="card-name">Name on card</label>
-                                    <input class="form-control" type="text" placeholder="John Doe" required id="cc_name" name="cc_name">
+                                    <input class="form-control" type="text" placeholder="Hamza Zero" required id="cc_name" name="cc_name">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="card-number">Card number</label>
@@ -88,7 +88,7 @@
                             <div id="papa" class="d-none">
                                 <div class="mb-4">
                                     <label class="form-label" for="card-name">Name</label>
-                                    <input class="form-control" type="text" name="pp_name" placeholder="John Doe" required id="pp_name">
+                                    <input class="form-control" type="text" name="pp_name" placeholder="Hamza Zero" required id="pp_name">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="card-number">Email</label>
@@ -103,7 +103,7 @@
                             
                             <div class="d-flex flex-column flex-sm-row">
                                 <button class="btn btn-secondary mb-3 mb-sm-0" type="reset" data-bs-dismiss="modal">Cancel</button>
-                                <button class="btn btn-primary ms-sm-3" type="submit" disabled id="save">Save new card</button>
+                                <button class="btn btn-primary ms-sm-3" type="button" disabled id="save">Save new card</button>
                             </div>
                         </form>
                     </div>
@@ -379,8 +379,9 @@
 <?php require('../system/inc/footer.php'); ?>
 <script>
 //
+var selectedValue = ''
 $('#method').on('change', function() {
-    const selectedValue = $(this).val()
+    selectedValue = $(this).val()
     if (selectedValue) {
         if (selectedValue == 'mm') {
             $('#momo').removeClass('d-none')
@@ -401,8 +402,73 @@ $('#method').on('change', function() {
         
         $('#save').attr('disabled', false)
     } else {
-        alert('No option selected')
+        $('#momo').addClass('d-none')
+        $('#crca').addClass('d-none')
+        $('#papa').addClass('d-none')
         $('#save').attr('disabled', true)
+        
+        alert('No option selected')
+    }
+})
+
+//
+$('#save').on('click', function() {
+    if (selectedValue == 'mm') {
+        if ($('#mm_type').val() == '') {
+            $('#mm_type').focus()
+            alert('Mobile money type is required 🤦‍♂️!');
+            return false
+        }
+
+        if ($('#mm_name').val() == '') {
+            $('#mm_name').focus()
+            alert('Mobile money name is required 🤦‍♂️!');
+            return false
+        }
+
+        if ($('#mm_number').val() == '') {
+            $('#mm_number').focus()
+            alert('Mobile money number is required 🤦‍♂️!');
+            return false
+        }
+    
+    } else if (selectedValue == 'pp') {
+        if ($('#pp_name').val() == '') {
+            $('#pp_name').focus()
+            alert('Paypal name is required 🤦‍♂️!');
+            return false
+        }
+
+        if ($('#pp_email').val() == '') {
+            $('#pp_email').focus()
+            alert('Paypal email is required 🤦‍♂️!');
+            return false
+        }
+    } else if (selectedValue == 'cc') {
+
+        if ($('#cc_name').val() == '') {
+            $('#cc_name').focus()
+            alert('Credit card name is required 🤦‍♂️!');
+            return false
+        }
+
+        if ($('#cc_number').val() == '') {
+            $('#cc_number').focus()
+            alert('Credit card number is required 🤦‍♂️!');
+            return false
+        }
+
+        if ($('#cc_expiration').val() == '') {
+            $('#cc_expiration').focus()
+            alert('Credit card expiration date is required 🤦‍♂️!');
+            return false
+        }
+
+        if ($('#cc_cvv').val() == '') {
+            $('#cc_cvv').focus()
+            alert('Credit card CVV is required 🤦‍♂️!');
+            return false
+        }
     }
 })
 </script>
