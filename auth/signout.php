@@ -9,5 +9,6 @@
     unset($_SESSION['LVE']);
     unset($_SESSION['sound_played']);
 
+    session_destroy();
+
 	redirect(PROOT . 'auth/signin');
-    

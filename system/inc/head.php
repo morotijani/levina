@@ -1,3 +1,11 @@
+<?php
+ // Check if sound should play
+    $playSound = false;
+    if (!isset($_SESSION['sound_played'])) {
+        $_SESSION['sound_played'] = true;
+        $playSound = true;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
@@ -155,20 +163,7 @@
 </head>
 
 <!-- Body --> 
-<body class="<?= $body_class; ?>" <?= (($playSound) ? 'onload="playWelcomeSound()"' : 'naa'); ?>>
-
-    <?php if ($playSound): ?>
-        <script>
-            function playWelcomeSound() {
-                const username = <?php echo json_encode($user_data['user_fullname']); ?>;
-                const msg = new SpeechSynthesisUtterance(`Levina welcome you, ${username}!`);
-                msg.pitch = 1;
-                msg.rate = 1;
-                msg.lang = 'en-US';
-                speechSynthesis.speak(msg);
-            }
-        </script>
-    <?php endif; ?>
+<body class="<?= $body_class; ?>">
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5TPMX83M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

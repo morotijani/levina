@@ -11,16 +11,11 @@
     $title = 'Dashboard - Lavina - Namibra';
     $body_class = "bg-secondary";
     
-    // Check if sound should play
-    $playSound = false;
-    if (!isset($_SESSION['sound_played'])) {
-        $_SESSION['sound_played'] = true;
-        $playSound = true;
-    }
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
 ?>
+<body class="<?= $body_class; ?>" <?= (($playSound) ? 'onload="playWelcomeSound()"' : 'naa'); ?>>
 
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
@@ -193,3 +188,15 @@
     </button>
 
 <?php require('../system/inc/footer.php'); ?>
+<?php if ($playSound): ?>
+    <script>
+        function playWelcomeSound() {
+            const username = <?php echo json_encode($user_data['user_fullname']); ?>;
+            const msg = new SpeechSynthesisUtterance(`Levina welcome you, ${username}!`);
+            msg.pitch = 1;
+            msg.rate = 1;
+            msg.lang = 'en-US';
+            speechSynthesis.speak(msg);
+        }
+    </script>
+<?php endif; ?>
