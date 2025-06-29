@@ -35,13 +35,13 @@
                         <div class="mb-4">
                             <div class="position-relative">
                             <div class="d-flex align-items-center gap-2 mb-3">
-                                <input class="form-control px-2 text-center otp" type="number" min="0" />
-                                <input class="form-control px-2 text-center otp" type="number" min="0" />
-                                <input class="form-control px-2 text-center otp" type="number" min="0" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
                                 <span>-</span>
-                                <input class="form-control px-2 text-center otp" type="number" min="0" />
-                                <input class="form-control px-2 text-center otp" type="number" min="0" />
-                                <input class="form-control px-2 text-center otp" type="number" min="0" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
                             </div>
                             <div class="form-check text-start mb-4">
                                 <input class="form-check-input" id="2fa-checkbox" type="checkbox" />
@@ -82,7 +82,7 @@
         if (otp.length === inputs.length) {
             console.log("OTP entered:", otp);
             // You can now send this to your backend for verification
-            $('#submitOTP').att('disabled', false);
+            $('#submitOTP').attr('disabled', false);
         }
     }
 
@@ -100,6 +100,7 @@
         input.addEventListener("keydown", (e) => {
             if (e.key === "Backspace" && input.value === "" && index > 0) {
                 inputs[index - 1].focus();
+                $('#submitOTP').attr('disabled', true);
             }
         });
     });

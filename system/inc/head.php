@@ -32,7 +32,7 @@
     <link rel="stylesheet" media="screen" href="<?= PROOT; ?>assets/css/theme.min.css">
 
     <!-- Customizer generated styles -->
-    <style id="customizer-styles"></style>
+    <link rel="stylesheet" href="<?= PROOT; ?>assets/css/levina.css">
 
     <!-- Page loading styles -->
     <style>
