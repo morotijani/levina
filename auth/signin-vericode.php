@@ -15,8 +15,6 @@
 	}
 
 ?>
-<link rel="stylesheet" href="https://prium.github.io/phoenix/v1.23.0/assets/css/theme.min.css">
-
     <!-- Page wrapper -->
     <main class="page-wrapper">
         <div class="d-flex flex-column align-items-center position-relative h-100 px-3 pt-5">
@@ -37,13 +35,13 @@
                         <div class="mb-4">
                             <div class="position-relative">
                             <div class="d-flex align-items-center gap-2 mb-3">
-                                <input class="form-control px-2 text-center" type="number" />
-                                <input class="form-control px-2 text-center" type="number" />
-                                <input class="form-control px-2 text-center" type="number" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" />
                                 <span>-</span>
-                                <input class="form-control px-2 text-center" type="number" />
-                                <input class="form-control px-2 text-center" type="number" />
-                                <input class="form-control px-2 text-center" type="number" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" />
+                                <input class="form-control px-2 text-center otp" type="number" min="0" />
                             </div>
                             <div class="form-check text-start mb-4">
                                 <input class="form-check-input" id="2fa-checkbox" type="checkbox" />
@@ -55,7 +53,7 @@
                             </div> -->
                             </div>
                         <!-- div to show reCAPTCHA -->
-                            <button class="btn btn-light" type="submit" disabled="disabled">Verify</button>
+                            <button class="btn btn-light" type="submit" id="submitOTP" disabled="disabled">Verify</button>
                             <div class="mt-2">
                                 <a class="fs-xs small text-secondary" href="#!">Didn’t receive the code? </a>
                             </div>
@@ -71,11 +69,39 @@
             </div>
         </div>
 
-<script src="https://prium.github.io/phoenix/v1.23.0/vendors/popper/popper.min.js"></script>
-<script src="https://prium.github.io/phoenix/v1.23.0/vendors/anchorjs/anchor.min.js"></script>
-<script src="https://prium.github.io/phoenix/v1.23.0/vendors/lodash/lodash.min.js"></script>
-<script src="https://prium.github.io/phoenix/v1.23.0/vendors/is/is.min.js"></script>
-<script src="https://prium.github.io/phoenix/v1.23.0/vendors/list.js/list.min.js"></script>
-<script src="https://prium.github.io/phoenix/v1.23.0/vendors/dayjs/dayjs.min.js"></script>
-<script src="https://prium.github.io/phoenix/v1.23.0/assets/js/phoenix.js"></script>
 <?php require('../system/inc/footer.php'); ?>
+<script>
+   const inputs = document.querySelectorAll(".otp");
+
+    function getOTPValue() {
+        return Array.from(inputs).map(input => input.value).join('');
+    }
+
+    function validateOTP(otp) {
+        // Example: simple length check (you could send to server here instead)
+        if (otp.length === inputs.length) {
+            console.log("OTP entered:", otp);
+            // You can now send this to your backend for verification
+            $('#submitOTP').att('disabled', false);
+        }
+    }
+
+    inputs.forEach((input, index) => {
+        input.addEventListener("input", () => {
+            if (input.value.length === 1 && index < inputs.length - 1) {
+                inputs[index + 1].focus();
+            }
+
+            // Validate after every input
+            const otp = getOTPValue();
+            validateOTP(otp);
+        });
+
+        input.addEventListener("keydown", (e) => {
+            if (e.key === "Backspace" && input.value === "" && index > 0) {
+                inputs[index - 1].focus();
+            }
+        });
+    });
+
+</script>

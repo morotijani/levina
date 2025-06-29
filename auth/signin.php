@@ -68,7 +68,7 @@
                             <h3>
                                 {$name},</h3>
                                 <p>
-                                    <h2>Your sign in code is</h2>: <strong>{$code}</strong>
+                                    Your sign in code is: <strong>{$code}</strong>
                                     <br><br>
                                     Best regards,
                                     <br>
