@@ -103,7 +103,7 @@
                             
                             <div class="d-flex flex-column flex-sm-row">
                                 <button class="btn btn-secondary mb-3 mb-sm-0" type="reset" data-bs-dismiss="modal">Cancel</button>
-                                <button class="btn btn-primary ms-sm-3" type="submit">Save new card</button>
+                                <button class="btn btn-primary ms-sm-3" type="submit" disabled id="save">Save new card</button>
                             </div>
                         </form>
                     </div>
@@ -382,9 +382,27 @@
 $('#method').on('change', function() {
     const selectedValue = $(this).val()
     if (selectedValue) {
-        alert(selectedValue);
+        if (selectedValue == 'mm') {
+            $('#momo').removeClass('d-none')
+            
+            $('#crca').addClass('d-none')
+            $('#papa').addClass('d-none')
+        } else if (selectedValue == 'pp') {
+            $('#papa').removeClass('d-none')
+            
+            $('#crca').addClass('d-none')
+            $('#momo').addClass('d-none')
+        } else if (selectedValue == 'cc') {
+            $('#crca').removeClass('d-none')
+            
+            $('#momo').addClass('d-none')
+            $('#papa').addClass('d-none')
+        }
+        
+        $('#save').attr('disabled', false)
     } else {
         alert('No option selected')
+        $('#save').attr('disabled', true)
     }
 })
 </script>
