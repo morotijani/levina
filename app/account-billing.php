@@ -12,7 +12,6 @@
     require ('inc/left.nav.php');
 ?>
 
-            <!--  -->
             <!-- Add payment card modal -->
             <div class="modal fade" id="addCard" data-bs-backdrop="static" tabindex="-1" role="dialog">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -24,27 +23,84 @@
                         <form class="modal-body needs-validation pt-0" novalidate>
                             <div class="mb-4">
                                 <label class="form-label" for="card-name">Name on card</label>
-                                <input class="form-control" type="text" placeholder="John Doe" required id="card-name">
+                                <select class="form-select" type="text" required id="method" name="method">
+                                    <option value="" selected></option>
+                                    <option value="mm">Money Mobile</option>
+                                    <option value="pp">Paypal</option>
+                                    <option value="cc">Credit Card</option>
+                                </select>
                             </div>
-                            <div class="mb-4">
-                                <label class="form-label" for="card-number">Card number</label>
-                                <div class="input-group">
-                                    <input class="form-control" type="text" data-format='{"creditCard": true}' placeholder="XXXX XXXX XXXX XXXX" required id="card-number">
-                                    <div class="input-group-text py-0">
-                                        <div class="credit-card-icon"></div>
+
+                            <!-- MoMo -->
+                            <div id="momo" class="d-none">
+                                <div class="mb-4">
+                                    <label class="form-label" for="card-name">Mobile Money type</label>
+                                    <select class="form-select" type="text" required id="mm_type" name="mm_type">
+                                        <option value="" selected></option>
+                                        <option value="mtn">MTN Money Mobile</option>
+                                        <option value="airteltigo">AirtelTigo Money</option>
+                                        <option value="telecel">Telecel Cash</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="card-name">Name on number</label>
+                                    <input class="form-control" type="text" placeholder="Hamza Zero" required id="mm_name" name="mm_name">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="card-number">Momo number</label>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" data-format='{"creditCard": true}' placeholder="XXXX XXXX XXXX XXXX" required id="mm_number" name="mm_number">
+                                        <div class="input-group-text py-0">
+                                            <div class="credit-card-icon"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row row-cols-2 g-4 pb-2 pb-sm-3 mb-4">
-                                <div class="col">
-                                    <label class="form-label" for="card-expiration">Expiration date</label>
-                                    <input class="form-control" type="text" data-format='{"date": true, "datePattern": ["m", "y"]}' placeholder="MM/YY" required id="card-expiration">
+
+                            <!-- Credit Card -->
+                            <div id="crca" class="d-none">
+                                <div class="mb-4">
+                                    <label class="form-label" for="card-name">Name on card</label>
+                                    <input class="form-control" type="text" placeholder="John Doe" required id="cc_name" name="cc_name">
                                 </div>
-                                <div class="col">
-                                    <label class="form-label" for="card-cvv">CVV Code</label>
-                                    <input class="form-control" type="text" data-format='{"numericOnly": true, "blocks": [3]}' placeholder="XXX" required id="card-cvv">
+                                <div class="mb-4">
+                                    <label class="form-label" for="card-number">Card number</label>
+                                    <div class="input-group">
+                                        <input class="form-control" type="text" data-format='{"creditCard": true}' placeholder="XXXX XXXX XXXX XXXX" required id="cc_number" name="cc_number">
+                                        <div class="input-group-text py-0">
+                                            <div class="credit-card-icon"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-cols-2 g-4 pb-2 pb-sm-3 mb-4">
+                                    <div class="col">
+                                        <label class="form-label" for="card-expiration">Expiration date</label>
+                                        <input class="form-control" type="text" data-format='{"date": true, "datePattern": ["m", "y"]}' placeholder="MM/YY" required id="cc_expiration" name="cc_expiration">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label" for="card-cvv">CVV Code</label>
+                                        <input class="form-control" type="text" data-format='{"numericOnly": true, "blocks": [3]}' placeholder="XXX" required id="cc_cvv" name="cc_cvv">
+                                    </div>
                                 </div>
                             </div>
+
+                            <!-- Paypal -->
+                            <div id="papa" class="d-none">
+                                <div class="mb-4">
+                                    <label class="form-label" for="card-name">Name</label>
+                                    <input class="form-control" type="text" name="pp_name" placeholder="John Doe" required id="pp_name">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label" for="card-number">Email</label>
+                                    <div class="input-group">
+                                        <input class="form-control" type="email" placeholder="name@email.com" required id="pp_email" name="pp_email">
+                                        <div class="input-group-text py-0">
+                                            <div class="credit-card-icon"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="d-flex flex-column flex-sm-row">
                                 <button class="btn btn-secondary mb-3 mb-sm-0" type="reset" data-bs-dismiss="modal">Cancel</button>
                                 <button class="btn btn-primary ms-sm-3" type="submit">Save new card</button>
