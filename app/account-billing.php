@@ -17,12 +17,12 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header border-0">
-                            <h4 class="modal-title">Add new card</h4>
+                            <h4 class="modal-title">Add new payment method</h4>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form class="modal-body needs-validation pt-0" novalidate>
                             <div class="mb-4">
-                                <label class="form-label" for="card-name">Name on card</label>
+                                <label class="form-label" for="card-name">Select payment method</label>
                                 <select class="form-select" type="text" required id="method" name="method">
                                     <option value="" selected></option>
                                     <option value="mm">Money Mobile</option>
@@ -377,3 +377,14 @@
     </button>
 
 <?php require('../system/inc/footer.php'); ?>
+<script>
+//
+$('#method').on('change', function() {
+    const selectedValue = $(this).val()
+    if (selectedValue) {
+        alert(selectedValue);
+    } else {
+        alert('No option selected')
+    }
+})
+</script>
