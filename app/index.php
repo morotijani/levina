@@ -4,8 +4,13 @@
     if (!user_is_logged_in()) {
         user_login_redirect();
     }
+
+    unset($_SESSION['LVNLC']);
+    unset($_SESSION['LVE']);
+
     $title = 'Dashboard - Lavina - Namibra';
     $body_class = "bg-secondary";
+    
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
