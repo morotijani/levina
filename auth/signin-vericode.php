@@ -21,22 +21,24 @@
 				$errors = '<div class="alert alert-danger" role="alert">Please enter your 6 digit code.</div>';
 			}
 
-            $sql = "
-					SELECT * FROM levina_user_login_details 
-					WHERE login_detail_user_id = :login_detail_user_id 
-					ORDER BY password_reset_id DESC LIMIT 1
-				";
-				$statement = $conn->prepare($sql);
-				$statement->execute([
-					':password_reset_verify' => $code,
-					':login_detail_user_id' => $userId
-				]);
-				$result = $statement->fetchAll();
-				foreach ($result as $reset) {
-					# code...
-				}
+            // gget user details for login
+            $row = $dbConnection->query('SELECT user_id, user_trash FROM levina_users WHERE user_email = "'.$storedEmail.'"')->fetchAll();
 
-            $expireTime = date("Y-m-d H:i:s", strtotime($reset['createdAt'] . " +10 minutes"));
+            // login code details
+            $sql = "
+                SELECT * FROM levina_user_login_details 
+                WHERE login_detail_code = :login_detail_code AND login_detail_user_id = :login_detail_user_id ORDER BY id DESC LIMIT 1
+            ";
+            $statement = $dbConnection->prepare($sql);
+            $statement->execute([
+                ':login_detail_code' => $postCode,
+                ':login_detail_user_id' => $row['user_id']
+            ]);
+            $results = $statement->fetchAll();
+            $result = $results ?? '';
+            dnd($result);
+
+            $expireTime = date("Y-m-d H:i:s", strtotime($result['createdAt'] . " +10 minutes"));
             $expired = strtotime($now) > strtotime($expireTime); 
             
             if ($postCode == $storedOtp) {
@@ -47,8 +49,6 @@
                     // $_SESSION['password_reset_code_verified'] = $code;
                     // redirect(PROOT . 'store/reset-password');
                     if (empty($errors)) {
-                        $row = $conn->query('SELECT user_id, user_trash FROM levina_users WHERE user_email = "'.$storedEmail.'"')->fetchAll();
-                        dnd($row);
                         if ($row[0]['user_trash'] == 0) {
                             $user_id = $row[0]['user_id'];
                             userLogin($user_id);
