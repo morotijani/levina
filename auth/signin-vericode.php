@@ -44,8 +44,6 @@
                 redirect(PROOT . 'auth/signin');
             }
             $result = $results[0] ?? '';
-            // echo $now;
-            // dnd($results);
 
             $expireTime = date("Y-m-d H:i:s", strtotime($result['createdAt'] . " +10 minutes"));
             $expired = strtotime($now) > strtotime($expireTime); 
@@ -54,7 +52,7 @@
 
                 if ($expired) {
                     $errors = '<div class="alert alert-danger" role="alert">Your code has expired. Please <a href="signin">try again</a>.</div>';
-                    
+
                     unset($_SESSION['LVNLC']);
                     unset($_SESSION['LVE']);
                 } else {

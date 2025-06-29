@@ -155,8 +155,21 @@
 </head>
 
 <!-- Body --> 
-<body class="<?= $body_class; ?>">
-<!-- <body onload="playWelcomeSound()"> -->
+<body class="<?= $body_class; ?>" <?= (($playSound) ? 'onload="playWelcomeSound()"' : 'naa'); ?>>
+
+    <?php if ($playSound): ?>
+        <script>
+            function playWelcomeSound() {
+                const username = <?php echo json_encode($user_data['user_fullname']); ?>;
+                const msg = new SpeechSynthesisUtterance(`Levina welcome you, ${username}!`);
+                msg.pitch = 1;
+                msg.rate = 1;
+                msg.lang = 'en-US';
+                speechSynthesis.speak(msg);
+            }
+        </script>
+    <?php endif; ?>
+
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5TPMX83M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
