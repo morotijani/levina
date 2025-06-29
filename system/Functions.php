@@ -110,6 +110,17 @@
 		return (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) ? FALSE : TRUE;
 	}
 
+	function maskEmail($email) {
+		$parts = explode("@", $email);
+		$name = $parts[0];
+		$domain = $parts[1] ?? '';
+
+		// Show first 3 characters of the name, then mask the rest
+		$nameMasked = substr($name, 0, 3) . str_repeat('*', max(0, strlen($name) - 3));
+
+		return $nameMasked . '@' . $domain;
+	}
+
 	// GET USER IP ADDRESS
 	function getIPAddress() {  
 	    //whether ip is from the share internet  

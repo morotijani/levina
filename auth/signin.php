@@ -60,6 +60,7 @@
                     } else {
                         $code = rand(100000, 999999); // Or use a more secure generator
                         $_SESSION['LVNLC'] = $code;
+                        $_SESSION['LVE'] = $email;
 
                         $name = ucwords($row['user_fullname']);
                         $to = $email;
@@ -77,25 +78,16 @@
                         ";
                         $mail_result = send_email($name, $to, $subject, $body);
                         if ($mail_result) {
+
+                            $query = "INSERT INTO levina_user_login_details (login_detail_id, login_detail_code, login_detail_user_id) VALUES (?, ?, ?)";
+                            $statement = $conn->prepare($query);
+                            $statement->execute([guidv4(), $code, $row['user_id']]);
+
                             $_SESSION['flash_success'] = 'Sign in code sent to your email 👨‍💻.';
                             redirect(PROOT . 'auth/signin-vericode');
                         } else {
                             $errors = '<div class="alert alert-danger" role="alert">Error sending email!</div>';
                         }
-                        // if (!password_verify($password, $row['user_password'])) {
-                        //     $errors = '<div class="alert alert-danger" role="alert">User cannot be found!</div>';
-                        // } else {
-                        //     if (!empty($errors)) {
-                        //         $errors;
-                        //     } else {
-                        //         if ($row['user_trash'] == 0) {
-                        //             $user_id = $row['user_id'];
-                        //             userLogin($user_id);
-                        //         } else {
-                        //             $errors = '<div class="alert alert-danger" role="alert">User account Terminated!</div>';
-                        //         }
-                        //     }
-                        // }
                     }
                 }
             }

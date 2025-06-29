@@ -8,11 +8,66 @@
     $body_class = "";
     require ('../system/inc/head.php');
 
-    $code = issetElse($_SESSION, 'LVNLC', 0);
-    $errors = '';
-	if ($_POST) {
+    $storedOtp = issetElse($_SESSION, 'LVNLC', 0);
+    $storedEmail = issetElse($_SESSION, 'LVE', 0);
+    if (($storedOtp != 0 && !empty($storedOtp)) && ($storedEmail != 0 && !empty($storedEmail))) {
+        $errors = '';
+        if ($_POST) {
+            $postCode = sanitize($_POST['code1'] . $_POST['code2'] . $_POST['code3'] . $_POST['code4'] . $_POST['code5'] . $_POST['code6']);
+            $now = date("Y-m-d H:i:s");
 
-	}
+            // validation
+			if (empty($postCode)) {
+				$errors = '<div class="alert alert-danger" role="alert">Please enter your 6 digit code.</div>';
+			}
+
+            $sql = "
+					SELECT * FROM levina_user_login_details 
+					WHERE login_detail_user_id = :login_detail_user_id 
+					ORDER BY password_reset_id DESC LIMIT 1
+				";
+				$statement = $conn->prepare($sql);
+				$statement->execute([
+					':password_reset_verify' => $code,
+					':login_detail_user_id' => $userId
+				]);
+				$result = $statement->fetchAll();
+				foreach ($result as $reset) {
+					# code...
+				}
+
+            $expireTime = date("Y-m-d H:i:s", strtotime($reset['createdAt'] . " +10 minutes"));
+            $expired = strtotime($now) > strtotime($expireTime); 
+            
+            if ($postCode == $storedOtp) {
+
+                if ($expired) {
+                    $errors = '<div class="alert alert-secondary" role="alert">Your code has expired. Please try again.</div>';
+                } else {
+                    // $_SESSION['password_reset_code_verified'] = $code;
+                    // redirect(PROOT . 'store/reset-password');
+                    if (empty($errors)) {
+                        $row = $conn->query('SELECT user_id, user_trash FROM levina_users WHERE user_email = "'.$storedEmail.'"')->fetchAll();
+                        dnd($row);
+                        if ($row[0]['user_trash'] == 0) {
+                            $user_id = $row[0]['user_id'];
+                            userLogin($user_id);
+                        } else {
+                            $errors = '<div class="alert alert-danger" role="alert">User account Terminated!</div>';
+                        }
+                    }
+                    // echo json_encode(["success" => true, "message" => "OTP verified!"]);
+                }
+            } else {
+                $errors = '<div class="alert alert-danger" role="alert">Invalid OTP.</div>';
+            }
+
+	    }
+    } else {
+        $_SESSION['flash_error'] = 'Try again 😒!';
+        redirect(PROOT . 'auth/signout');
+    }
+	
 
 ?>
     <!-- Page wrapper -->
@@ -27,7 +82,7 @@
             <!-- Content -->
             <div class="mt-auto" style="max-width: 700px;">
                 <h1 class="pt-3 pb-2 pb-lg-3">Enter the verification code</h1>
-                <p class="pb-2">An email containing a 6-digit verification code has been sent to the email address - exa*********.com
+                <p class="pb-2">An email containing a 6-digit verification code has been sent to the email address - <?=  maskEmail($storedEmail); ?>
                 <P class="fs-10 mb-5">Don’t have access? <a href="#!">Use another method</a></P>
                 <div class="card border-0 bg-primary" data-bs-theme="dark">
                     <form class="card-body verification-form" method="POST" data-2fa-form="data-2fa-form">
@@ -35,13 +90,13 @@
                         <div class="mb-4">
                             <div class="position-relative">
                             <div class="d-flex align-items-center gap-2 mb-3">
-                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
-                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
-                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
+                                <input class="form-control px-2 text-center otp" name="code1" type="number" min="0" maxlength="1" autofocus="on" />
+                                <input class="form-control px-2 text-center otp" name="code2" type="number" min="0" maxlength="1" />
+                                <input class="form-control px-2 text-center otp" name="code3" type="number" min="0" maxlength="1" />
                                 <span>-</span>
-                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
-                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
-                                <input class="form-control px-2 text-center otp" type="number" min="0" maxlength="1" />
+                                <input class="form-control px-2 text-center otp" name="code4" type="number" min="0" maxlength="1" />
+                                <input class="form-control px-2 text-center otp" name="code5" type="number" min="0" maxlength="1" />
+                                <input class="form-control px-2 text-center otp" name="code6" type="number" min="0" maxlength="1" />
                             </div>
                             <div class="form-check text-start mb-4">
                                 <input class="form-check-input" id="2fa-checkbox" type="checkbox" />
