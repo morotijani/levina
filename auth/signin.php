@@ -38,6 +38,7 @@
                 $errors = '<div class="alert alert-danger" role="alert">You must provide email and password</div>';
             }
     
+            // 
             $query = "
                 SELECT * FROM levina_users 
                 WHERE user_email = :user_email 
@@ -49,8 +50,6 @@
                     ':user_email' => $email
                 )
             );
-            // $rows = $statement->fetchALl();
-            // $row = $rows[0] ?? $rows;
             if ($statement->rowCount() < 1) {
                 $errors = '<div class="alert alert-danger" role="alert">That email does\'nt exist in our database!</div>';
             } else {
@@ -79,8 +78,11 @@
                         $mail_result = send_email($name, $to, $subject, $body);
                         if ($mail_result) {
 
-                            $query = "INSERT INTO levina_user_login_details (login_detail_id, login_detail_code, login_detail_user_id) VALUES (?, ?, ?)";
-                            $statement = $conn->prepare($query);
+                            $query = "
+                                INSERT INTO levina_user_login_details (login_detail_id, login_detail_code, login_detail_user_id) 
+                                VALUES (?, ?, ?)
+                            ";
+                            $statement = $dbConnection->prepare($query);
                             $statement->execute([guidv4(), $code, $row['user_id']]);
 
                             $_SESSION['flash_success'] = 'Sign in code sent to your email 👨‍💻.';

@@ -32,9 +32,15 @@
             $statement = $dbConnection->prepare($sql);
             $statement->execute([
                 ':login_detail_code' => $postCode,
-                ':login_detail_user_id' => $row['user_id']
+                ':login_detail_user_id' => $row[0]['user_id']
             ]);
             $results = $statement->fetchAll();
+            if (!is_array($result) && count($result) == 0) {
+                unset($_SESSION['LVNLC']);
+                unset($_SESSION['LVE']);
+                $_SESSION['flash_error'] = 'There was a problem with login code, please try again 🤦‍♂️!';
+                redirect(PROOT . 'auth/signin');
+            }
             $result = $results ?? '';
             dnd($result);
 
@@ -46,8 +52,6 @@
                 if ($expired) {
                     $errors = '<div class="alert alert-secondary" role="alert">Your code has expired. Please try again.</div>';
                 } else {
-                    // $_SESSION['password_reset_code_verified'] = $code;
-                    // redirect(PROOT . 'store/reset-password');
                     if (empty($errors)) {
                         if ($row[0]['user_trash'] == 0) {
                             $user_id = $row[0]['user_id'];
