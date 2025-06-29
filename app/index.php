@@ -10,7 +10,13 @@
 
     $title = 'Dashboard - Lavina - Namibra';
     $body_class = "bg-secondary";
-    
+
+    // Check if sound should play
+    $playSound = false;
+    if (!isset($_SESSION['sound_played'])) {
+        $_SESSION['sound_played'] = true;
+        $playSound = true;
+    }
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
@@ -196,6 +202,8 @@
             msg.rate = 1;
             msg.lang = 'en-US';
             speechSynthesis.speak(msg);
+
+            $('.page-loading').removeClass('active')
         }
     </script>
 <?php endif; ?>

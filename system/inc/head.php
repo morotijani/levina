@@ -1,13 +1,3 @@
-<?php
-
-    // Check if sound should play
-    $playSound = false;
-    if (!isset($_SESSION['sound_played'])) {
-        $_SESSION['sound_played'] = true;
-        $playSound = true;
-    }
-
-?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <head>
