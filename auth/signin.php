@@ -1,6 +1,7 @@
 <?php
     
     require ('../system/DatabaseConnector.php');
+    dnd($_SESSION);
     if (user_is_logged_in()) {
         redirect(PROOT . 'app/');
     }

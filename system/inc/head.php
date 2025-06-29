@@ -1,10 +1,12 @@
 <?php
- // Check if sound should play
+
+    // Check if sound should play
     $playSound = false;
     if (!isset($_SESSION['sound_played'])) {
         $_SESSION['sound_played'] = true;
         $playSound = true;
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
@@ -163,7 +165,15 @@
 </head>
 
 <!-- Body --> 
-<body class="<?= $body_class; ?>">
+<body class="<?= $body_class; ?>" 
+    <?php 
+        if (user_is_logged_in() && $playSound) {
+            echo 'onload="playWelcomeSound()"';
+        } else {
+            echo 'naa';
+        }
+    ?>
+>
 
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5TPMX83M" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

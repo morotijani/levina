@@ -14,9 +14,8 @@
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
-?>
-<body class="<?= $body_class; ?>" <?= (($playSound) ? 'onload="playWelcomeSound()"' : 'naa'); ?>>
 
+?>
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
                 <h1 class="h2 mb-4">Overview</h1>
