@@ -14,14 +14,15 @@
         $errors = '';
         if ($_POST) {
             $postCode = sanitize($_POST['code1'] . $_POST['code2'] . $_POST['code3'] . $_POST['code4'] . $_POST['code5'] . $_POST['code6']);
-            $now = date("Y-m-d H:i:s");
+            $a = date("Y-m-d H:i:s");
+            $now = date("Y-m-d H:i:s", strtotime($a . " -2 hours"));
 
             // validation
 			if (empty($postCode)) {
 				$errors = '<div class="alert alert-danger" role="alert">Please enter your 6 digit code.</div>';
 			}
 
-            // gget user details for login
+            // get user details for login
             $row = $dbConnection->query('SELECT user_id, user_trash FROM levina_users WHERE user_email = "'.$storedEmail.'"')->fetchAll();
 
             // login code details
@@ -35,14 +36,16 @@
                 ':login_detail_user_id' => $row[0]['user_id']
             ]);
             $results = $statement->fetchAll();
-            if (!is_array($result) && count($result) == 0) {
+            if ($statement->rowCount() < 1) {
                 unset($_SESSION['LVNLC']);
                 unset($_SESSION['LVE']);
+
                 $_SESSION['flash_error'] = 'There was a problem with login code, please try again 🤦‍♂️!';
                 redirect(PROOT . 'auth/signin');
             }
-            $result = $results ?? '';
-            dnd($result);
+            $result = $results[0] ?? '';
+            // echo $now;
+            // dnd($results);
 
             $expireTime = date("Y-m-d H:i:s", strtotime($result['createdAt'] . " +10 minutes"));
             $expired = strtotime($now) > strtotime($expireTime); 
@@ -50,9 +53,16 @@
             if ($postCode == $storedOtp) {
 
                 if ($expired) {
-                    $errors = '<div class="alert alert-secondary" role="alert">Your code has expired. Please try again.</div>';
+                    $errors = '<div class="alert alert-danger" role="alert">Your code has expired. Please <a href="signin">try again</a>.</div>';
+                    
+                    unset($_SESSION['LVNLC']);
+                    unset($_SESSION['LVE']);
                 } else {
-                    if (empty($errors)) {
+                    if (empty($errors) || $errors == '') {
+                        
+                        unset($_SESSION['LVNLC']);
+                        unset($_SESSION['LVE']);
+
                         if ($row[0]['user_trash'] == 0) {
                             $user_id = $row[0]['user_id'];
                             userLogin($user_id);
@@ -60,7 +70,6 @@
                             $errors = '<div class="alert alert-danger" role="alert">User account Terminated!</div>';
                         }
                     }
-                    // echo json_encode(["success" => true, "message" => "OTP verified!"]);
                 }
             } else {
                 $errors = '<div class="alert alert-danger" role="alert">Invalid OTP.</div>';
@@ -88,9 +97,9 @@
                 <h1 class="pt-3 pb-2 pb-lg-3">Enter the verification code</h1>
                 <p class="pb-2">An email containing a 6-digit verification code has been sent to the email address - <?=  maskEmail($storedEmail); ?>
                 <P class="fs-10 mb-5">Don’t have access? <a href="#!">Use another method</a></P>
+                <?= $errors; ?>
                 <div class="card border-0 bg-primary" data-bs-theme="dark">
                     <form class="card-body verification-form" method="POST" data-2fa-form="data-2fa-form">
-						<?= $errors; ?>
                         <div class="mb-4">
                             <div class="position-relative">
                             <div class="d-flex align-items-center gap-2 mb-3">
