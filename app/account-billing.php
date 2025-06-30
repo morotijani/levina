@@ -28,13 +28,30 @@
         dnd($_POST);
 
         if ($method == 'mm') {
-            mm_type
-            mm_name
-            mm_number
+            $data = [$method, $mm_type, $mm_name, $mm_number, $user_id];
+            $sql = "
+                INSERT INTO levina_payment_method (payment_method, payment_method_mobile, payment_method_name, payment_method_number, payment_method_user_id) 
+                VALUES (?, ?, ?, ?, ?)
+            ";
         } else if ($method == 'pp') { 
-        
+            $data = [$method, $pp_name, $pp_email, $user_id];
+            $sql = "
+                INSERT INTO levina_payment_method (payment_method, payment_method_name, payment_method_email, payment_method_user_id) 
+                VALUES (?, ?, ?, ?)
+            ";
         } else if ($method == 'cc') { 
-        
+            $data = [$method, $pp_name, $pp_email, $user_id];
+            $sql = "
+                INSERT INTO levina_payment_method (payment_method, payment_method_name, payment_method_number, payment_method_expdate, payment_method_cvv, payment_method_user_id) 
+                VALUES (?, ?, ?, ?, ?, ?)
+            ";
+        }
+        $statement = $dbConnection->query($sql);
+        $result = $statement->execute($data);
+
+        if ($result) {
+            $_SESSION['flash_success'] = 'New payment method added 🤞.';
+            redirect(PROOT . 'app/account-billing');
         }
     }
     
