@@ -10,6 +10,35 @@
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
+
+    //
+    $post = cleanPost($_POST);
+    $mm_type = ((isset($_POST['mm_type']) && !empty(['mm_type'])) ? $post['mm_type']: '');
+    $mm_name = ((isset($_POST['mm_name']) && !empty(['mm_name'])) ? $post['mm_name']: '');
+    $mm_number = ((isset($_POST['mm_number']) && !empty(['mm_number'])) ? $post['mm_number']: '');
+    $cc_name = ((isset($_POST['cc_name']) && !empty(['cc_name'])) ? $post['cc_name']: '');
+    $cc_number = ((isset($_POST['cc_number']) && !empty(['cc_number'])) ? $post['cc_number']: ''); 
+    $cc_expiration = ((isset($_POST['cc_expiration']) && !empty(['cc_expiration'])) ? $post['cc_expiration']: ''); 
+    $cc_cvv = ((isset($_POST['cc_cvv']) && !empty(['cc_cvv'])) ? $post['cc_cvv']: '');
+    $pp_name = ((isset($_POST['pp_name']) && !empty(['pp_name'])) ? $post['pp_name']: ''); 
+    $pp_email = ((isset($_POST['pp_email']) && !empty(['pp_email'])) ? $post['pp_email']: '');
+    if (isset($_POST['method']) && !empty($_POST['method'])) {
+        $method = $post['method'];
+
+        dnd($_POST);
+
+        if ($method == 'mm') {
+            mm_type
+            mm_name
+            mm_number
+        } else if ($method == 'pp') { 
+        
+        } else if ($method == 'cc') { 
+        
+        }
+    }
+    
+
 ?>
 
             <!-- Add payment card modal -->
@@ -20,7 +49,7 @@
                             <h4 class="modal-title">Add new payment method</h4>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form class="modal-body pt-0" id="methodForm">
+                        <form class="modal-body pt-0" id="methodForm" method="POST">
                             <div class="mb-4">
                                 <label class="form-label" for="card-name">Select payment method</label>
                                 <select class="form-select" type="text" required id="method" name="method">
@@ -37,19 +66,19 @@
                                     <label class="form-label" for="card-name">Mobile Money type</label>
                                     <select class="form-select" type="text" required id="mm_type" name="mm_type">
                                         <option value="" selected></option>
-                                        <option value="mtn">MTN Money Mobile</option>
-                                        <option value="airteltigo">AirtelTigo Money</option>
-                                        <option value="telecel">Telecel Cash</option>
+                                        <option value="mtn" <?= (($mm_type == 'mtn') ? 'selected' : ''); ?>>MTN Money Mobile</option>
+                                        <option value="airteltigo" <?= (($mm_type == 'airteltigo') ? 'selected' : ''); ?>>AirtelTigo Money</option>
+                                        <option value="telecel" <?= (($mm_type == 'telecel') ? 'selected' : ''); ?>>Telecel Cash</option>
                                     </select>
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="card-name">Name on number</label>
-                                    <input class="form-control" type="text" placeholder="Hamza Zero" required id="mm_name" name="mm_name">
+                                    <input class="form-control" type="text" placeholder="Hamza Zero" required id="mm_name" name="mm_name" value="<?= $mm_name; ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="card-number">Momo number</label>
                                     <div class="input-group">
-                                        <input class="form-control" type="text" data-format='{"creditCard": true}' placeholder="XXXX XXXX XXXX XXXX" required id="mm_number" name="mm_number">
+                                        <input class="form-control" type="tel" data-format='{"numericOnly": true, "delimiters": ["+233 ", " ", " "], "blocks": [0, 3, 3, 2]}' placeholder="+233 ___ ___ __" required id="mm_number" name="mm_number" value="<?= $mm_number; ?>">
                                         <div class="input-group-text py-0">
                                             <div class="credit-card-icon"></div>
                                         </div>
@@ -61,12 +90,12 @@
                             <div id="crca" class="d-none">
                                 <div class="mb-4">
                                     <label class="form-label" for="card-name">Name on card</label>
-                                    <input class="form-control" type="text" placeholder="Hamza Zero" required id="cc_name" name="cc_name">
+                                    <input class="form-control" type="text" placeholder="Hamza Zero" required id="cc_name" name="cc_name" value="<?= $cc_name; ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="card-number">Card number</label>
                                     <div class="input-group">
-                                        <input class="form-control" type="text" data-format='{"creditCard": true}' placeholder="XXXX XXXX XXXX XXXX" required id="cc_number" name="cc_number">
+                                        <input class="form-control" type="text" data-format='{"creditCard": true}' placeholder="XXXX XXXX XXXX XXXX" required id="cc_number" name="cc_number" value="<?= $cc_number; ?>">
                                         <div class="input-group-text py-0">
                                             <div class="credit-card-icon"></div>
                                         </div>
@@ -88,12 +117,12 @@
                             <div id="papa" class="d-none">
                                 <div class="mb-4">
                                     <label class="form-label" for="card-name">Name</label>
-                                    <input class="form-control" type="text" name="pp_name" placeholder="Hamza Zero" required id="pp_name">
+                                    <input class="form-control" type="text" name="pp_name" placeholder="Hamza Zero" required id="pp_name" value="<?= $pp_name; ?>">
                                 </div>
                                 <div class="mb-4">
                                     <label class="form-label" for="card-number">Email</label>
                                     <div class="input-group">
-                                        <input class="form-control" type="email" placeholder="name@email.com" required id="pp_email" name="pp_email">
+                                        <input class="form-control" type="email" placeholder="name@email.com" required id="pp_email" name="pp_email" value="<?= $pp_email; ?>">
                                         <div class="input-group-text py-0">
                                             <div class="credit-card-icon"></div>
                                         </div>
@@ -470,5 +499,7 @@ $('#save').on('click', function() {
             return false
         }
     }
+
+    $('#methodForm').submit()
 })
 </script>
