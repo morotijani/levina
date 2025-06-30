@@ -11,6 +11,18 @@
     require ('inc/header.php');
     require ('inc/left.nav.php');
 
+    // get all payment methods for user
+    $query = "
+        SELECT * FROM levina_payment_methods 
+        WHERE payment_method_user_id = ? 
+        AND payment_method_status = ? 
+        ORDER BY createdAt DESC
+    ";
+    $statement = $dbConnection->prepare($query);
+    $statement->execute([$user_id, 0]);
+    $counts = $statement->rowCount();
+    $rows = $statement->fetchAll();
+
     //
     $post = cleanPost($_POST);
     $mm_type = ((isset($_POST['mm_type']) && !empty(['mm_type'])) ? $post['mm_type']: '');
@@ -25,28 +37,26 @@
     if (isset($_POST['method']) && !empty($_POST['method'])) {
         $method = $post['method'];
 
-        dnd($_POST);
-
         if ($method == 'mm') {
             $data = [$method, $mm_type, $mm_name, $mm_number, $user_id];
             $sql = "
-                INSERT INTO levina_payment_method (payment_method, payment_method_mobile, payment_method_name, payment_method_number, payment_method_user_id) 
+                INSERT INTO levina_payment_methods (payment_method, payment_method_mobile, payment_method_name, payment_method_number, payment_method_user_id) 
                 VALUES (?, ?, ?, ?, ?)
             ";
         } else if ($method == 'pp') { 
             $data = [$method, $pp_name, $pp_email, $user_id];
             $sql = "
-                INSERT INTO levina_payment_method (payment_method, payment_method_name, payment_method_email, payment_method_user_id) 
+                INSERT INTO levina_payment_methods (payment_method, payment_method_name, payment_method_email, payment_method_user_id) 
                 VALUES (?, ?, ?, ?)
             ";
         } else if ($method == 'cc') { 
-            $data = [$method, $pp_name, $pp_email, $user_id];
+            $data = [$method, $cc_name, $cc_number, $cc_expiration, $cc_cvv, $user_id];
             $sql = "
-                INSERT INTO levina_payment_method (payment_method, payment_method_name, payment_method_number, payment_method_expdate, payment_method_cvv, payment_method_user_id) 
+                INSERT INTO levina_payment_methods (payment_method, payment_method_name, payment_method_number, payment_method_expdate, payment_method_cvv, payment_method_user_id) 
                 VALUES (?, ?, ?, ?, ?, ?)
             ";
         }
-        $statement = $dbConnection->query($sql);
+        $statement = $dbConnection->prepare($sql);
         $result = $statement->execute($data);
 
         if ($result) {
@@ -250,11 +260,13 @@
                         </div>
                         <div class="row row-cols-1 row-cols-md-2 g-4">
 
+                            <?php if ($counts > 0 ): ?>
+                                <?php foreach($rows as $row): ?>
                             <!-- Payment method (primary) -->
                             <div class="col">
                                 <div class="card h-100 rounded-3 p-3 p-sm-4">
                                     <div class="d-flex align-items-center pb-2 mb-1">
-                                        <h3 class="h6 text-nowrap text-truncate mb-0">Isabella Bocouse</h3>
+                                        <h3 class="h6 text-nowrap text-truncate mb-0"><?= ucwords($row["payment_method_name"]); ?></h3>
                                         <span class="badge bg-primary bg-opacity-10 text-primary fs-xs ms-3">Primary</span>
                                         <div class="d-flex ms-auto">
                                             <button class="nav-link fs-xl fw-normal py-1 pe-0 ps-1 ms-2" type="button" data-bs-toggle="tooltip" title="Edit" aria-label="Edit">
@@ -277,6 +289,10 @@
                                     </div>
                                 </div>
                             </div>
+                                <?php endforeach; ?>
+                            <?php else: ?> 
+
+                            <?php endif; ?>
 
                             <!-- Payment method -->
                             <div class="col">
