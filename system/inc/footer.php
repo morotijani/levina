@@ -19,7 +19,7 @@
 
     <script>
 		// Fade out messages 
-		$("#temporary").fadeOut(5000);
+		$("#temporary").fadeOut(10000);
 
         // Get the current URL
         var currentUrl = window.location.href;
