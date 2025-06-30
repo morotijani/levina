@@ -14,7 +14,7 @@
     $product_description = ((isset($_POST['product_description']) && !empty($_POST['product_description']))?$_POST['product_description']:'');
     $product_image = '';
     $image_name = '';
-    $product_added_by = 1;// $admin_id;
+    $product_added_by = '95fafdbc-c55b-4d12-bfdc-968506621se5';// $admin_id;
     $product_url = php_url_slug($product_name);
 
     // Fetch Product details on edit
@@ -146,6 +146,10 @@
             }
 
             if (empty($message)) {
+                $pID = guidv4();
+                if (isset($_GET['edit']) && !empty($_GET['edit'])) {
+                    $pID = $edit_id;
+                }
                 $data = array(
                         ':product_name'         => $product_name,
                         ':product_list_price'   => $product_list_price,
@@ -153,19 +157,20 @@
                         ':product_image'        => $insert_image_name,
                         ':product_description'  => $product_description,
                         ':product_added_by'     => $product_added_by,
-                        ':product_url'          => $product_url
+                        ':product_url'          => $product_url, 
+                        ':product_id'           => $pID
                 );
                 if (isset($_GET['edit']) && !empty($_GET['edit'])) {
-                    $dataOne = array(
-                        ':product_id' => $edit_id
-                    );
-                    $mergeData = array_merge($data, $dataOne);
+                    // $dataOne = array(
+                    //     ':product_id' => $edit_id
+                    // );
+                    //$mergeData = array_merge($data, $dataOne);
                     $updateQ = "
                         UPDATE levina_products 
                         SET product_name = :product_name, product_list_price = :product_list_price, product_price = :product_price, product_image = :product_image, product_description = :product_description, product_added_by = :product_added_by, product_url = :product_url  
                         WHERE product_id = :product_id";
                     $statement = $dbConnection->prepare($updateQ);
-                    $resultQ = $statement->execute($mergeData);
+                    $resultQ = $statement->execute($data);
                     if (isset($resultQ)) {
                       $_SESSION['flash_success'] = ucwords($row["product_name"]) .' successfully Updated!';
                      redirect(PROOT . 'admin/products');
@@ -173,8 +178,8 @@
                 } else {
                     
                     $query = "
-                        INSERT INTO `levina_products`(`product_name`, `product_list_price`, `product_price`, `product_image`, `product_description`, `product_added_by`, `product_url`) 
-                        VALUES (:product_name, :product_list_price, :product_price, :product_image, :product_description, :product_added_by, :product_url)
+                        INSERT INTO `levina_products`(`product_name`, `product_list_price`, `product_price`, `product_image`, `product_description`, `product_added_by`, `product_url`, `product_id`) 
+                        VALUES (:product_name, :product_list_price, :product_price, :product_image, :product_description, :product_added_by, :product_url, :product_id)
                     ";
                     $statement = $dbConnection->prepare($query);
                     $result = $statement->execute($data);
@@ -382,21 +387,22 @@
             </form>
             <?php else: ?>
 
-                <h2>Section title</h2> 
+                <!-- <h2>Section title</h2>  -->
                 <div class="table-responsive small"> 
-                    <table class="table table-striped table-sm"> 
+                    <table class="table table-striped table-bordered table-lg"> 
                         <thead> 
                             <tr> 
                                 <th scope="col">#</th> 
-                                <th scope="col">Header</th> 
-                                <th scope="col">Header</th> 
-                                <th scope="col">Header</th> 
-                                <th scope="col">Header</th> 
+                                <th scope="col">Name</th> 
+                                <th scope="col">Amount</th> 
+                                <th scope="col">Added by</th> 
+                                <th scope="col">Date</th>
+                                <th>Options</th>
+                                <th>Options</th>
                             </tr> 
                         </thead> 
                         <tbody> 
-                            <tr> 
-                                <td>1,001</td> <td>random</td> <td>data</td> <td>placeholder</td> <td>text</td> </tr> <tr> <td>1,002</td> <td>placeholder</td> <td>irrelevant</td> <td>visual</td> <td>layout</td> </tr> <tr> <td>1,003</td> <td>data</td> <td>rich</td> <td>dashboard</td> <td>tabular</td> </tr> <tr> <td>1,003</td> <td>information</td> <td>placeholder</td> <td>illustrative</td> <td>data</td> </tr> <tr> <td>1,004</td> <td>text</td> <td>random</td> <td>layout</td> <td>dashboard</td> </tr> <tr> <td>1,005</td> <td>dashboard</td> <td>irrelevant</td> <td>text</td> <td>placeholder</td> </tr> <tr> <td>1,006</td> <td>dashboard</td> <td>illustrative</td> <td>rich</td> <td>data</td> </tr> <tr> <td>1,007</td> <td>placeholder</td> <td>tabular</td> <td>information</td> <td>irrelevant</td> </tr> <tr> <td>1,008</td> <td>random</td> <td>data</td> <td>placeholder</td> <td>text</td> </tr> <tr> <td>1,009</td> <td>placeholder</td> <td>irrelevant</td> <td>visual</td> <td>layout</td> </tr> <tr> <td>1,010</td> <td>data</td> <td>rich</td> <td>dashboard</td> <td>tabular</td> </tr> <tr> <td>1,011</td> <td>information</td> <td>placeholder</td> <td>illustrative</td> <td>data</td> </tr> <tr> <td>1,012</td> <td>text</td> <td>placeholder</td> <td>layout</td> <td>dashboard</td> </tr> <tr> <td>1,013</td> <td>dashboard</td> <td>irrelevant</td> <td>text</td> <td>visual</td> </tr> <tr> <td>1,014</td> <td>dashboard</td> <td>illustrative</td> <td>rich</td> <td>data</td> </tr> <tr> <td>1,015</td> <td>random</td> <td>tabular</td> <td>information</td> <td>text</td> </tr> 
+                            <?= get_all_product(0); ?>
                         </tbody> 
                     </table> 
                 </div> 

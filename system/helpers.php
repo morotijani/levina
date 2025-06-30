@@ -69,7 +69,7 @@ function admin_login_redirect($url = 'xd192/logout') {
 
 // GET ALL PRODUCTS WHERE TRASH = 0
 function get_all_product($product_trash = '') {
-	global $conn;
+	global $dbConnection;
 	$output = '';
 
 	$query = "
@@ -79,10 +79,8 @@ function get_all_product($product_trash = '') {
 		WHERE levina_products.product_trash = :product_trash 
 		ORDER BY levina_products.id DESC
 	";
-	$statement = $conn->prepare($query);
-	$statement->execute([
-		':product_trash' 	=> $product_trash,
-	]);
+	$statement = $dbConnection->prepare($query);
+	$statement->execute([':product_trash' => $product_trash]);
 	$count_products = $statement->rowCount();
 	$result = $statement->fetchAll();
 
@@ -93,16 +91,15 @@ function get_all_product($product_trash = '') {
 				<tr>
 					<td>' . $i . '</td>
 					<td>' . ucwords($row["product_name"]) . '</td>
-					<td>' . ucwords($row["category"]) . '</td>
 					<td>' . money($row["product_price"]) . '</td>
 					<td>' . ucwords($row["admin_fullname"]) . '</td>
-					<td>' . pretty_date($row["product_added_date"]) . '</td>
+					<td>' . pretty_date($row["createdAt"]) . '</td>
 				';
 				if ($product_trash == 0) {
 					$output .= '
 						<td>
 							<a href="' . PROOT . 'admin/products?featured='.(($row['product_featured'] == 0)? "1" : "0") . '&id='.$row["product_id"].'" class="btn btn-sm btn-light">
-								<span data-feather="' . (($row['product_featured'] == 0) ? "plus" : "minus").'"></span> ' . (($row['product_featured'] == 0)?"" : "Featured product").'
+								<i class="bi bi-' . (($row['product_featured'] == 0) ? "plus" : "dash").'-circle-fill"></i> ' . (($row['product_featured'] == 0)?"" : "Featured product").'
 							</a>
 						</td>
 						<td>
@@ -116,13 +113,13 @@ function get_all_product($product_trash = '') {
 				}
 				if ($product_trash == 1) {
 					$output .= '
-						<a href="'.PROOT.'admin/products?permanent_delete='.$row["product_id"].'&upload_product_image_name='.$row["product_image"].'" class="btn btn-sm btn-outline-primary"><span data-feather="trash"></span></a>&nbsp;
-                        <a href="'.PROOT.'admin/products?restore='.$row["product_id"].'" class="btn btn-sm btn-outline-danger"><span data-feather="refresh-cw"></span></a>&nbsp;
+						<a href="'.PROOT.'admin/products?permanent_delete='.$row["product_id"].'&upload_product_image_name='.$row["product_image"].'" class="btn btn-sm btn-outline-primary"><i class="bi bi-trash3"></i></a>&nbsp;
+                        <a href="'.PROOT.'admin/products?restore='.$row["product_id"].'" class="btn btn-sm btn-outline-danger"><i class="bi bi-recycle"></i></a>&nbsp;
 					';
 				} else {
 					$output .= '
-							<a href="'.PROOT.'admin/products?edit='.$row["product_id"].'" class="btn btn-sm btn-info"><span data-feather="edit-2"></span></a>
-							<a href="'.PROOT.'admin/products?delete='.$row["product_id"].'" class="btn btn-sm btn-secondary"><span data-feather="trash-2"></span></a>
+							<a href="'.PROOT.'admin/products?edit='.$row["product_id"].'" class="btn btn-sm btn-info"><i class="bi bi-pencil"></i></a>
+							<a href="'.PROOT.'admin/products?delete='.$row["product_id"].'" class="btn btn-sm btn-secondary"><i class="bi bi-trash3"></i></a>
 						';
 				}
 				$output .= '
@@ -134,7 +131,7 @@ function get_all_product($product_trash = '') {
 	} else {
 		$output = '
 			<tr>
-				<td colspan="9">No products found in the database...</h3></td>
+				<td colspan="9">No products found in the database.</h3></td>
 			</tr>
 		';
 	}
