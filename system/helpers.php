@@ -47,12 +47,26 @@ function admin_login_redirect($url = 'xd192/logout') {
 
 // get user details by id
 function get_id_details($dbConnection, $id) {
-	$statement = $dbConnection->query("SELECT * FROM xpto_users WHERE user_id = '" . $id . "'")->fetch(PDO::FETCH_ASSOC);
+	$statement = $dbConnection->query("SELECT * FROM levina_users WHERE user_id = '" . $id . "'")->fetch(PDO::FETCH_ASSOC);
 	return $statement;
 }
 
  // count transactions by a user
  function count_user_transactions($dbConnection, $id) {
-	$statement = $dbConnection->query("SELECT * FROM xpto_transactions WHERE transaction_by = '" . $id . "'")->rowCount();
+	$statement = $dbConnection->query("SELECT * FROM levina_transactions WHERE transaction_by = '" . $id . "'")->rowCount();
+	return $statement;
+ }
+
+ // get list of products
+ function count_products() {
+	global $dbConnection;
+	$statement = $dbConnection->query("SELECT * FROM levina_products WHERE product_trash = 0")->rowCount();
+	return $statement;
+ }
+ 
+// get list of products
+function get_products() {
+	global $dbConnection;
+	$statement = $dbConnection->query("SELECT * FROM levina_products WHERE product_trash = 0 ORDER BY createdAt DESC")->fetchAll(PDO::FETCH_ASSOC);
 	return $statement;
  }

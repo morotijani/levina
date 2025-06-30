@@ -10,23 +10,25 @@
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
+
+
 ?>
 
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
                 <div class="d-flex align-items-center mb-4">
-                    <h1 class="h2 mb-0">Resources <span class="fs-base fw-normal text-body-secondary">(6 products)</span></h1>
-                    <button class="btn btn-sm btn-outline-primary ms-auto" type="button">
+                    <h1 class="h2 mb-0">Resources <span class="fs-base fw-normal text-body-secondary">(<?= count_products(); ?> products)</span></h1>
+                    <a class="btn btn-sm btn-outline-primary ms-auto" href="<?= PROOT; ?>app/resources">
                         <i class="ai-rotate-left ms-n1 me-2"></i>
                         Refresh
-                    </button>
+                    </a>
                 </div>
                 <div class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
                     <div class="card-body pb-4">
                         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
 
                             <!-- Item -->
-                            <div class="col pb-2 pb-sm-3">
+                            <!-- <div class="col pb-2 pb-sm-3">
                                 <div class="card-hover position-relative bg-secondary rounded-1 p-3 mb-4">
                                     <button class="btn btn-icon btn-sm btn-light bg-light border-0 rounded-circle position-absolute top-0 end-0 mt-3 me-3 z-5 opacity-0" type="button" aria-label="Remove">
                                         <i class="ai-show fs-xl text-dark"></i>
@@ -58,7 +60,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- Item -->
                             <div class="col pb-2 pb-sm-3">
@@ -118,7 +120,7 @@
                             </div>
 
                             <!-- Item -->
-                            <div class="col pb-2 pb-sm-3">
+                            <!-- <div class="col pb-2 pb-sm-3">
                                 <div class="card-hover position-relative bg-secondary rounded-1 p-3 mb-4">
                                     <button class="btn btn-icon btn-sm btn-light bg-light border-0 rounded-circle position-absolute top-0 end-0 mt-3 me-3 z-5 opacity-0" type="button" aria-label="Remove">
                                         <i class="ai-show fs-xl text-dark"></i>
@@ -170,7 +172,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
