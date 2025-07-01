@@ -18,7 +18,7 @@
 
         // Storing google recaptcha response
         // in $recaptcha variable
-        $recaptcha = $_POST['g-recaptcha-response'];
+        $recaptcha = (isset($_POST['g-recaptcha-response'])) ? $_POST['g-recaptcha-response'] : '';
     
         // Hitting request to the URL, Google will
         // respond with success or error scenario

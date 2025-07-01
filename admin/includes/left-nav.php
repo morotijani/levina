@@ -24,8 +24,13 @@
                                 </a> 
                             </li> 
                             <li class="nav-item"> 
-                                <a class="nav-link d-flex align-items-center gap-2" href="#"> 
-                                    <svg class="bi" aria-hidden="true"><use xlink:href="#people"></use></svg>Customers
+                                <a class="nav-link d-flex align-items-center gap-2" href="<?= PROOT; ?>admin/users"> 
+                                    <svg class="bi" aria-hidden="true"><use xlink:href="#people"></use></svg>Users
+                                </a> 
+                            </li> 
+                            <li class="nav-item"> 
+                                <a class="nav-link d-flex align-items-center gap-2" href="<?= PROOT; ?>admin/clients"> 
+                                    <svg class="bi" aria-hidden="true"><use xlink:href="#people"></use></svg>Clients
                                 </a> 
                             </li> 
                             <li class="nav-item"> 
