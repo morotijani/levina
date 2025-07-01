@@ -29,6 +29,36 @@
         redirect(PROOT . 'app/resources');
     }
 
+
+    //
+    if (isset($_POST['add_lead'])) {
+        $post = cleanPost($_POST);
+
+        $name = $post['name'];
+        $email = $post['email'];
+        $company = $post['company'];
+        $website = $post['website']; 
+        $contact_number = $post['contact_number'];
+        $description = $post['description']; 
+        $lead_added_by = $user_id;
+
+        $sql = "
+            INSERT INTO levina_leads (leads_id, lead_name, lead_email, lead_company, lead_website, lead_number, lead_note, lead_product, lead_added_by) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ";
+        $statement = $dbConnection->prepare($sql);
+        $result = $statement->execute([
+            guidv4(), $name, $email, $company, $website, $contact_number, $description, $row->product_id, $lead_added_by
+        ]);
+
+        if (isset($result)) {
+            $_SESSION['flash_success'] = 'You\ve successfully added a new lead 🤞.';
+            redirect(PROOT . 'app/resources');
+        } else {
+            $_SESSION['flash_error'] = 'Something went wrong, please try again 💔.';
+            redirect(PROOT . 'app/resources');
+        }
+    }
 ?>
 
     <link rel="stylesheet" media="screen" href="<?= PROOT; ?>assets/css/swiper-bundle.min.css">
@@ -42,7 +72,7 @@
                             <h4 class="modal-title">Add New Lead</h4>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form class="modal-body needs-validation pt-0" novalidate>
+                        <form class="modal-body needs-validation pt-0" method="POST" novalidate>
                             <div class="alert alert-warning d-flex mb-4">
                                 <i class="ai-triangle-alert fs-xl me-2"></i>
                                 <p class="mb-0">Adding new lead will boost your chances of gettings high money for <a href="#" class="alert-link">withdrawal</a></p>
@@ -53,8 +83,12 @@
                                     <input class="form-control" type="text" required id="name" name="name">
                                 </div>
                                 <div class="col-md-6">
+                                    <label class="form-label" for="address1">Email</label>
+                                    <input class="form-control" type="text" id="email" name="email">
+                                </div>
+                                <div class="col-md-6">
                                     <label class="form-label" for="address2">Company *</label>
-                                    <input class="form-control" type="text" id="company" name="company">
+                                    <input class="form-control" type="text" id="company" name="company" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="address2">Website</label>
@@ -62,7 +96,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label" for="address2">Contact number *</label>
-                                    <input class="form-control" type="text" id="contact_number" name="contact_number">
+                                    <input class="form-control" type="text" id="contact_number" name="contact_number" required>
                                 </div>
                                 <div class="col-md-12">
                                     <label class="form-label" for="address2">Note</label>
@@ -71,7 +105,7 @@
                             </div>
                             <div class="d-flex flex-column flex-sm-row">
                                 <button class="btn btn-secondary mb-3 mb-sm-0" type="reset" data-bs-dismiss="modal">Cancel</button>
-                                <button class="btn btn-primary ms-sm-3" type="submit">Add lead</button>
+                                <button class="btn btn-primary ms-sm-3" type="submit" name="add_lead">Add lead</button>
                             </div>
                         </form>
                     </div>
