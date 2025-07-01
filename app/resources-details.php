@@ -119,14 +119,16 @@
                     <div class="position-md-sticky top-0 ps-md-4 ps-lg-5 ps-xl-0">
                         <div class="d-none d-md-block" style="padding-top: 90px;"></div>
                         <div class="d-flex align-items-center pt-3 py-3">
-                            <span class="badge bg-danger bg-opacity-10 text-danger d-none d-md-inline-block me-4">Sale</span>
+                            <?php if ($row->product_featured == 1): ?>
+                            <span class="badge bg-danger bg-opacity-10 text-danger d-none d-md-inline-block me-4">Featured</span>
+                            <?php endif; ?>
                             <span class="fs-sm"><?= $row->product_id; ?></span>
                         </div>
-                        <h1 class="d-none d-md-inline-block pb-1 mb-2">Scented candle</h1>
-                        <p class="fs-sm mb-4"><?= $row->product_details; ?></p>
+                        <h1 class="d-none d-md-inline-block pb-1 mb-2"><?= ucwords($row->product_name); ?></h1>
+                        <p class="fs-sm mb-4"><?= $row->product_description; ?></p>
                         <div class="d-none d-md-flex align-items-center pb-3 mb-3">
-                            <div class="h3 mb-0 me-3">$14.00</div>
-                            <?php if ($row->product_list_price != ''): ?>
+                            <div class="h3 mb-0 me-3"><?= money($row->product_price); ?></div>
+                            <?php if ($row->product_list_price != '0.00'): ?>
                             <del class="fs-5 fw-medium text-body-secondary"><?= money($row->product_list_price); ?></del>
                             <?php endif; ?>
                         </div>
@@ -134,11 +136,6 @@
 
                         <!-- Action buttons -->
                         <div class="d-sm-flex d-md-block d-lg-flex py-4 py-md-5 my-3 my-md-0 mt-lg-0 mb-lg-4">
-                            <!-- <div class="count-input bg-gray rounded-3 me-4 mb-3 mb-sm-0 mb-md-3 mb-lg-0">
-                                <button class="btn btn-icon btn-lg fs-xl" type="button" data-decrement>-</button>
-                                <input class="form-control" type="number" value="1" readonly>
-                                <button class="btn btn-icon btn-lg fs-xl" type="button" data-increment>+</button>
-                            </div> -->
                             <div class="d-flex align-items-center">
                                 <button class="btn btn-lg btn-primary w-100 w-lg-auto me-2" type="button"><i class="bi bi-person-add me-2 ms-n1"></i>Add lead</button>
                                 <div class="nav">

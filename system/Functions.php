@@ -56,7 +56,7 @@
 		if ($number != NULL || $number != '') 
 			$output = number_format($number, 2);
 	
-		return '$' . $output;
+		return '₵' . $output;
 	}
 
 	// Check For Incorrect Input Of Data
