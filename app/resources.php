@@ -71,6 +71,26 @@
                             <?php if ($countResources > 0): ?>
                                 <?php 
                                     foreach($resources as $resource): 
+                                        $product_images = explode(",", $resource->product_image);
+                                        if (count($product_images) == 1) {
+                                            $product_image = '
+                                                <a class="swiper-wrapper" href="' . PROOT . 'app/resources'.$resource->product_url.'">
+                                                    <div class="swiper-slide p-2 p-xl-4">
+                                                        <img class="d-block mx-auto" src="' . PROOT . $resource->product_image.'" width="226" alt="Product">
+                                                    </div>
+                                                </a>
+                                            ';
+                                        } else {
+                                            $product_image = '<a class="swiper-wrapper" href="' . PROOT . 'app/resources'.$resource->product_url.'">';
+                                            foreach ($product_images as $pimg) {
+                                                $product_image .= '
+                                                    <div class="swiper-slide p-2 p-xl-4">
+                                                        <img class="d-block mx-auto" src="' . PROOT . $resource->product_image.'" width="226" alt="Product">
+                                                    </div>
+                                                ';
+                                            }
+                                            $product_image .= '</a>';
+                                        }
                                 ?>
                                 
                             <!-- Item -->
@@ -81,11 +101,12 @@
                                         <i class="ai-show fs-xl text-dark"></i>
                                     </button>
                                     <div class="swiper swiper-nav-onhover" data-swiper-options='{"loop": true, "navigation": {"prevEl": ".btn-prev", "nextEl": ".btn-next"}}'>
-                                        <a class="swiper-wrapper" href="shop-single.html">
+                                        <?= $product_image; ?>
+                                        <!-- <a class="swiper-wrapper" href="shop-single.html">
                                             <div class="swiper-slide p-2 p-xl-4">
                                                 <img class="d-block mx-auto" src="<?= PROOT; ?>assets/media/pos.jpeg" width="226" alt="Product">
                                             </div>
-                                        </a>
+                                        </a> -->
                                         <button class="btn btn-prev btn-icon btn-sm btn-light bg-light border-0 rounded-circle start-0" type="button" aria-label="Prev">
                                             <i class="ai-chevron-left fs-xl text-nav"></i>
                                         </button>
