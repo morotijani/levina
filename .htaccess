@@ -2,6 +2,7 @@ RewriteEngine on
 
 RewriteRule ^xd192/delete.transaction/([0-9a-zA-Z-]+)$ xd192/delete.transaction.php?id=$1 [NC,L]
 RewriteRule ^admin/products/([0-9a-zA-Z]+)$ admin/products.php?edit=$1 [NC,L]
+RewriteRule ^app/resources-details/([0-9a-zA-Z_-]+)$ app/resources-details.php?url=$1 [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 
