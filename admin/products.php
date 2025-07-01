@@ -19,7 +19,7 @@
 
     // Fetch Product details on edit
     if (isset($_GET['edit']) && !empty($_GET['edit'])) {
-        $edit_id = sanitize($edit_id);
+        $edit_id = sanitize($_GET['edit']);
 
         $editQ = "
             SELECT * FROM levina_products 
@@ -37,11 +37,10 @@
             // Delete uploaded product image for change
             if (isset($_GET['delete_image']) && !empty($_GET['delete_image'])) {
 
-                $product_img = $_GET['pp'];
                 $imgi = $_GET['delete_image'] - 1;
                 $images = explode(',', $row['product_image']);
 
-                $image_url = $_SERVER['DOCUMENT_ROOT'] . $images[$imgi];
+                $image_url = $_SERVER['DOCUMENT_ROOT'] . '/levina/' . $images[$imgi];
 
                 // delete from directory
                 unlink($image_url);
@@ -72,32 +71,10 @@
             $product_list_price = ((isset($_POST['product_list_price']))?sanitize($_POST['product_list_price']):$row['product_list_price']);
             $product_price = ((isset($_POST['product_price']) && $_POST['product_price'] != '')?sanitize($_POST['product_price']):$row['product_price']);
             $product_description = ((isset($_POST['product_description']) && $_POST['product_description'] != '')?$_POST['product_description']:$row['product_description']);
-            $product_sizes = ((isset($_POST['product_sizes']) && $_POST['product_sizes'] != '')?$_POST['product_sizes']:$row['product_sizes']);
             $product_image = (($row['product_image'] != '')?$row['product_image']:'');
             $product_added_by = $row['product_added_by'];
             $product_url = php_url_slug($product_name);
         }
-    }
-
-    if (!empty($product_sizes)) {
-        // code.
-        $sizeString = $product_sizes;
-        $sizeString = rtrim($sizeString, ',');
-        $sizesArray = explode(",", $sizeString);
-
-        $sArray = array();
-        $qArray = array();
-        $tArray = array();
-        foreach ($sizesArray as $ss) {
-            // code...ss (sizes string)
-            $s = explode(":", $ss);
-            $sArray[] = $s[0];
-            $qArray[] = $s[1];
-            $tArray[] = $s[2];
-        }
-    } else {
-        $sizesArray = array();
-        $sizeString = $sizesArray;
     }
 
     // ADD PRODUCT
@@ -172,8 +149,8 @@
                     $statement = $dbConnection->prepare($updateQ);
                     $resultQ = $statement->execute($data);
                     if (isset($resultQ)) {
-                      $_SESSION['flash_success'] = ucwords($row["product_name"]) .' successfully Updated!';
-                     redirect(PROOT . 'admin/products');
+                        $_SESSION['flash_success'] = ucwords($row["product_name"]) .' successfully Updated!';
+                        redirect(PROOT . 'admin/products');
                     }
                 } else {
                     
@@ -276,31 +253,31 @@
         if ($result) {
             if ($featured == 1) {
                 $subscribers = "
-                    SELECT * FROM mifo_subscription
+                    SELECT * FROM levina_users WHERE user_trash = ?
                 ";
                 $statement = $dbConnection->prepare($subscribers);
-                $statement->execute();
+                $statement->execute([0]);
                 $subscribers_result = $statement->fetchAll();
                 $subscribers_count = $statement->fetchAll();
                 if ($subscribers_count > 0) {
 
                     foreach ($subscribers_result as $subscriber) {
                     
-                        $to = $subscriber['subscription_email'];
-                        $subject = "Products Subscription.";
+                        $to = $subscriber['user_email'];
+                        $subject = "Products Subscription 👌.";
                         $body = "
                             <h3>Dear
-                                {$to},</h3>
+                                " . ucwords($subscriber['user_fullname']) . ",</h3>
                                 <p>
                                     A new product has been featured on Gary Pie Spices Shop. Click this
-                                    <a href=\"http://sites.local/mifo/shop/products/{$product_id}\" target=\"_blank\">link</a> to view it if interested.
-                                </p>
-                                <p>
-                                Sincerely, <br>
-                                Gary Pie Spices.
+                                    <a href=\"https://sites.local/levina/app/resources/{$product_id}\" target=\"_blank\">link</a> to view it if interested.
+                                <br><br>
+                                Best regards,
+                                <br>
+                                - Leviana, Namibra Inc. 🤞
                             </p>
                         ";
-                        $mail_result = send_email($to, $to, $subject, $body);
+                        $mail_result = send_email(ucwords($subscriber['user_fullname']), $to, $subject, $body);
                         if ($mail_result) {
                             redirect(PROOT . 'admin/products');
                         } else {
@@ -410,7 +387,7 @@
 
 
 <?php include('includes/footer.php'); ?>
-    <script src="https://cdn.tiny.cloud/1/87lq0a69wq228bimapgxuc63s4akao59p3y5jhz37x50zpjk/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/87lq0a69wq228bimapgxuc63s4akao59p3y5jhz37x50zpjk/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script type="text/javascript">
     tinymce.init({ 
         selector: 'textarea',
