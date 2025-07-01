@@ -34,6 +34,83 @@
     <link rel="stylesheet" media="screen" href="<?= PROOT; ?>assets/css/swiper-bundle.min.css">
     <link rel="stylesheet" media="screen" href="<?= PROOT; ?>assets/css/lightgallery-bundle.min.css">
 
+            <!-- Add new address modal -->
+            <div class="modal fade" id="addAddress" data-bs-backdrop="static" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header border-0">
+                            <h4 class="modal-title">Add new address</h4>
+                            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form class="modal-body needs-validation pt-0" novalidate>
+                            <div class="alert alert-warning d-flex mb-4">
+                                <i class="ai-triangle-alert fs-xl me-2"></i>
+                                <p class="mb-0">Updating your address may affect your <a href="#" class="alert-link">Tax Location</a></p>
+                            </div>
+                            <div class="row row-cols-1 row-cols-lg-2 g-4 pb-2 pb-sm-3 mb-4">
+                                <div class="col">
+                                    <label class="form-label" for="country">Country</label>
+                                    <select class="form-select" required id="country">
+                                        <option value="" disabled selected>Select a country</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="Belgium">Belgium</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="Denmark">Denmark</option>
+                                        <option value="USA">USA</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="city">City</label>
+                                    <select class="form-select" required id="city">
+                                        <option value="" disabled selected>Select a city</option>
+                                        <option value="Sydney">Sydney</option>
+                                        <option value="Brussels">Brussels</option>
+                                        <option value="Toronto">Toronto</option>
+                                        <option value="Copenhagen">Copenhagen</option>
+                                        <option value="New York">New York</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="state">State</label>
+                                    <select class="form-select" required id="state">
+                                        <option value="" disabled selected>Select a state</option>
+                                        <option value="Arizona">Arizona</option>
+                                        <option value="California">California</option>
+                                        <option value="Florida">Florida</option>
+                                        <option value="Georgia">Georgia</option>
+                                        <option value="Texas">Texas</option>
+                                        <option value="Virginia">Virginia</option>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="address1">Address line 1</label>
+                                    <input class="form-control" type="text" required id="address1">
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="address2">Address line 2</label>
+                                    <input class="form-control" type="text" id="address2">
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="postcode">Post code</label>
+                                    <input class="form-control" type="text" data-format="{&quot;delimiter&quot;: &quot;-&quot;, &quot;blocks&quot;: [3, 4], &quot;uppercase&quot;: true}" placeholder="XXX-XXXX" id="postcode">
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="set-primary">
+                                    <label class="form-check-label text-dark fw-medium" for="set-primary">Set as primary billing address</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-column flex-sm-row">
+                                <button class="btn btn-secondary mb-3 mb-sm-0" type="reset" data-bs-dismiss="modal">Cancel</button>
+                                <button class="btn btn-primary ms-sm-3" type="submit">Add lead</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+
             <!-- Product gallery + Details + Options -->
             <section class="container py-5 mt-5 mb-sm-2 mb-lg-3 mb-xl-4 mb-xxl-5">
 
@@ -133,11 +210,10 @@
                             <?php endif; ?>
                         </div>
 
-
                         <!-- Action buttons -->
                         <div class="d-sm-flex d-md-block d-lg-flex py-4 py-md-5 my-3 my-md-0 mt-lg-0 mb-lg-4">
                             <div class="d-flex align-items-center">
-                                <button class="btn btn-lg btn-primary w-100 w-lg-auto me-2" type="button"><i class="bi bi-person-add me-2 ms-n1"></i>Add lead</button>
+                                <a href="#addAddress" data-bs-toggle="modal" class="btn btn-lg btn-primary w-100 w-lg-auto me-2" type="button"><i class="bi bi-person-add me-2 ms-n1"></i>Add lead</a>
                                 <div class="nav">
                                     <a class="nav-link fs-3 px-3" href="#" data-bs-toggle="tooltip" title="Add to likes" aria-label="Like">
                                         <i class="ai-heart"></i>
