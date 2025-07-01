@@ -160,7 +160,7 @@
         if (user_is_logged_in() && $playSound) {
             echo 'onload="playWelcomeSound()"';
         } else {
-            echo 'naa';
+            echo '';
         }
     ?>
 >

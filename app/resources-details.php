@@ -39,66 +39,34 @@
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header border-0">
-                            <h4 class="modal-title">Add new address</h4>
+                            <h4 class="modal-title">Add New Lead</h4>
                             <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form class="modal-body needs-validation pt-0" novalidate>
                             <div class="alert alert-warning d-flex mb-4">
                                 <i class="ai-triangle-alert fs-xl me-2"></i>
-                                <p class="mb-0">Updating your address may affect your <a href="#" class="alert-link">Tax Location</a></p>
+                                <p class="mb-0">Adding new lead will boost your chances of gettings high money for <a href="#" class="alert-link">withdrawal</a></p>
                             </div>
                             <div class="row row-cols-1 row-cols-lg-2 g-4 pb-2 pb-sm-3 mb-4">
-                                <div class="col">
-                                    <label class="form-label" for="country">Country</label>
-                                    <select class="form-select" required id="country">
-                                        <option value="" disabled selected>Select a country</option>
-                                        <option value="Australia">Australia</option>
-                                        <option value="Belgium">Belgium</option>
-                                        <option value="Canada">Canada</option>
-                                        <option value="Denmark">Denmark</option>
-                                        <option value="USA">USA</option>
-                                    </select>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="address1">Name of Contact Person *</label>
+                                    <input class="form-control" type="text" required id="name" name="name">
                                 </div>
-                                <div class="col">
-                                    <label class="form-label" for="city">City</label>
-                                    <select class="form-select" required id="city">
-                                        <option value="" disabled selected>Select a city</option>
-                                        <option value="Sydney">Sydney</option>
-                                        <option value="Brussels">Brussels</option>
-                                        <option value="Toronto">Toronto</option>
-                                        <option value="Copenhagen">Copenhagen</option>
-                                        <option value="New York">New York</option>
-                                    </select>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="address2">Company *</label>
+                                    <input class="form-control" type="text" id="company" name="company">
                                 </div>
-                                <div class="col">
-                                    <label class="form-label" for="state">State</label>
-                                    <select class="form-select" required id="state">
-                                        <option value="" disabled selected>Select a state</option>
-                                        <option value="Arizona">Arizona</option>
-                                        <option value="California">California</option>
-                                        <option value="Florida">Florida</option>
-                                        <option value="Georgia">Georgia</option>
-                                        <option value="Texas">Texas</option>
-                                        <option value="Virginia">Virginia</option>
-                                    </select>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="address2">Website</label>
+                                    <input class="form-control" type="text" id="website" name="website">
                                 </div>
-                                <div class="col">
-                                    <label class="form-label" for="address1">Address line 1</label>
-                                    <input class="form-control" type="text" required id="address1">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="address2">Contact number *</label>
+                                    <input class="form-control" type="text" id="contact_number" name="contact_number">
                                 </div>
-                                <div class="col">
-                                    <label class="form-label" for="address2">Address line 2</label>
-                                    <input class="form-control" type="text" id="address2">
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="postcode">Post code</label>
-                                    <input class="form-control" type="text" data-format="{&quot;delimiter&quot;: &quot;-&quot;, &quot;blocks&quot;: [3, 4], &quot;uppercase&quot;: true}" placeholder="XXX-XXXX" id="postcode">
-                                </div>
-                                <div class="col">
-                                    <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="set-primary">
-                                    <label class="form-check-label text-dark fw-medium" for="set-primary">Set as primary billing address</label>
-                                    </div>
+                                <div class="col-md-12">
+                                    <label class="form-label" for="address2">Note</label>
+                                    <textarea class="form-control" type="text" id="description" name="description"></textarea>
                                 </div>
                             </div>
                             <div class="d-flex flex-column flex-sm-row">
