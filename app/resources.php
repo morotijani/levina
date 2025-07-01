@@ -11,6 +11,12 @@
     require ('inc/header.php');
     require ('inc/left.nav.php');
 
+    $resourcesQuery = "SELECT * FROM levina_products WHERE product_trash = ?";
+    $statement = $dbConnection->prepare($resourcesQuery);
+    $statement->execute([0]);
+    $countResources = $statement->rowCount();
+    $resources = $statement->fetchAll(PDO::FETCH_OBJ);
+
 
 ?>
 
@@ -62,10 +68,15 @@
                                 </div>
                             </div> -->
 
+                            <?php if ($countResources > 0): ?>
+                                <?php 
+                                    foreach($resources as $resource): 
+                                ?>
+                                
                             <!-- Item -->
                             <div class="col pb-2 pb-sm-3">
                                 <div class="card-hover position-relative bg-secondary rounded-1 p-3 mb-4">
-                                    <span class="badge bg-danger bg-opacity-10 text-danger position-absolute top-0 start-0 mt-3 ms-3">Sale</span>
+                                    <span class="badge bg-success bg-opacity-10 text-success position-absolute top-0 start-0 mt-3 ms-3"><?= (($resource->product_featured == 1) ? 'Featured' : ''); ?></span>
                                     <button class="btn btn-icon btn-sm btn-light bg-light border-0 rounded-circle position-absolute top-0 end-0 mt-3 me-3 z-5 opacity-0" type="button" aria-label="Remove">
                                         <i class="ai-show fs-xl text-dark"></i>
                                     </button>
@@ -85,10 +96,10 @@
                                 </div>
                                 <div class="d-flex mb-1">
                                     <h3 class="h6 mb-0">
-                                        <a href="<?= PROOT; ?>app/resources/pos">POS</a>
+                                        <a href="<?= PROOT; ?>app/resources/pos"><?= ucwords($resource->product_name); ?></a>
                                     </h3>
                                     <div class="d-flex ps-2 mt-n1 ms-auto">
-                                        <div class="ms-1">
+                                        <!-- <div class="ms-1">
                                             <input class="btn-check" type="radio" name="color1" value="Dark gray" checked id="color1-1">
                                             <label class="btn btn-icon btn-xs btn-outline-secondary rounded-circle" for="color1-1">
                                                 <span class="d-block rounded-circle" style="width: .625rem; height: .625rem; background-color: #576071;"></span>
@@ -105,12 +116,12 @@
                                             <label class="btn btn-icon btn-xs btn-outline-secondary rounded-circle" for="color1-3">
                                                 <span class="d-block rounded-circle" style="width: .625rem; height: .625rem; background-color: #a1b7d9;"></span>
                                             </label>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <span class="me-2">₵10000.00</span>
-                                    <del class="fs-sm text-body-secondary">₵12000.00</del>
+                                    <span class="me-2"><?= money($resource->product_price); ?></span>
+                                    <?= (($resource->product_list_price != '') ? '<del class="fs-sm text-body-secondary">' . money($resource->product_list_price) . '</del>': ''); ?>
                                     <div class="nav ms-auto" data-bs-toggle="tooltip" data-bs-template="<div class='tooltip fs-xs' role='tooltip'><div class='tooltip-inner bg-light text-body-secondary p-0'></div></div>" data-bs-placement="left" title="Add a lead">
                                         <a class="nav-link fs-lg py-2 px-1" href="#" aria-label="Add a lead">
                                             <i class="ai-user-plus"></i>
@@ -118,6 +129,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <?php endforeach; ?>
+                            <?php else: ?>
+                                nothing found
+                            <?php endif; ?>
 
                             <!-- Item -->
                             <!-- <div class="col pb-2 pb-sm-3">
