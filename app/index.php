@@ -36,6 +36,7 @@
     $method_row = $method_rows[0] ?? null;
 
 ?>
+
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
                 <h1 class="h2 mb-4">Overview</h1>
@@ -46,16 +47,16 @@
                         <div class="d-flex align-items-center mt-sm-n1 pb-4 mb-0 mb-lg-1 mb-xl-3">
                             <i class="ai-user text-primary lead pe-1 me-2"></i>
                             <h2 class="h4 mb-0">Basic info</h2>
-                            <a class="btn btn-sm btn-secondary ms-auto" href="account-settings.html">
+                            <a class="btn btn-sm btn-secondary ms-auto" href="<?= PROOT; ?>app/account-settings">
                                 <i class="ai-edit ms-n1 me-2"></i>
                                 Edit info
                             </a>
                         </div>
                         <div class="d-md-flex align-items-center">
                             <div class="d-sm-flex align-items-center">
-                                <div class="rounded-circle bg-size-cover bg-position-center flex-shrink-0" style="width: 80px; height: 80px; background-image: url(<?= PROOT; ?>assets/media/avatar.png);"></div>
+                                <div class="rounded-circle bg-size-cover bg-position-center flex-shrink-0" style="width: 80px; height: 80px; background-image: url(<?= PROOT . (($user_data['user_profile'] == null) ? 'assets/media/avatar.png' : $user_data['user_profile']); ?>;"></div>
                                 <div class="pt-3 pt-sm-0 ps-sm-3">
-                                    <h3 class="h5 mb-2">Hamza Zero<i class="ai-circle-check-filled fs-base text-success ms-2"></i></h3>
+                                    <h3 class="h5 mb-2"><?= ucwords($user_data['user_fullname']); ?><i class="ai-circle-check-filled fs-base text-success ms-2"></i></h3>
                                     <div class="text-body-secondary fw-medium d-flex flex-wrap flex-sm-nowrap align-iteems-center">
                                         <div class="d-flex align-items-center me-3">
                                             <i class="ai-mail me-1"></i>
