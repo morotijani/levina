@@ -72,25 +72,25 @@
                                 <?php 
                                     foreach($resources as $resource): 
                                         $product_images = explode(",", $resource->product_image);
-                                        if (count($product_images) == 1) {
+                                        // if (count($product_images) == 1) {
                                             $product_image = '
                                                 <a class="swiper-wrapper" href="' . PROOT . 'app/resources-details/'.$resource->product_url.'">
                                                     <div class="swiper-slide p-2 p-xl-4">
-                                                        <img class="d-block mx-auto" src="' . PROOT . $resource->product_image.'" width="226" alt="Product">
+                                                        <img class="d-block mx-auto" src="' . PROOT . $product_images[0].'" width="" style="height: 226px; width: auto; object-fit: cover; object-position: center;" alt="Product">
                                                     </div>
                                                 </a>
                                             ';
-                                        } else {
-                                            $product_image = '<a class="swiper-wrapper" href="' . PROOT . 'app/resources-details/'.$resource->product_url.'">';
-                                            foreach ($product_images as $pimg) {
-                                                $product_image .= '
-                                                    <div class="swiper-slide p-2 p-xl-4">
-                                                        <img class="d-block mx-auto" src="' . PROOT . $pimg.'" width="226" alt="Product">
-                                                    </div>
-                                                ';
-                                            }
-                                            $product_image .= '</a>';
-                                        }
+                                        // } else {
+                                        //     $product_image = '<a class="swiper-wrapper" href="' . PROOT . 'app/resources-details/'.$resource->product_url.'">';
+                                        //     foreach ($product_images as $pimg) {
+                                        //         $product_image .= '
+                                        //             <div class="swiper-slide p-2 p-xl-4">
+                                        //                 <img class="d-block mx-auto" src="' . PROOT . $pimg.'" width="226" alt="Product">
+                                        //             </div>
+                                        //         ';
+                                        //     }
+                                        //     $product_image .= '</a>';
+                                       // }
                                 ?>
                                 
                             <!-- Item -->

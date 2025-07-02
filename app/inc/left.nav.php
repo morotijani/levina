@@ -10,7 +10,7 @@
                         <button class="btn-close position-absolute top-0 end-0 mt-3 me-3 d-lg-none" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarAccount" aria-label="Close"></button>
                         <div class="offcanvas-body">
                             <div class="pb-2 pb-lg-0 mb-4 mb-lg-5">
-                                <img class="d-block rounded-circle mb-2" src="<?= PROOT . (($user_data['user_profile'] == null) ? 'assets/media/avatar.png' : $user_data['user_profile']); ?>" width="80" style="height: 80px; width: 80px; object-fit: cover; object-position: center;" alt="Hamza Zero">
+                                <img class="d-block rounded-circle mb-2" src="<?= PROOT . (($user_data['user_profile'] == null) ? 'assets/media/avatar.png' : $user_data['user_profile']); ?>" width="80" style="height: 80px; width: 80px; object-fit: cover; object-position: center;" alt="<?= ucwords($user_data['user_fullname']); ?>'s profile.">
                                 <h3 class="h5 mb-1"><?= ucwords($user_data['user_fullname']); ?>!</h3>
                                 <p class="fs-sm text-body-secondary mb-0"><?= $user_data['user_email']; ?></p>
                             </div>

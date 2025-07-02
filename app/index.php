@@ -207,10 +207,10 @@
                                     </a>
                                 </div>
                                 <div class="d-flex align-items-center pb-1 mb-2">
-                                    <h3 class="h6 mb-0 me-3">Shipping address</h3>
+                                    <h3 class="h6 mb-0 me-3">Personal address</h3>
                                     <span class="badge bg-primary bg-opacity-10 text-primary">Primary</span>
                                 </div>
-                                <p class="mb-0">Kumasi,<br>Airport, rounadbout, Street<br>Boukrom</p>
+                                <p class="mb-0"><?= $user_data['user_city']; ?>,<br><?= $user_data['user_state']?>, <?= $user_data['user_country']; ?><br><?= $user_data['user_address']; ?></p>
                             </div>
                         </div>
                     </section>
