@@ -310,7 +310,6 @@
                                         $MM = '';
                                         if ($row['payment_method'] == 'pp') {
                                             $img = '';
-                                            
                                         } else if ($row['payment_method'] == 'mm') {
                                             if ($row['payment_method_mobile'] == 'mtn') {
                                                 $img = 'mtn-momo.png';
@@ -322,8 +321,6 @@
                                                 $img = 'telece-cash.png';
                                                 $MM = 'Telecel Cash';
                                             }
-                                            
-
                                         } else if ($row['payment_method'] == 'cc') {
                                             $img = 'cc.png';
                                         }  
@@ -365,7 +362,6 @@
                                                 <div class="text-dark">Electronic payment system</div>
                                                 <div class="text-body-secondary"><?= $row["payment_method_email"]; ?></div>
                                             <?php endif; ?>
-                                            
                                         </div>
                                     </div>
                                 </div>
