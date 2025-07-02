@@ -16,7 +16,7 @@
         SELECT * FROM levina_payment_methods 
         WHERE payment_method_user_id = ? 
         AND payment_method_status = ? 
-        ORDER BY createdAt DESC
+        ORDER BY payment_method_active DESC, createdAt DESC
     ";
     $statement = $dbConnection->prepare($query);
     $statement->execute([$user_id, 0]);
@@ -38,22 +38,22 @@
         $method = $post['method'];
 
         if ($method == 'mm') {
-            $data = [$method, $mm_type, $mm_name, $mm_number, $user_id];
+            $data = [guidv4(), $method, $mm_type, $mm_name, $mm_number, $user_id];
             $sql = "
-                INSERT INTO levina_payment_methods (payment_method, payment_method_mobile, payment_method_name, payment_method_number, payment_method_user_id) 
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO levina_payment_methods (payment_method_id, payment_method, payment_method_mobile, payment_method_name, payment_method_number, payment_method_user_id) 
+                VALUES (?, ?, ?, ?, ?, ?)
             ";
         } else if ($method == 'pp') { 
-            $data = [$method, $pp_name, $pp_email, $user_id];
+            $data = [guidv4(), $method, $pp_name, $pp_email, $user_id];
             $sql = "
-                INSERT INTO levina_payment_methods (payment_method, payment_method_name, payment_method_email, payment_method_user_id) 
-                VALUES (?, ?, ?, ?)
+                INSERT INTO levina_payment_methods (payment_method_id, payment_method, payment_method_name, payment_method_email, payment_method_user_id) 
+                VALUES (?, ?, ?, ?, ?)
             ";
         } else if ($method == 'cc') { 
-            $data = [$method, $cc_name, $cc_number, $cc_expiration, $cc_cvv, $user_id];
+            $data = [guidv4(), $method, $cc_name, $cc_number, $cc_expiration, $cc_cvv, $user_id];
             $sql = "
-                INSERT INTO levina_payment_methods (payment_method, payment_method_name, payment_method_number, payment_method_expdate, payment_method_cvv, payment_method_user_id) 
-                VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO levina_payment_methods (payment_method_id, payment_method, payment_method_name, payment_method_number, payment_method_expdate, payment_method_cvv, payment_method_user_id) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)
             ";
         }
         $statement = $dbConnection->prepare($sql);
@@ -61,6 +61,29 @@
 
         if ($result) {
             $_SESSION['flash_success'] = 'New payment method added 🤞.';
+            redirect(PROOT . 'app/account-billing');
+        }
+    }
+
+    // set primary method
+    if (isset($_GET['primary']) && !empty($_GET['primary'])) {
+        $method_id = sanitize($_GET['primary']);
+
+        $dbConnection->query("UPDATE levina_payment_methods SET payment_method_active = 0")->execute();
+
+        $query = "
+            UPDATE levina_payment_methods 
+            SET payment_method_active = ? 
+            WHERE payment_method_id = ?
+        ";
+        $statement = $dbConnection->prepare($query);
+        $result = $statement->execute([1, $method_id]);
+
+        if ($result) {
+            $_SESSION['flash_success'] = "Payment set to primary 🤞!";
+            redirect(PROOT . 'app/account-billing');
+        } else {
+            $_SESSION['flash_error'] = "Something went wrong, please try again 🤦‍♂️!";
             redirect(PROOT . 'app/account-billing');
         }
     }
@@ -254,10 +277,10 @@
                             <i class="ai-card text-primary lead pe-1 me-2"></i>
                             <h2 class="h4 mb-0">Payment methods</h2>
                         </div>
-                        <div class="alert alert-danger d-flex mb-4">
+                        <!-- <div class="alert alert-danger d-flex mb-4">
                             <i class="ai-octagon-alert fs-xl me-2"></i>
                             <p class="mb-0">Your primary credit card expired on 01/04/2023. Please add a new card or update this one.</p>
-                        </div>
+                        </div> -->
                         <div class="row row-cols-1 row-cols-md-2 g-4">
 
                             <?php if ($counts > 0 ): ?>
@@ -290,11 +313,13 @@
                                 <div class="card h-100 rounded-3 p-3 p-sm-4">
                                     <div class="d-flex align-items-center pb-2 mb-1">
                                         <h3 class="h6 text-nowrap text-truncate mb-0"><?= ucwords($row["payment_method_name"]); ?></h3>
+                                        <?php if ($row['payment_method_active']): ?>
                                         <span class="badge bg-primary bg-opacity-10 text-primary fs-xs ms-3">Primary</span>
+                                        <?php endif; ?>
                                         <div class="d-flex ms-auto">
-                                            <button class="nav-link fs-xl fw-normal py-1 pe-0 ps-1 ms-2" type="button" data-bs-toggle="tooltip" title="Edit" aria-label="Edit">
-                                                <i class="ai-edit-alt"></i>
-                                            </button>
+                                            <a class="nav-link fs-xl fw-normal py-1 pe-0 ps-1 ms-2" href="<?= PROOT . 'app/account-billing/' . $row['payment_method_id']; ?>" data-bs-toggle="tooltip" title="Set primary" aria-label="Set primary">
+                                                <i class="ai-play-filled"></i>
+                                            </a>
                                             <button class="nav-link text-danger fs-xl fw-normal py-1 pe-0 ps-1 ms-2" type="button" data-bs-toggle="tooltip" title="Delete" aria-label="Delete">
                                                 <i class="ai-trash"></i>
                                             </button>
@@ -303,8 +328,8 @@
                                     <div class="d-flex align-items-center">
                                         <?php if ($row['payment_method'] == 'pp'): ?>
                                         <svg width="52" height="42" viewBox="0 0 52 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M22.6402 28.2865H18.5199L21.095 12.7244H25.2157L22.6402 28.2865ZM15.0536 12.7244L11.1255 23.4281L10.6607 21.1232L10.6611 21.124L9.27467 14.1256C9.27467 14.1256 9.10703 12.7244 7.32014 12.7244H0.8262L0.75 12.9879C0.75 12.9879 2.73586 13.3942 5.05996 14.7666L8.63967 28.2869H12.9327L19.488 12.7244H15.0536ZM47.4619 28.2865H51.2453L47.9466 12.7239H44.6345C43.105 12.7239 42.7324 13.8837 42.7324 13.8837L36.5873 28.2865H40.8825L41.7414 25.9749H46.9793L47.4619 28.2865ZM42.928 22.7817L45.093 16.9579L46.3109 22.7817H42.928ZM36.9095 16.4667L37.4975 13.1248C37.4975 13.1248 35.6831 12.4463 33.7916 12.4463C31.7469 12.4463 26.8913 13.3251 26.8913 17.5982C26.8913 21.6186 32.5902 21.6685 32.5902 23.7803C32.5902 25.8921 27.4785 25.5137 25.7915 24.182L25.1789 27.6763C25.1789 27.6763 27.0187 28.555 29.8296 28.555C32.6414 28.555 36.8832 27.1234 36.8832 23.2271C36.8832 19.1808 31.1331 18.8041 31.1331 17.0449C31.1335 15.2853 35.1463 15.5113 36.9095 16.4667Z" fill="#2566AF"/>
-                                        <path d="M10.6611 22.1235L9.2747 15.1251C9.2747 15.1251 9.10705 13.7239 7.32016 13.7239H0.8262L0.75 13.9874C0.75 13.9874 3.87125 14.6235 6.86507 17.0066C9.72766 19.2845 10.6611 22.1235 10.6611 22.1235Z" fill="#E6A540"/>
+                                            <path d="M22.6402 28.2865H18.5199L21.095 12.7244H25.2157L22.6402 28.2865ZM15.0536 12.7244L11.1255 23.4281L10.6607 21.1232L10.6611 21.124L9.27467 14.1256C9.27467 14.1256 9.10703 12.7244 7.32014 12.7244H0.8262L0.75 12.9879C0.75 12.9879 2.73586 13.3942 5.05996 14.7666L8.63967 28.2869H12.9327L19.488 12.7244H15.0536ZM47.4619 28.2865H51.2453L47.9466 12.7239H44.6345C43.105 12.7239 42.7324 13.8837 42.7324 13.8837L36.5873 28.2865H40.8825L41.7414 25.9749H46.9793L47.4619 28.2865ZM42.928 22.7817L45.093 16.9579L46.3109 22.7817H42.928ZM36.9095 16.4667L37.4975 13.1248C37.4975 13.1248 35.6831 12.4463 33.7916 12.4463C31.7469 12.4463 26.8913 13.3251 26.8913 17.5982C26.8913 21.6186 32.5902 21.6685 32.5902 23.7803C32.5902 25.8921 27.4785 25.5137 25.7915 24.182L25.1789 27.6763C25.1789 27.6763 27.0187 28.555 29.8296 28.555C32.6414 28.555 36.8832 27.1234 36.8832 23.2271C36.8832 19.1808 31.1331 18.8041 31.1331 17.0449C31.1335 15.2853 35.1463 15.5113 36.9095 16.4667Z" fill="#2566AF"/>
+                                            <path d="M10.6611 22.1235L9.2747 15.1251C9.2747 15.1251 9.10705 13.7239 7.32016 13.7239H0.8262L0.75 13.9874C0.75 13.9874 3.87125 14.6235 6.86507 17.0066C9.72766 19.2845 10.6611 22.1235 10.6611 22.1235Z" fill="#E6A540"/>
                                         </svg>
                                         <?php else: ?>
                                             <img class="img-fluid" src="<?= PROOT; ?>assets/media/<?= $img; ?>" style="width: 42px; height: 42px; object-fit: cover; object-position: center;" />
