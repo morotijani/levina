@@ -5,7 +5,8 @@
         user_login_redirect();
     }
     $title = 'Account Earnings - Lavina - Namibra';
-    $body_class = "bg-secondary";
+    $body_class = "bg-secondary";    
+    $playSound = false;
     require ('../system/inc/head.php');
     require ('inc/header.php');
     require ('inc/left.nav.php');
