@@ -45,20 +45,6 @@
                             <input class="form-control form-control-lg ps-5" type="text" placeholder="Address" required>
                         </div>
                     </div>
-                    <div class="password-toggle mb-4">
-                        <input class="form-control form-control-lg" type="password" placeholder="Password" required>
-                        <label class="password-toggle-btn" aria-label="Show/hide password">
-                            <input class="password-toggle-check" type="checkbox">
-                            <span class="password-toggle-indicator"></span>
-                        </label>
-                    </div>
-                    <div class="password-toggle mb-4">
-                        <input class="form-control form-control-lg" type="password" placeholder="Confirm password" required>
-                        <label class="password-toggle-btn" aria-label="Show/hide password">
-                            <input class="password-toggle-check" type="checkbox">
-                            <span class="password-toggle-indicator"></span>
-                        </label>
-                    </div>
                     <div class="pb-4">
                         <div class="form-check my-2">
                             <input class="form-check-input" type="checkbox" id="terms">

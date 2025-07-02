@@ -21,6 +21,56 @@
     require ('inc/header.php');
     require ('inc/left.nav.php');
 
+    // profile percentage
+    $user = [
+        'profile_picture' => $user_data['user_profile'] ?? null,
+        'full_name'       => $user_data['user_fullname'] ?? null,
+        'email'           => $user_data['user_email'] ?? null,
+        'phone'           => $user_data['user_phone'] ?? null,
+        'country'         => $user_data['user_country'] ?? null,
+        'state'           => $user_data['user_state'] ?? null,
+        'city'            => $user_data['user_city'] ?? null,
+        'address'         => $user_data['user_address'] ?? null,
+        'currency'        => $user_data['user_currency'] ?? null,
+        'gender'          => $user_data['user_gender'] ?? null,
+        'communication'   => $user_data['user_comm_email'] ?? null,
+        'verified'        => $user_data['user_verified'] ?? null
+    ];
+
+    // Total fields you're checking
+    $totalFields = count($user);
+    $filledFields = 0;
+
+    // Count how many fields are not empty
+    foreach ($user as $value) {
+        if (!empty($value)) {
+            $filledFields++;
+        }
+    }
+
+    // Calculate percentage
+    $completion = ($filledFields / $totalFields) * 100;
+    $remaining = 100 - $completion;
+
+    // Round for display
+    $completion = round($completion);
+    $remaining = round($remaining);
+
+    $missingFields = array_keys(array_filter($user, function($val) {
+        return empty($val);
+    }));
+
+    if (!empty($missingFields)) {
+        // echo "<br>Missing fields: " . implode(', ', $missingFields);
+    }
+
+    // echo "Profile is $completion% complete.<br>";
+
+    // if ($remaining > 0) {
+    //     echo "You're $remaining% away from a complete profile.";
+    // }
+
+
      // get all primary payment methods for user
     $query = "
         SELECT * FROM levina_payment_methods 
@@ -34,6 +84,20 @@
     $method_counts = $statement->rowCount();
     $method_rows = $statement->fetchAll();
     $method_row = $method_rows[0] ?? null;
+
+    // get limited referrals
+    $sql = "
+        SELECT *, levina_leads.createdAt AS ldate FROM levina_leads 
+        INNER JOIN  levina_products 
+        ON levina_products.product_id = levina_leads.lead_product
+        WHERE lead_added_by = ? 
+        ORDER BY levina_leads.createdAt DESC 
+        LIMIT 5
+    ";
+    $statement = $dbConnection->prepare($sql);
+    $statement->execute([$user_id]);
+    $row_count = $statement->rowCount();
+    $rows = $statement->fetchAll(PDO::FETCH_OBJ);
 
 ?>
 
@@ -72,10 +136,10 @@
                             <div class="w-100 pt-3 pt-md-0 ms-md-auto" style="max-width: 212px;">
                                 <div class="d-flex justify-content-between fs-sm pb-1 mb-2">
                                     Profile completion
-                                    <strong class="ms-2">62%</strong>
+                                    <strong class="ms-2"><?= $completion; ?>%</strong>
                                 </div>
                                 <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 62%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" style="width: <?= $completion; ?>%" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
@@ -113,15 +177,19 @@
                             <div class="col-md-6 d-md-flex justify-content-end">
                                 <div class="w-100 border rounded-3 p-4" style="max-width: 212px;">
                                     <img class="d-block mb-2" src="<?= PROOT; ?>assets/media/gift-icon.svg" width="24" alt="Gift icon">
-                                    <h4 class="h5 lh-base mb-0">123 bonuses</h4>
-                                    <p class="fs-sm text-body-secondary mb-0">1 bonus = ₵1</p>
+                                    <h4 class="h5 lh-base mb-0">0 bonuse(s)</h4>
+                                    <p class="fs-sm text-body-secondary mb-0">100 bonus = ₵1</p>
                                 </div>
                             </div>
                         </div>
+                        <?php if ($remaining > 0): ?>
                         <div class="alert alert-info d-flex mb-0" role="alert">
                             <i class="ai-circle-info fs-xl"></i>
-                            <div class="ps-2">Fill in the information 100% to receive more suitable offers.<a class="alert-link ms-1" href="<?= PROOT; ?>app/account-settings">Go to settings!</a></div>
+                            <div class="ps-2">Fill in the information 100% to receive more suitable offers. 
+                                <a class="alert-link ms-1" href="<?= PROOT; ?>app/account-settings">Go to settings!</a>
+                            </div>
                         </div>
+                        <?php endif; ?>
                     </div>
                 </section>
 
@@ -226,8 +294,51 @@
                         </div>
 
                         <!-- Orders accordion -->
-                        <div class="accordion accordion-alt accordion-orders" id="orders">
-                            lorem  
+                        <div clas="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Company</th>
+                                        <th>Product name</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if ($row_count > 0): ?>
+                                        <?php 
+                                            $i = 1; foreach ($rows as $row): 
+                                                $status = '';
+                                                if ($row->lead_status == 0) {
+                                                    $status = '<span class="badge bg-danger bg-opacity-10 text-danger">Sent</span>';
+                                                } else if ($row->lead_status == 1) {
+                                                    $status = '<span class="badge bg-warning bg-opacity-10 text-warning">Pending</span>';
+                                                } else if ($row->lead_status == 2) {
+                                                    $status = '<span class="badge bg-success bg-opacity-10 text-success">Accepted</span>';
+                                                }
+                                        ?>
+                                            <tr>
+                                                <td><?= ucwords($row->lead_name); ?></td>
+                                                <td><?= $row->lead_email; ?></td>
+                                                <td><?= ucwords($row->lead_company); ?></td>
+                                                <td><?= ucwords($row->product_name); ?></td>
+                                                <td><?= money($row->product_price); ?></td>
+                                                <td><?= $status; ?></td>
+                                                <td><?= pretty_date_notime($row->ldate); ?></td>
+                                                <td></td>
+                                            </tr>
+                                        <?php $i++; endforeach; ?>     
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="7">No data found</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </section>

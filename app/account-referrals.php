@@ -40,51 +40,52 @@
                 </div>
                 <div class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
                     <div class="card-body pb-4">
-
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Company</th>
-                                    <th>Product name</th>
-                                    <th>Price</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if ($row_count > 0): ?>
-                                    <?php 
-                                        $i = 1; foreach ($rows as $row): 
-                                            $status = '';
-                                            if ($row->lead_status == 0) {
-                                                $status = '<span class="badge bg-danger bg-opacity-10 text-danger">Sent</span>';
-                                            } else if ($row->lead_status == 1) {
-                                                $status = '<span class="badge bg-warning bg-opacity-10 text-warning">Pending</span>';
-                                            } else if ($row->lead_status == 2) {
-                                                $status = '<span class="badge bg-success bg-opacity-10 text-success">Accepted</span>';
-                                            }
-                                    ?>
-                                        <tr>
-                                            <td><?= ucwords($row->lead_name); ?></td>
-                                            <td><?= $row->lead_email; ?></td>
-                                            <td><?= ucwords($row->lead_company); ?></td>
-                                            <td><?= ucwords($row->product_name); ?></td>
-                                            <td><?= money($row->product_price); ?></td>
-                                            <td><?= $status; ?></td>
-                                            <td><?= pretty_date_notime($row->ldate); ?></td>
-                                            <td></td>
-                                        </tr>
-                                    <?php $i++; endforeach; ?>     
-                                <?php else: ?>
+                        <div clas="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
                                     <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Company</th>
+                                        <th>Product name</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
                                         <td></td>
                                     </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php if ($row_count > 0): ?>
+                                        <?php 
+                                            $i = 1; foreach ($rows as $row): 
+                                                $status = '';
+                                                if ($row->lead_status == 0) {
+                                                    $status = '<span class="badge bg-danger bg-opacity-10 text-danger">Sent</span>';
+                                                } else if ($row->lead_status == 1) {
+                                                    $status = '<span class="badge bg-warning bg-opacity-10 text-warning">Pending</span>';
+                                                } else if ($row->lead_status == 2) {
+                                                    $status = '<span class="badge bg-success bg-opacity-10 text-success">Accepted</span>';
+                                                }
+                                        ?>
+                                            <tr>
+                                                <td><?= ucwords($row->lead_name); ?></td>
+                                                <td><?= $row->lead_email; ?></td>
+                                                <td><?= ucwords($row->lead_company); ?></td>
+                                                <td><?= ucwords($row->product_name); ?></td>
+                                                <td><?= money($row->product_price); ?></td>
+                                                <td><?= $status; ?></td>
+                                                <td><?= pretty_date_notime($row->ldate); ?></td>
+                                                <td></td>
+                                            </tr>
+                                        <?php $i++; endforeach; ?>     
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="7">No data found</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
 
                     <!-- Pagination -->
                         <!-- <div class="d-sm-flex align-items-center pt-4 pt-sm-5">

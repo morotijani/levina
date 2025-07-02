@@ -15,7 +15,10 @@
     $email = ((isset($_POST['email']) && !empty($_POST['email'])) ? sanitize($_POST['email']) : $user_data['user_email']);
     $phone = ((isset($_POST['phone']) && !empty($_POST['phone'])) ? sanitize($_POST['phone']) : $user_data['user_phone']);
     $country = ((isset($_POST['country']) && !empty($_POST['country'])) ? sanitize($_POST['country']) : $user_data['user_country']);
+    $state = ((isset($_POST['state']) && !empty($_POST['state'])) ? sanitize($_POST['state']) : $user_data['user_state']);
+    $city = ((isset($_POST['city']) && !empty($_POST['city'])) ? sanitize($_POST['city']) : $user_data['user_city']);
     $currency = ((isset($_POST['currency']) && !empty($_POST['currency'])) ? sanitize($_POST['currency']) : $user_data['user_currency']);
+    $address = ((isset($_POST['address']) && !empty($_POST['address'])) ? sanitize($_POST['address']) : $user_data['user_address']);
     $bio = ((isset($_POST['bio']) && !empty($_POST['bio'])) ? sanitize($_POST['bio']) : $user_data['user_bio']);
     $gender = ((isset($_POST['gender']) && !empty($_POST['gender'])) ? sanitize($_POST['gender']) : $user_data['user_gender']);
     $comemail = ((isset($_POST['com-email']) && !empty($_POST['com-email'])) ? sanitize($_POST['com-email']) : $user_data['user_comm_email']);
@@ -36,11 +39,11 @@
         }
 
         $sql = "
-            UPDATE levina_users SET user_fullname = ?, user_email = ?, user_phone = ?, user_country = ?, user_currency = ?, user_bio = ?, user_gender = ?, user_comm_email = ?, user_comm_phone = ? 
+            UPDATE levina_users SET user_fullname = ?, user_email = ?, user_phone = ?, user_country = ?, user_state = ?, user_city = ?, user_address = ? user_currency = ?, user_bio = ?, user_gender = ?, user_comm_email = ?, user_comm_phone = ? 
             WHERE user_id = ?
         ";
         $statement = $dbConnection->prepare($sql);
-        $result = $statement->execute([$fullname, $email, $phone, $country, $currency, $bio, $gender, $comemail, $comphone, $user_id]); 
+        $result = $statement->execute([$fullname, $email, $phone, $country, $state, $city, $address,  $currency, $bio, $gender, $comemail, $comphone, $user_id]); 
         if (isset($result)) {
             $_SESSION['flash_success'] = 'Profile settings updated 👌!';
             redirect(PROOT . 'app/account-settings');
@@ -107,12 +110,24 @@
                                     <input class="form-control" id="country" name="country" value="<?= $country; ?>" required>
                                 </div>
                                 <div class="col-sm-6">
+                                    <label class="form-label" for="state">State</label>
+                                    <input class="form-control" id="state" name="state" value="<?= $state; ?>" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="form-label" for="city">City</label>
+                                    <input class="form-control" id="city" name="city" value="<?= $city; ?>" required>
+                                </div>
+                                <div class="col-sm-6">
                                     <label class="form-label" for="currency">Currency</label>
                                     <select class="form-select" name="currency" id="currency" required>
                                         <option value="" selected disabled>Select currency</option>
                                         <option value="ghs" <?= (($currency == 'ghs') ? 'selected' : ''); ?>>₵ GHS</option>
                                         <option value="usd" <?= (($currency == 'usd') ? 'selected' : ''); ?>>$ USD</option>
                                     </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="bio">Address</label>
+                                    <input class="form-control" value="<?= $address; ?>" placeholder="Add an address" id="address" name="address">
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label" for="bio">Bio</label>
