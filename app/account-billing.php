@@ -87,6 +87,26 @@
             redirect(PROOT . 'app/account-billing');
         }
     }
+
+    // delete method
+    if (isset($_GET['delete']) && !empty($_GET['delete'])) {
+        $method_id = sanitize($_GET['delete']);
+
+        $query = "
+            DELETE FROM levina_payment_methods 
+            WHERE payment_method_id = ?
+        ";
+        $statement = $dbConnection->prepare($query);
+        $result = $statement->execute([$method_id]);
+
+        if ($result) {
+            $_SESSION['flash_success'] = "Payment method deleted 🤞!";
+            redirect(PROOT . 'app/account-billing');
+        } else {
+            $_SESSION['flash_error'] = "Something went wrong, please try again 🤦‍♂️!";
+            redirect(PROOT . 'app/account-billing');
+        }
+    }
     
 
 ?>
@@ -320,9 +340,9 @@
                                             <a class="nav-link fs-xl fw-normal py-1 pe-0 ps-1 ms-2" href="<?= PROOT . 'app/account-billing/' . $row['payment_method_id']; ?>" data-bs-toggle="tooltip" title="Set primary" aria-label="Set primary">
                                                 <i class="ai-play-filled"></i>
                                             </a>
-                                            <button class="nav-link text-danger fs-xl fw-normal py-1 pe-0 ps-1 ms-2" type="button" data-bs-toggle="tooltip" title="Delete" aria-label="Delete">
+                                            <a class="nav-link text-danger fs-xl fw-normal py-1 pe-0 ps-1 ms-2" href="<?= PROOT . 'app/account-billing?delete=' . $row['payment_method_id']; ?>" data-bs-toggle="tooltip" title="Delete" aria-label="Delete">
                                                 <i class="ai-trash"></i>
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center">
