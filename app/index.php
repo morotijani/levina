@@ -54,7 +54,7 @@
                         </div>
                         <div class="d-md-flex align-items-center">
                             <div class="d-sm-flex align-items-center">
-                                <div class="rounded-circle bg-size-cover bg-position-center flex-shrink-0" style="width: 80px; height: 80px; background-image: url(<?= PROOT . (($user_data['user_profile'] == null) ? 'assets/media/avatar.png' : $user_data['user_profile']); ?>;"></div>
+                                <div class="rounded-circle bg-size-cover bg-position-center flex-shrink-0" style="width: 80px; height: 80px; background-image: url('<?= PROOT . (($user_data['user_profile'] == null) ? 'assets/media/avatar.png' : $user_data['user_profile']); ?>');"></div>
                                 <div class="pt-3 pt-sm-0 ps-sm-3">
                                     <h3 class="h5 mb-2"><?= ucwords($user_data['user_fullname']); ?><i class="ai-circle-check-filled fs-base text-success ms-2"></i></h3>
                                     <div class="text-body-secondary fw-medium d-flex flex-wrap flex-sm-nowrap align-iteems-center">
@@ -85,7 +85,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="border-0 text-body-secondary py-1 px-0">Phone</td>
-                                            <td class="border-0 text-dark fw-medium py-1 ps-3">+233 234 567 890</td>
+                                            <td class="border-0 text-dark fw-medium py-1 ps-3"><?= $user_data['user_phone']; ?></td>
                                         </tr>
                                         <tr>
                                             <td class="border-0 text-body-secondary py-1 px-0">Language</td>
@@ -93,11 +93,19 @@
                                         </tr>
                                         <tr>
                                             <td class="border-0 text-body-secondary py-1 px-0">Gender</td>
-                                            <td class="border-0 text-dark fw-medium py-1 ps-3">Male</td>
+                                            <td class="border-0 text-dark fw-medium py-1 ps-3"><?= ucwords($user_data['user_gender']); ?></td>
                                         </tr>
                                         <tr>
                                             <td class="border-0 text-body-secondary py-1 px-0">Communication</td>
-                                            <td class="border-0 text-dark fw-medium py-1 ps-3">Mobile, email</td>
+                                            <td class="border-0 text-dark fw-medium py-1 ps-3">
+                                                <?php if ($user_data['user_comm_email'] != null && $user_data['user_comm_phone'] != null): ?>    
+                                                Mobile, email
+                                                <?php elseif ($user_data['user_comm_email'] == null && $user_data['user_comm_phone'] != null): ?>
+                                                    Mobile
+                                                <?php elseif ($user_data['user_comm_email'] != null && $user_data['user_comm_phone'] == null): ?>
+                                                    Email
+                                                <?php endif; ?>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -112,7 +120,7 @@
                         </div>
                         <div class="alert alert-info d-flex mb-0" role="alert">
                             <i class="ai-circle-info fs-xl"></i>
-                            <div class="ps-2">Fill in the information 100% to receive more suitable offers.<a class="alert-link ms-1" href="account-settings.html">Go to settings!</a></div>
+                            <div class="ps-2">Fill in the information 100% to receive more suitable offers.<a class="alert-link ms-1" href="<?= PROOT; ?>app/account-settings">Go to settings!</a></div>
                         </div>
                     </div>
                 </section>
