@@ -13,14 +13,16 @@
 
     //
     $sql = "
-        SELECT * FROM levina_leads 
+        SELECT *, levina_leads.createdAt AS ldate FROM levina_leads 
+        INNER JOIN  levina_products 
+        ON levina_products.product_id = levina_leads.lead_product
         WHERE lead_added_by = ? 
-        ORDER BY createdAt DESC
+        ORDER BY levina_leads.createdAt DESC
     ";
     $statement = $dbConnection->prepare($sql);
     $statement->execute([$user_id]);
     $row_count = $statement->rowCount();
-    $rows = $statement->fetchAll();
+    $rows = $statement->fetchAll(PDO::FETCH_OBJ);
 ?>
             <!-- Page content -->
             <div class="col-lg-9 pt-4 pb-2 pb-sm-4">
@@ -39,14 +41,14 @@
                 <div class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
                     <div class="card-body pb-4">
 
-                        <table class="table table-lg table-hover">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>Lead name</th>
-                                    <th>Lead email</th>
-                                    <th>Lead company</th>
-                                    <th>Lead Product name</th>
-                                    <th>Product price</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Company</th>
+                                    <th>Product name</th>
+                                    <th>Price</th>
                                     <th>Status</th>
                                     <th>Date</th>
                                     <td></td>
@@ -54,24 +56,38 @@
                             </thead>
                             <tbody>
                                 <?php if ($row_count > 0): ?>
-                                    <?php $i = 1; foreach ($rows as $row): ?>
+                                    <?php 
+                                        $i = 1; foreach ($rows as $row): 
+                                            $status = '';
+                                            if ($row->lead_status == 0) {
+                                                $status = '<span class="badge bg-danger bg-opacity-10 text-danger">Sent</span>';
+                                            } else if ($row->lead_status == 1) {
+                                                $status = '<span class="badge bg-warning bg-opacity-10 text-warning">Pending</span>';
+                                            } else if ($row->lead_status == 2) {
+                                                $status = '<span class="badge bg-success bg-opacity-10 text-success">Accepted</span>';
+                                            }
+                                    ?>
                                         <tr>
-                                            <td><?= $i; ?></td>
-                                            <td>
+                                            <td><?= ucwords($row->lead_name); ?></td>
+                                            <td><?= $row->lead_email; ?></td>
+                                            <td><?= ucwords($row->lead_company); ?></td>
+                                            <td><?= ucwords($row->product_name); ?></td>
+                                            <td><?= money($row->product_price); ?></td>
+                                            <td><?= $status; ?></td>
+                                            <td><?= pretty_date_notime($row->ldate); ?></td>
+                                            <td></td>
                                         </tr>
                                     <?php $i++; endforeach; ?>     
                                 <?php else: ?>
+                                    <tr>
+                                        <td></td>
+                                    </tr>
                                 <?php endif; ?>
-                                <tr>
-                                    <td></td>
-                                </tr>
                             </tbody>
                         </table>
 
-                        
-
                     <!-- Pagination -->
-                        <div class="d-sm-flex align-items-center pt-4 pt-sm-5">
+                        <!-- <div class="d-sm-flex align-items-center pt-4 pt-sm-5">
                             <nav class="order-sm-2 ms-sm-auto mb-4 mb-sm-0" aria-label="Orders pagination">
                                 <ul class="pagination pagination-sm justify-content-center">
                                     <li class="page-item active" aria-current="page">
@@ -83,7 +99,7 @@
                                 </ul>
                             </nav>
                             <button class="btn btn-primary w-100 w-sm-auto order-sm-1 ms-sm-auto me-sm-n5" type="button">Load more orders</button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
