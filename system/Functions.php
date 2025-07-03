@@ -144,7 +144,7 @@
 	}
 
 	// SEND SMS
-	function sms_otp($msg, $phone) {
+	function send_sms($msg, $phone) {
 		$sender = "Namibra";
 		$msg = urlencode($msg);
 	
