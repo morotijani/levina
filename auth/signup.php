@@ -16,10 +16,15 @@
     $output = '';
 
     if ($_POST) {
-        $sql = "SELECT * FROM levina_users WHERE user_email = ? AND user_trash = ?";
-		$statement = $dbConnection->prepare($sql);
-		$statement->execute([$email, 0]);
         $cleanedPhone = sanitizeGhanaPhone($phone);
+
+        $sql = "
+            SELECT * FROM levina_users 
+            WHERE (user_email = ? OR user_phone = ?) 
+            AND user_trash = ?
+        ";
+		$statement = $dbConnection->prepare($sql);
+		$statement->execute([$email, $cleanedPhone, 0]);
 
 		// Storing google recaptcha response
         // in $recaptcha variable
@@ -41,7 +46,7 @@
         if ($response->success == true) {
 
 			if ($statement->rowCount() > 0) {
-				$output =  '<div class="alert alert-danger" role="alert">User account already exist.<div>';
+				$output = '<div class="alert alert-danger" role="alert">User email or phone already exist.<div>';
 			} else {
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $output =  '<div class="alert alert-danger" role="alert">Invalid email address.<div>';
