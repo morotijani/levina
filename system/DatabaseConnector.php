@@ -19,7 +19,6 @@
     }
     session_start();
 
-
     if (isset($_SESSION['LVNUser'])) {
         $user_id = $_SESSION['LVNUser'];
         $data = array($user_id);

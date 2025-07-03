@@ -32,7 +32,8 @@
                 <div class="card border-0 py-1 p-md-2 p-xl-3 p-xxl-4">
                     <div class="card-body">
                         <!-- Stats -->
-                        <div class="row g-3 g-xl-4">
+                        Page is down at the moment, comeback later 🤦‍♂️.
+                        <!-- <div class="row g-3 g-xl-4">
                             <div class="col-md-4 col-sm-6">
                                 <div class="h-100 bg-secondary rounded-3 text-center p-4">
                                     <h2 class="h6 pb-2 mb-1">Earnings (before taxes)</h2>
@@ -54,7 +55,7 @@
                                     <p class="fs-sm text-body-secondary mb-0">Based on list price</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 

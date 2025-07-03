@@ -143,16 +143,16 @@
 		return '<script>alert("' . $msg . '");</script>';
 	}
 
-	// 
+	// SEND SMS
 	function sms_otp($msg, $phone) {
-		$sender = urlencode("Levina");
-		// SEND SMS //eEVFQnhKSHltV3VXaGRVUURxQ0I
+		$sender = "Namibra";
+		$msg = urlencode($msg);
+	
 		$curl = curl_init();
 		curl_setopt_array($curl, 
 			array(
 				CURLOPT_URL => "https://sms.arkesel.com/sms/api?action=send-sms&api_key=".ARKESEL_SMS_API_KEY."&to={$phone}&from={$sender}&sms={$msg}",
 				# When sending SMS to Nigerian contacts, the use_case field is required |
-				# CURLOPT_URL => 'https://sms.arkesel.com/sms/api?action=send-sms&api_key=cE9QRUkdjsjdfjkdsj9kdiieieififiw=&to=2349541111111&from=Arkesel&use_case=promotional&sms=Hello%20world.%20Spreading%20peace%20and%20joy%20only.%20Remeber%20to%20put%20on%20your%20face%20mask.%20Stay%20safe!',
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => '',
 				CURLOPT_MAXREDIRS => 10,
@@ -165,22 +165,14 @@
 		$json_data = curl_exec($curl);
 		curl_close($curl);
 		$response_data = json_decode($json_data);
-		if (is_array($response_data)) {
-			if ($response_data['code'] == 'ok') {
-				return 1;
-			}
+		if ($response_data->code == 'ok') {
+			return 1;
 		}
+		
 		return 0;
-
-	    // Can be use for checks on finished / unfinished balance
-	    // $fromAPI = 'insufficient balance, kindly credit your account';  
-	    // if ($api_url)
-	    // 	return 1;
-		// else
-		// 	return 0;
 	}
 
-	//
+	// Send EMAIL
 	function send_email($name, $to, $subject, $body) {
 		$mail = new PHPMailer(true);
 		try {
@@ -232,6 +224,28 @@
 		mail($to_server, $subject, $body, $headers);
 	}
 
+	function sanitizeGhanaPhone($input) {
+		// Remove any non-numeric characters
+		$digits = preg_replace('/\D/', '', $input);
+
+		// If starts with '+233', remove '+'
+		if (strpos($input, '+233') === 0) {
+			$digits = substr($digits, 1); // remove the initial +
+		}
+
+		// If starts with '0' and has 10 digits
+		if (preg_match('/^0\d{9}$/', $digits)) {
+			$digits = '233' . substr($digits, 1); // remove leading 0 and add 233
+		}
+		// If starts with '233' and has 12 digits (233 + 9 digits)
+		elseif (preg_match('/^233\d{9}$/', $digits)) {
+			// Already formatted, do nothing
+		} else {
+			return false; // Invalid format
+		}
+
+		return $digits;
+	}
 
 	// Generate UUID VERSION 4
 	function guidv4($data = null) {

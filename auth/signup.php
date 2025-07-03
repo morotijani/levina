@@ -19,6 +19,7 @@
         $sql = "SELECT * FROM levina_users WHERE user_email = ? AND user_trash = ?";
 		$statement = $dbConnection->prepare($sql);
 		$statement->execute([$email, 0]);
+        $cleanedPhone = sanitizeGhanaPhone($phone);
 
 		// Storing google recaptcha response
         // in $recaptcha variable
@@ -42,6 +43,14 @@
 			if ($statement->rowCount() > 0) {
 				$output =  '<div class="alert alert-danger" role="alert">User account already exist.<div>';
 			} else {
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $output =  '<div class="alert alert-danger" role="alert">Invalid email address.<div>';
+                }
+
+                if (!filter_var($cleanedPhone, FILTER_VALIDATE_INT)) {
+                    $output =  '<div class="alert alert-danger" role="alert">Invalid phone number.<div>';
+                }
+
 				$vericode = md5(time());
 
 				$fn = ucwords($fullname);
@@ -65,7 +74,7 @@
 				$mail_result = send_email($fn, $to, $subject, $body);
 				if ($mail_result) {
 
-					$data = [guidv4(), $fullname, $email, $phone, $address, $terms];
+					$data = [guidv4(), $fullname, $email, $cleanedPhone, $address, $terms];
 					$query = "
 						INSERT INTO levina_users (user_id, user_fullname, user_email, user_phone, user_address, user_terms) 
 						VALUES (?, ?, ?, ?, ?, ?); 
@@ -85,6 +94,8 @@
 							':user_vericode' => $vericode,
 							':user_id' => $user_id
 						]);
+
+                        sms_otp('Namibra welcome you to Levina.', $cleanedPhone);
 
                         redirect(PROOT . 'auth/verify');
 					}
