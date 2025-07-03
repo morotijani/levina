@@ -100,7 +100,7 @@
 							':user_id' => $user_id
 						]);
 
-                        sms_otp('Namibra welcome you to Levina.', $cleanedPhone);
+                        sms_otp('Namibra welcome you to Levina 🤞.', $cleanedPhone);
 
                         redirect(PROOT . 'auth/verify');
 					}

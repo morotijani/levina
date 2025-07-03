@@ -25,7 +25,7 @@
                 <p class="pb-2">
                     A verification link has been sent to your email account. Please check your <b>spam folder</b> if not found in your <b>inbox</b> to verify your Levina account.
                 </p>
-                <a href="<?= PROOT . 'app/'?>">Go home.</a>
+                <a href="<?= PROOT . 'auth/'?>">Go home.</a>
 
                 <!-- Copyright -->
                 <p class="nav w-100 fs-sm pt-5 mt-auto mb-5" style="max-width: 700px;">
