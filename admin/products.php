@@ -138,10 +138,6 @@
                         ':product_id'           => $pID
                 );
                 if (isset($_GET['edit']) && !empty($_GET['edit'])) {
-                    // $dataOne = array(
-                    //     ':product_id' => $edit_id
-                    // );
-                    //$mergeData = array_merge($data, $dataOne);
                     $updateQ = "
                         UPDATE levina_products 
                         SET product_name = :product_name, product_list_price = :product_list_price, product_price = :product_price, product_image = :product_image, product_description = :product_description, product_added_by = :product_added_by, product_url = :product_url  
@@ -188,7 +184,7 @@
             ':product_id'       => $delete_id
         ));
         $_SESSION['flash_success'] = 'Product has been temporary <span class="bg-info">DELETED</span>';
-        echo '<script>window.location = "'.PROOT.'admin/products"</script>';
+        redirect(PROOT . 'admin/products');
     }
 
     // DELETE A PRODUCT PERMANENTLY
@@ -209,7 +205,7 @@
                 ':product_id'   => $permanent_delete
             ]);
             $_SESSION['flash_success'] = 'Product permanently <span class="bg-info">DELETED</span>';
-            echo '<script>window.location = "'.PROOT.'admin/products?achived_products"</script>';
+            redirect(PROOT . 'admin/products?achived_products');
         }
     }
 
@@ -229,7 +225,7 @@
             ':product_id'    => $restore_id
         ]);
         $_SESSION['flash_success'] = 'Product successfully <span class="bg-info">Restored</span>';
-        echo '<script>window.location = "'.PROOT.'admin/products"</script>';
+        redirect(PROOT . 'admin/products');
     }
 
     // Feature/un-feature a product
