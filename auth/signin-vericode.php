@@ -91,7 +91,7 @@
             </a>
 
             <!-- Content -->
-            <div class="mt-auto" style="max-width: 700px;">
+            <div class="" style="max-width: 700px;">
                 <h1 class="pt-3 pb-2 pb-lg-3">Enter the verification code</h1>
                 <p class="pb-2">An email containing a 6-digit verification code has been sent to the email address - <?=  maskEmail($storedEmail); ?>
                 <P class="fs-10 mb-5">Don’t have access? <a href="#!">Use another method</a></P>

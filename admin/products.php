@@ -183,7 +183,7 @@
             ':product_trash'    => 1,
             ':product_id'       => $delete_id
         ));
-        $_SESSION['flash_success'] = 'Product has been temporary <span class="bg-info">DELETED</span>';
+        $_SESSION['flash_success'] = 'Product has been temporary DELETED!';
         redirect(PROOT . 'admin/products');
     }
 

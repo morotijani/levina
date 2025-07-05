@@ -37,9 +37,22 @@
             $comphone = 1;
             $comemail = ((!isset($_POST['com-email'])) ? null : 'phone');
         }
+        // dnd($_POST);
 
         $sql = "
-            UPDATE levina_users SET user_fullname = ?, user_email = ?, user_phone = ?, user_country = ?, user_state = ?, user_city = ?, user_address = ? user_currency = ?, user_bio = ?, user_gender = ?, user_comm_email = ?, user_comm_phone = ? 
+            UPDATE levina_users 
+            SET user_fullname = ?, 
+                user_email = ?, 
+                user_phone = ?, 
+                user_country = ?, 
+                user_state = ?, 
+                user_city = ?, 
+                user_address = ?, 
+                user_currency = ?, 
+                user_bio = ?, 
+                user_gender = ?, 
+                user_comm_email = ?, 
+                user_comm_phone = ? 
             WHERE user_id = ?
         ";
         $statement = $dbConnection->prepare($sql);

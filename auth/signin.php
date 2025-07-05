@@ -64,7 +64,7 @@
 
                         $name = ucwords($row['user_fullname']);
                         $to = $email;
-                        $subject = "Sign in code 👨‍💻.";
+                        $subject = "Sign in code 🤞.";
                         $body = "
                             <h3>
                                 {$name},</h3>
