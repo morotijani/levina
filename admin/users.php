@@ -52,7 +52,7 @@
                                 <?php $i = 1; foreach ($users as $user): ?>
                                     <tr>
                                         <td><?= $i; ?></td>
-                                        <td><?= $user->user_fullname; ?></td>
+                                        <td><?= ucwords($user->user_fullname); ?></td>
                                         <td><?= $user->user_email; ?></td>
                                         <td><?= $user->user_phone; ?></td>
                                         <td><?= pretty_date_notime($user->user_joined_date); ?></td>
@@ -74,14 +74,3 @@
 
 
 <?php include('includes/footer.php'); ?>
-<script src="https://cdn.tiny.cloud/1/87lq0a69wq228bimapgxuc63s4akao59p3y5jhz37x50zpjk/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script type="text/javascript">
-    tinymce.init({ 
-        selector: 'textarea',
-        setup: function (editor) {
-            editor.on('change', function (e) {
-                editor.save();
-            });
-        }
-    });
-</script>
