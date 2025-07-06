@@ -4,11 +4,30 @@
     //     admin_login_redirect();
     // }
     include ('includes/header.php');
-    include ('includes/left-nav.php');
+    include ('includes/left-nav.php'); 
+
+    // delete class_implements
+    if (isset($_GET['delete']) && !empty($_GET['delete'])) {
+        $delete_client_id = $_GET['delete'];
+        $deleteQuery = "
+            DELETE FROM levina_leads 
+            WHERE lead_id = ?
+        ";
+        $statement = $dbConnection->prepare($deleteQuery);
+        $statement->execute([$delete_client_id]);
+        $deleteCount = $statement->rowCount();
+        if ($deleteCount > 0) {
+            $_SESSION['flash_success'] = 'Client deleted successfully!';
+            redirect(PROOT . 'admin/clients');
+        } else {
+            $_SESSION['flash_error'] = 'Client not deleted!';
+            redirect(PROOT . 'admin/clients');
+        }
+    }
 
     // get all clients
     $usersQuery = "
-        SELECT *, product_name, user_fullname FROM levina_leads 
+        SELECT * FROM levina_leads 
         INNER JOIN levina_products 
         ON levina_products.product_id = levina_leads.lead_product 
         INNER JOIN levina_users 
@@ -136,24 +155,86 @@
                                         <td><?= $client->lead_email; ?></td>
                                         <td><?= $client->lead_number; ?></td>
                                         <td>
-                                            <a href="javascript:;">
+                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productModal">
                                                 <?= ucwords($client->product_name); ?>
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="javascript:;">
+                                            <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#userModal">
                                                 <?= ucwords($client->user_fullname); ?></td>
                                             </a>
                                         <td><?= pretty_date_notime($client->createdAt); ?></td>
                                         <td>
-                                            <a href="<?= PROOT; ?>admin/users?view=<?= $client->user_id; ?>" class="btn btn-sm btn-outline-secondary">View</a>
-                                            <a href="<?= PROOT; ?>admin/users?delete=<?= $client->user_id; ?>" class="btn btn-sm btn-outline-danger">Delete</a>
+                                            <a href="<?= PROOT; ?>admin/clients?view=<?= $client->user_id; ?>" class="btn btn-sm btn-outline-secondary">View</a>
+                                            <a href="javascript:;" onclick="deleteClient('<?= $client->client_id; ?>')" class="btn btn-sm btn-outline-danger">Delete</a>
                                         </td>
                                     </tr>
+
+                                    <?php 
+                                        // get user primary payment methods
+                                        $methodQUery = "
+                                            SELECT * FROM levina_payment_methods 
+                                            WHERE payment_method_user_id = ? 
+                                            AND payment_method_status = ?
+                                        ";
+                                        $statement = $dbConnection->prepare($methodQUery);
+                                        $statement->execute([$client->user_id, 0]);
+                                        $methodCount = $statement->rowCount();
+                                        $method = $statement->fetch(PDO::FETCH_OBJ);
+
+                                    ?>
+
+                                    <!-- USER MODAL -->
+                                    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="userModalLabel">User details</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item"><?= ucwords($client->user_fullname); ?></li>
+                                                        <li class="list-group-item"><?= $client->user_email; ?></li>
+                                                        <li class="list-group-item"><?= $client->user_phone; ?></li>
+                                                        <li class="list-group-item"><?= $client->user_address; ?></li>
+                                                        <!-- PAYMENT MOTHOD -->
+                                                        <li class="list-group-item active" aria-current="true">Payment Methid</li>
+                                                        <li class="list-group-item"><?= $method->payment_method_name; ?></li>
+                                                        <li class="list-group-item"><?= $method->payment_method_number; ?></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- PRODUCT MODAL -->
+                                    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="productModalLabel">Product details</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <ul class="list-group">
+                                                        <li class="list-group-item"><?= ucwords($client->product_name); ?></li>
+                                                        <li class="list-group-item"><?= money($client->product_price); ?></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 <?php $i++; endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="7">No users found</td>
+                                    <td colspan="7">No clients found</td>
                                 </tr>    
                             <?php endif; ?>
                         </tbody> 
@@ -163,3 +244,8 @@
 
 
 <?php include('includes/footer.php'); ?>
+<script>
+    function deleteClient(id) {
+        alert(id);
+    }
+</script>
