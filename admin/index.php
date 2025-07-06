@@ -21,7 +21,21 @@
                             This week
                         </button> 
                     </div> 
-                </div> 
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">Number of Clients</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> 
                 <h2>Section title</h2> 
                 <div class="table-responsive small"> 
