@@ -2,15 +2,14 @@ RewriteEngine on
 
 RewriteRule ^xd192/delete.transaction/([0-9a-zA-Z-]+)$ xd192/delete.transaction.php?id=$1 [NC,L]
 RewriteRule ^admin/products/([0-9a-zA-Z]+)$ admin/products.php?edit=$1 [NC,L]
+RewriteRule ^admin/clients/([0-9a-zA-Z-_]+)$ admin/clients.php?id=$1 [NC,L]
 
 RewriteRule ^auth/verified/([0-9a-zA-Z_-]+)$ auth/verified.php?vericode=$1 [NC,L]
 RewriteRule ^app/resources-details/([0-9a-zA-Z_-]+)$ app/resources-details.php?url=$1 [NC,L]
 RewriteRule ^app/account-billing/([0-9a-zA-Z_-]+)$ app/account-billing.php?primary=$1 [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
-
 RewriteCond %{REQUEST_FILENAME}\.php -f
-
 RewriteRule ^(.*)$ $1.php
 
 RewriteCond $1 !^(media|app|auth|helpers|fonts|assets|dist|admin|connection|robots\.txt)

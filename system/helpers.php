@@ -138,3 +138,23 @@ function get_all_product($product_trash = '') {
 	return $output;
 }
 
+// get number of clients
+function get_number_of_clients() {
+	global $dbConnection;
+	$statement = $dbConnection->query("SELECT * FROM levina_leads WHERE lead_status = 0")->rowCount();
+	return $statement;
+}
+
+// get number of users
+function get_number_of_users() {
+	global $dbConnection;
+	$statement = $dbConnection->query("SELECT * FROM levina_users WHERE user_trash = 0")->rowCount();
+	return $statement;
+}
+
+// get number of products
+function get_number_of_products() {
+	global $dbConnection;
+	$statement = $dbConnection->query("SELECT * FROM levina_products WHERE product_trash = 0")->rowCount();
+	return $statement;
+}
