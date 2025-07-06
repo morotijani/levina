@@ -13,11 +13,10 @@
         ON levina_products.product_id = levina_leads.lead_product 
         INNER JOIN levina_users 
         ON levina_users.user_id = levina_leads.lead_added_by
-        WHERE lead_status = ? 
         ORDER BY levina_leads.createdAt DESC
     ";
     $statement = $dbConnection->prepare($usersQuery);
-    $statement->execute([0]);
+    $statement->execute();
     $clients = $statement->fetchAll(PDO::FETCH_OBJ);
     $clientsCount = $statement->rowCount();
 
@@ -55,7 +54,25 @@
                         $clientCount = $statement->rowCount();
                         $client = $statement->fetch(PDO::FETCH_OBJ);
                 ?>
-                <?php if ($clientCount > 0) { ?>
+                <?php 
+                    if ($clientCount > 0) { 
+                        // update client status to 1
+                        $updateQuery = "
+                            UPDATE levina_leads
+                            SET lead_status = 1
+                            WHERE lead_id = :lead_id
+                        ";
+                        $statement = $dbConnection->prepare($updateQuery);
+                        $statement->execute([':lead_id' => $client_id]);
+                        $updateCount = $statement->rowCount();
+                        if ($updateCount > 0) {
+                            $_SESSION['flash_success'] = 'Client status updated to active';
+                            redirect(PROOT . 'admin/clients');
+                        } else {
+                            $_SESSION['flash_error'] = 'Client status not updated';
+                            redirect(PROOT . 'admin/clients');
+                        }
+                ?>
                     <div class="alert alert-info" role="alert">
                         <h4 class="alert-heading">Client Details</h4>
                         <hr>
@@ -103,10 +120,7 @@
                                 <th scope="col">#</th> 
                                 <th scope="col">Name</th> 
                                 <th scope="col">Email</th> 
-                                <th scope="col">Company</th> 
-                                <th scope="col">Website</th>
-                                <th scope="col">Number</th>
-                                <th scope="col">Note</th>
+                                <th scope="col">Number</th> 
                                 <th scope="col">Product</th>
                                 <th scope="col">Added by</th>
                                 <th scope="col">Date</th>
@@ -120,10 +134,7 @@
                                         <td><?= $i; ?></td>
                                         <td><?= ucwords($client->lead_name); ?></td>
                                         <td><?= $client->lead_email; ?></td>
-                                        <td><?= $client->lead_company; ?></td>
-                                        <td><?= $client->lead_website; ?></td>
                                         <td><?= $client->lead_number; ?></td>
-                                        <td><?= $client->lead_note; ?></td>
                                         <td>
                                             <a href="javascript:;">
                                                 <?= ucwords($client->product_name); ?>
@@ -135,7 +146,7 @@
                                             </a>
                                         <td><?= pretty_date_notime($client->createdAt); ?></td>
                                         <td>
-                                            <a href="<?= PROOT; ?>admin/users?edit=<?= $client->user_id; ?>" class="btn btn-sm btn-outline-secondary">Details</a>
+                                            <a href="<?= PROOT; ?>admin/users?view=<?= $client->user_id; ?>" class="btn btn-sm btn-outline-secondary">View</a>
                                             <a href="<?= PROOT; ?>admin/users?delete=<?= $client->user_id; ?>" class="btn btn-sm btn-outline-danger">Delete</a>
                                         </td>
                                     </tr>
