@@ -37,6 +37,64 @@
                     </div> 
                 </div>
 
+                <?php 
+                    if (isset($_GET['view']) && !empty($_GET['view'])): 
+                        $client_id = $_GET['view'];
+                        $clientQuery = "
+                            SELECT *, product_name, user_fullname FROM levina_leads 
+                            INNER JOIN levina_products 
+                            ON levina_products.product_id = levina_leads.lead_product 
+                            INNER JOIN levina_users 
+                            ON levina_users.user_id = levina_leads.lead_added_by
+                            WHERE lead_id = ? 
+                            ORDER BY levina_leads.createdAt DESC 
+                            LIMIT 1
+                        ";
+                        $statement = $dbConnection->prepare($clientQuery);
+                        $statement->execute([$client_id]);
+                        $clientCount = $statement->rowCount();
+                        $client = $statement->fetch(PDO::FETCH_OBJ);
+                ?>
+                <?php if ($clientCount > 0) { ?>
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">Client Details</h4>
+                        <hr>
+                        <p class="mb-0">
+                            <strong>Name: </strong>
+                            <span class="text-success"><?= ucwords($client->lead_name); ?></span>
+                        </p>
+                        <p class="mb-0">
+                            <strong>Email: </strong>
+                            <span class="text-success"><?= $client->lead_email; ?></span>
+                        </p>
+                        <p class="mb-0">
+                            <strong>Company: </strong>
+                            <span class="text-success"><?= $client->lead_company; ?></span>
+                        </p>
+                        <p class="mb-0">
+                            <strong>Website: </strong>
+                            <span class="text-success"><?= $client->lead_website; ?></span>
+                        </p>
+                        <p class="mb-0">
+                            <strong>Number: </strong>
+                            <span class="text-success"><?= $client->lead_number; ?></span>
+                        </p>
+                        <p class="mb-0">
+                            <strong>Note: </strong>
+                            <span class="text-success"><?= $client->lead_note; ?></span>
+                        </p>
+                        <p class="mb-0">
+                            <strong>Date: </strong>
+                            <span class="text-success"><?= pretty_date_notime($client->createdAt); ?></span>
+                        </p>
+                    </div>
+                    <?php 
+                        } else {
+                            $_SESSION['flash_error'] = 'Client not found';
+                            redirect(PROOT . 'admin/clients');
+                        }
+                    ?>
+                <?php else: ?>
                 <!-- <h2>Section title</h2>  -->
                 <div class="table-responsive small"> 
                     <table class="table table-striped table-bordered table-lg"> 
@@ -89,7 +147,8 @@
                             <?php endif; ?>
                         </tbody> 
                     </table> 
-                </div> 
+                </div>
+                <?php endif; ?>
 
 
 <?php include('includes/footer.php'); ?>
