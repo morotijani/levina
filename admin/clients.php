@@ -166,7 +166,7 @@
                                         <td><?= pretty_date_notime($client->createdAt); ?></td>
                                         <td>
                                             <a href="<?= PROOT; ?>admin/clients?view=<?= $client->user_id; ?>" class="btn btn-sm btn-outline-secondary">View</a>
-                                            <a href="javascript:;" onclick="deleteClient('<?= $client->client_id; ?>')" class="btn btn-sm btn-outline-danger">Delete</a>
+                                            <a href="javascript:;" onclick="deleteClient('<?= $client->lead_id; ?>')" class="btn btn-sm btn-outline-danger">Delete</a>
                                         </td>
                                     </tr>
 
@@ -241,11 +241,21 @@
                     </table> 
                 </div>
                 <?php endif; ?>
-
-
 <?php include('includes/footer.php'); ?>
 <script>
     function deleteClient(id) {
-        alert(id);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '<?= PROOT; ?>admin/clients?delete=' + id;
+            }
+        });
     }
 </script>
