@@ -48,8 +48,8 @@
                         <div class="btn-group me-2"> 
                             <a href="<?= PROOT; ?>admin" class="btn btn-sm btn-outline-secondary">Dashboard</a> <a href="<?= goBack(); ?>" class="btn btn-sm btn-outline-secondary">GO back</a>
                         </div> 
-                        <a href="<?= PROOT; ?>admin/clients" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1"> 
-                            <svg class="bi" aria-hidden="true"><use xlink:href="#calendar3"></use></svg>
+                        <a href="<?= PROOT; ?>admin/clients" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"> 
+                            <i class="bi bi-arrow-clockwise"></i>
                             Refresh
                         </a> 
                     </div> 
