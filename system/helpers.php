@@ -158,3 +158,30 @@ function get_number_of_products() {
 	$statement = $dbConnection->query("SELECT * FROM levina_products WHERE product_trash = 0")->rowCount();
 	return $statement;
 }
+
+
+// get user by id
+function get_user($user_id) {
+    global $dbConnection;
+    $query = "
+        SELECT * FROM levina_users 
+        WHERE user_id = ?
+    ";
+    $statement = $dbConnection->prepare($query);
+    $statement->execute([$user_id]);
+    $user = $statement->fetch(PDO::FETCH_OBJ);
+    return $user;
+}
+
+// get user by email
+function get_user_by_email($user_email) {
+    global $dbConnection;
+    $query = "
+        SELECT * FROM levina_users 
+        WHERE user_email = :user_email
+    ";
+    $statement = $dbConnection->prepare($query);
+    $statement->execute([':user_email' => $user_email]);
+    $user = $statement->fetch(PDO::FETCH_OBJ);
+    return $user;
+}
