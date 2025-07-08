@@ -22,17 +22,31 @@
         $user_id = $_GET['disable'];
         $user = get_user($user_id);
 
-        if ($user->user_id == 1) {
-            $flash_user = flash('danger', 'You cannot disable this user');
+        // check if user is found
+        if ($user) {
+            if ($user->user_id == 1) {
+                $_SEESION['flash_error'] = 'You cannot disable this user!';
+                redirect(PROOT . 'admin/users');
+            }
+
+            $disableQuery = "
+                UPDATE levina_users 
+                SET user_trash = 1 
+                WHERE user_id = ?
+            ";
+            $statement = $dbConnection->prepare($disableQuery);
+            $statement->execute([$user_id]);
+            if ($statement) {
+                $_SEESION['flash_success'] = 'User disabled successfully!';
+                redirect(PROOT . 'admin/users');
+            } else {
+                $_SEESION['flash_error'] = 'User not disabled!';
+                redirect(PROOT . 'admin/users');
+            }
+        } else {
+            $_SEESION['flash_error'] = 'User not found!';
+            redirect(PROOT . 'admin/users');
         }
-        
-        $disableQuery = "
-            UPDATE levina_users 
-            SET user_trash = 1 
-            WHERE user_id = ?
-        ";
-        $statement = $dbConnection->prepare($disableQuery);
-        $statement->execute([$user_id]);
     }
 
     // enable user
