@@ -105,24 +105,24 @@
                                 </tr> 
                             </thead> 
                             <tbody> 
-                                <?php if ($usersCount > 0): ?>
-                                    <?php $i = 1; foreach ($users as $user): ?>
+                                <?php if ($disabledUsersCount > 0): ?>
+                                    <?php $i = 1; foreach ($disabledUsers as $disabledUser): ?>
                                         <tr>
                                             <td><?= $i; ?></td>
-                                            <td><?= ucwords($user->user_fullname); ?></td>
-                                            <td><?= $user->user_email; ?></td>
-                                            <td><?= $user->user_phone; ?></td>
-                                            <td><?= pretty_date_notime($user->user_joined_date); ?></td>
-                                            <td><?= pretty_date($user->user_last_login); ?></td>
+                                            <td><?= ucwords($disabledUser->user_fullname); ?></td>
+                                            <td><?= $disabledUser->user_email; ?></td>
+                                            <td><?= $disabledUser->user_phone; ?></td>
+                                            <td><?= pretty_date_notime($disabledUser->user_joined_date); ?></td>
+                                            <td><?= pretty_date($disabledUser->user_last_login); ?></td>
                                             <td>
-                                                <a href="<?= PROOT; ?>admin/users?edit=<?= $user->user_id; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                                <a href="<?= PROOT; ?>admin/users?disable=<?= $user->user_id; ?>" class="btn btn-sm btn-outline-warning">Disable</a>
+                                                <a href="<?= PROOT; ?>admin/users?edit=<?= $disabledUser->user_id; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                                <a href="<?= PROOT; ?>admin/users?disable=<?= $disabledUser->user_id; ?>" class="btn btn-sm btn-outline-warning">Disable</a>
                                             </td>
                                         </tr>
                                     <?php $i++; endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <td colspan="7">No users found</td>
+                                        <td colspan="7">No disabled users found!</td>
                                     </tr>    
                                 <?php endif; ?>
                             </tbody> 
