@@ -77,10 +77,10 @@
       
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> 
-                    <h1 class="h2">Users</h1> 
+                    <h1 class="h2"><?= (isset($_GET['disabled']) && $_GET['disabled'] == 1) ? 'Disabled' : 'Active'; ?>Users</h1> 
                     <div class="btn-toolbar mb-2 mb-md-0"> 
                         <div class="btn-group me-2"> 
-                            <a href="<?= PROOT; ?>admin" class="btn btn-sm btn-outline-secondary">Dashboard</a> <a href="<?= PROOT; ?>admin/users?disabled=1" class="btn btn-sm btn-outline-secondary">Disabled users</a>
+                            <a href="<?= PROOT; ?>admin" class="btn btn-sm btn-outline-secondary">Dashboard</a> <a href="<?= PROOT; ?>admin/users?disabled=1" class="btn btn-sm btn-outline-warning">Disabled users</a>
                         </div> 
                         <a href="<?= PROOT; ?>admin/products" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"> 
                             <i class="bi bi-arrow-clockwise"></i>
