@@ -80,7 +80,7 @@
                     <h1 class="h2">Users</h1> 
                     <div class="btn-toolbar mb-2 mb-md-0"> 
                         <div class="btn-group me-2"> 
-                            <a href="<?= PROOT; ?>admin" class="btn btn-sm btn-outline-secondary">Dashboard</a> <a href="<?= PROOT; ?>admin/products?add=1" class="btn btn-sm btn-outline-secondary">Disabled users</a>
+                            <a href="<?= PROOT; ?>admin" class="btn btn-sm btn-outline-secondary">Dashboard</a> <a href="<?= PROOT; ?>admin/users?disabled=1" class="btn btn-sm btn-outline-secondary">Disabled users</a>
                         </div> 
                         <a href="<?= PROOT; ?>admin/products" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"> 
                             <i class="bi bi-arrow-clockwise"></i>
@@ -89,44 +89,85 @@
                     </div> 
                 </div>
 
-                <!-- <h2>Section title</h2>  -->
-                <div class="table-responsive small"> 
-                    <table class="table table-striped table-bordered table-lg"> 
-                        <thead> 
-                            <tr> 
-                                <th scope="col">#</th> 
-                                <th scope="col">Name</th> 
-                                <th scope="col">Email</th> 
-                                <th scope="col">Phone</th> 
-                                <th scope="col">Joined date</th>
-                                <th scope="col">Last login date</th>
-                                <th scope="col"></th>
-                            </tr> 
-                        </thead> 
-                        <tbody> 
-                            <?php if ($usersCount > 0): ?>
-                                <?php $i = 1; foreach ($users as $user): ?>
+                <?php if (isset($_GET['disabled']) && $_GET['disabled'] == 1): ?>
+                    <!-- <h2>Section title</h2>  -->
+                    <div class="table-responsive small"> 
+                        <table class="table table-striped table-bordered table-lg"> 
+                            <thead> 
+                                <tr> 
+                                    <th scope="col">#</th> 
+                                    <th scope="col">Name</th> 
+                                    <th scope="col">Email</th> 
+                                    <th scope="col">Phone</th> 
+                                    <th scope="col">Joined date</th>
+                                    <th scope="col">Last login date</th>
+                                    <th scope="col"></th>
+                                </tr> 
+                            </thead> 
+                            <tbody> 
+                                <?php if ($usersCount > 0): ?>
+                                    <?php $i = 1; foreach ($users as $user): ?>
+                                        <tr>
+                                            <td><?= $i; ?></td>
+                                            <td><?= ucwords($user->user_fullname); ?></td>
+                                            <td><?= $user->user_email; ?></td>
+                                            <td><?= $user->user_phone; ?></td>
+                                            <td><?= pretty_date_notime($user->user_joined_date); ?></td>
+                                            <td><?= pretty_date($user->user_last_login); ?></td>
+                                            <td>
+                                                <a href="<?= PROOT; ?>admin/users?edit=<?= $user->user_id; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                                <a href="<?= PROOT; ?>admin/users?disable=<?= $user->user_id; ?>" class="btn btn-sm btn-outline-warning">Disable</a>
+                                            </td>
+                                        </tr>
+                                    <?php $i++; endforeach; ?>
+                                <?php else: ?>
                                     <tr>
-                                        <td><?= $i; ?></td>
-                                        <td><?= ucwords($user->user_fullname); ?></td>
-                                        <td><?= $user->user_email; ?></td>
-                                        <td><?= $user->user_phone; ?></td>
-                                        <td><?= pretty_date_notime($user->user_joined_date); ?></td>
-                                        <td><?= pretty_date($user->user_last_login); ?></td>
-                                        <td>
-                                            <a href="<?= PROOT; ?>admin/users?edit=<?= $user->user_id; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                            <a href="<?= PROOT; ?>admin/users?disable=<?= $user->user_id; ?>" class="btn btn-sm btn-outline-warning">Disable</a>
-                                        </td>
-                                    </tr>
-                                <?php $i++; endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="7">No users found</td>
-                                </tr>    
-                            <?php endif; ?>
-                        </tbody> 
-                    </table> 
-                </div> 
+                                        <td colspan="7">No users found</td>
+                                    </tr>    
+                                <?php endif; ?>
+                            </tbody> 
+                        </table> 
+                    </div>
+                <?php else: ?>
+                    <!-- <h2>Section title</h2>  -->
+                    <div class="table-responsive small"> 
+                        <table class="table table-striped table-bordered table-lg"> 
+                            <thead> 
+                                <tr> 
+                                    <th scope="col">#</th> 
+                                    <th scope="col">Name</th> 
+                                    <th scope="col">Email</th> 
+                                    <th scope="col">Phone</th> 
+                                    <th scope="col">Joined date</th>
+                                    <th scope="col">Last login date</th>
+                                    <th scope="col"></th>
+                                </tr> 
+                            </thead> 
+                            <tbody> 
+                                <?php if ($usersCount > 0): ?>
+                                    <?php $i = 1; foreach ($users as $user): ?>
+                                        <tr>
+                                            <td><?= $i; ?></td>
+                                            <td><?= ucwords($user->user_fullname); ?></td>
+                                            <td><?= $user->user_email; ?></td>
+                                            <td><?= $user->user_phone; ?></td>
+                                            <td><?= pretty_date_notime($user->user_joined_date); ?></td>
+                                            <td><?= pretty_date($user->user_last_login); ?></td>
+                                            <td>
+                                                <a href="<?= PROOT; ?>admin/users?edit=<?= $user->user_id; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                                <a href="<?= PROOT; ?>admin/users?disable=<?= $user->user_id; ?>" class="btn btn-sm btn-outline-warning">Disable</a>
+                                            </td>
+                                        </tr>
+                                    <?php $i++; endforeach; ?>
+                                <?php else: ?>
+                                    <tr>
+                                        <td colspan="7">No users found</td>
+                                    </tr>    
+                                <?php endif; ?>
+                            </tbody> 
+                        </table> 
+                    </div>
+                <?php endif; ?>
 
 
 <?php include('includes/footer.php'); ?>
