@@ -54,7 +54,7 @@
         $user_id = $_GET['enable'];
         $enableQuery = "
             UPDATE levina_users 
-            SET user_trash = 0 
+            SET user_trash = 1 
             WHERE user_id = ?
         ";
         $statement = $dbConnection->prepare($enableQuery);
@@ -77,10 +77,10 @@
       
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"> 
-                    <h1 class="h2"><?= (isset($_GET['disabled']) && $_GET['disabled'] == 1) ? 'Disabled' : 'Active'; ?>Users</h1> 
+                    <h1 class="h2"><?= (isset($_GET['disabled']) && $_GET['disabled'] == 1) ? 'Disabled' : 'Active'; ?> users</h1> 
                     <div class="btn-toolbar mb-2 mb-md-0"> 
                         <div class="btn-group me-2"> 
-                            <a href="<?= PROOT; ?>admin" class="btn btn-sm btn-outline-secondary">Dashboard</a> <a href="<?= PROOT; ?>admin/users?disabled=1" class="btn btn-sm btn-outline-warning">Disabled users</a>
+                            <a href="<?= PROOT; ?>admin" class="btn btn-sm btn-outline-secondary">Dashboard</a> <a href="<?= PROOT; ?>admin/users<?= (isset($_GET['disabled']) && $_GET['disabled'] == 1) ? '' : '?disabled=1'; ?>" class="btn btn-sm btn-outline-warning"><?= (isset($_GET['disabled']) && $_GET['disabled'] == 1) ? 'Active' : 'Disabled'; ?> users</a>
                         </div> 
                         <a href="<?= PROOT; ?>admin/products" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1"> 
                             <i class="bi bi-arrow-clockwise"></i>
@@ -92,7 +92,7 @@
                 <?php if (isset($_GET['disabled']) && $_GET['disabled'] == 1): ?>
                     <!-- <h2>Section title</h2>  -->
                     <div class="table-responsive small"> 
-                        <table class="table table-striped table-bordered table-lg"> 
+                        <table class="table table-striped table-bordered table-danger table-lg"> 
                             <thead> 
                                 <tr> 
                                     <th scope="col">#</th> 
@@ -116,7 +116,7 @@
                                             <td><?= pretty_date($disabledUser->user_last_login); ?></td>
                                             <td>
                                                 <a href="<?= PROOT; ?>admin/users?edit=<?= $disabledUser->user_id; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
-                                                <a href="<?= PROOT; ?>admin/users?disable=<?= $disabledUser->user_id; ?>" class="btn btn-sm btn-outline-warning">Disable</a>
+                                                <a href="<?= PROOT; ?>admin/users?enable=<?= $disabledUser->user_id; ?>" class="btn btn-sm btn-outline-info">Enable</a>
                                             </td>
                                         </tr>
                                     <?php $i++; endforeach; ?>
