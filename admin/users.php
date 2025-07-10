@@ -79,6 +79,40 @@
     $disabledUsers = $statement->fetchAll(PDO::FETCH_OBJ);
     $disabledUsersCount = $statement->rowCount();
 
+    // delete user
+    if (isset($_GET['delete']) && !empty($_GET['delete'])) {
+        $user_id = $_GET['delete'];
+        $user = get_user($user_id);
+
+        // check if user is found
+        if ($user) {
+            if ($user->user_id == 1) {
+                $_SEESION['flash_error'] = 'You cannot delete this user!';
+                redirect(PROOT . 'admin/users');
+            }
+
+            $deleteQuery = "
+                DELETE FROM levina_users 
+                WHERE user_id = ?
+            ";
+            $statement = $dbConnection->prepare($deleteQuery);
+            $statement->execute([$user_id]);
+            if ($statement) {
+                $_SEESION['flash_success'] = 'User deleted successfully!';
+                redirect(PROOT . 'admin/users');
+                // delete user image
+                if (file_exists('../dist/images/users/' . $user->user_image)) {
+                    unlink('../dist/images/users/' . $user->user_image);
+                }
+            } else {
+                $_SEESION['flash_error'] = 'User not deleted!';
+                redirect(PROOT . 'admin/users');
+            }
+        } else {
+            $_SEESION['flash_error'] = 'User not found!';
+            redirect(PROOT . 'admin/users');
+        }
+    }
 
 ?>
       
@@ -124,6 +158,7 @@
                                             <td>
                                                 <a href="<?= PROOT; ?>admin/users?edit=<?= $disabledUser->user_id; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
                                                 <a href="<?= PROOT; ?>admin/users?enable=<?= $disabledUser->user_id; ?>" class="btn btn-sm btn-outline-info">Enable</a>
+                                                <a href="javascript:;" onclick="deleteUser(<?= $disabledUser->user_id; ?>)" class="btn btn-sm btn-outline-danger">Delete</a>
                                             </td>
                                         </tr>
                                     <?php $i++; endforeach; ?>
@@ -176,5 +211,21 @@
                     </div>
                 <?php endif; ?>
 
-
 <?php include('includes/footer.php'); ?>
+<script>
+    function deleteUser(user_id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+           if (result.isConfirmed) {
+                window.location.href = '<?= PROOT; ?>admin/users?delete=' + user_id;
+            }
+        });
+    }
+</script>
