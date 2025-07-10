@@ -14,6 +14,26 @@
     <script>
 		// Fade out messages 
 		$("#temporary").fadeOut(10000);
+
+		// Show flash message
+        <?php if (isset($_SESSION['flash_success'])): ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '<?= $_SESSION['flash_success']; ?>',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        <?php endif; ?>
+        <?php if (isset($_SESSION['flash_error'])): ?>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '<?= $_SESSION['flash_error']; ?>',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        <?php endif; ?>
     </script>
     
 </body> 

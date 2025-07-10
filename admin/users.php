@@ -54,11 +54,18 @@
         $user_id = $_GET['enable'];
         $enableQuery = "
             UPDATE levina_users 
-            SET user_trash = 1 
+            SET user_trash = 0 
             WHERE user_id = ?
         ";
         $statement = $dbConnection->prepare($enableQuery);
         $statement->execute([$user_id]);
+        if ($statement) {
+            $_SEESION['flash_success'] = 'User enabled successfully!';
+            redirect(PROOT . 'admin/users?disabled=1');
+        } else {
+            $_SEESION['flash_error'] = 'User not enabled!';
+            redirect(PROOT . 'admin/users?disabled=1');
+        }
     }
 
     // get disabled user
