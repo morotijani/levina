@@ -44,7 +44,7 @@
                                 </a> 
                             </li> 
                         </ul> 
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase"> 
+                        <!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase"> 
                             <span>Saved reports</span> 
                             <a class="link-secondary" href="#" aria-label="Add a new report"> 
                                 <svg class="bi" aria-hidden="true"><use xlink:href="#plus-circle"></use></svg> 
@@ -75,7 +75,7 @@
                                     </svg> Year-end sale
                                 </a> 
                             </li> 
-                        </ul> 
+                        </ul>  -->
                         <hr class="my-3"> 
                         <ul class="nav flex-column mb-auto"> 
                             <li class="nav-item"> 
