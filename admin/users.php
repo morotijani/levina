@@ -101,8 +101,8 @@
                 $_SEESION['flash_success'] = 'User deleted successfully!';
                 redirect(PROOT . 'admin/users');
                 // delete user image
-                if (file_exists('../dist/images/users/' . $user->user_image)) {
-                    unlink('../dist/images/users/' . $user->user_image);
+                if (file_exists('../' . $user->user_profile)) {
+                    unlink('../' . $user->user_profile);
                 }
             } else {
                 $_SEESION['flash_error'] = 'User not deleted!';
@@ -156,7 +156,6 @@
                                             <td><?= pretty_date_notime($disabledUser->user_joined_date); ?></td>
                                             <td><?= pretty_date($disabledUser->user_last_login); ?></td>
                                             <td>
-                                                <a href="<?= PROOT; ?>admin/users?edit=<?= $disabledUser->user_id; ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
                                                 <a href="<?= PROOT; ?>admin/users?enable=<?= $disabledUser->user_id; ?>" class="btn btn-sm btn-outline-info">Enable</a>
                                                 <a href="javascript:;" onclick="deleteUser(<?= $disabledUser->user_id; ?>)" class="btn btn-sm btn-outline-danger">Delete</a>
                                             </td>
