@@ -293,10 +293,10 @@
                     <h1 class="h2">Products</h1> 
                     <div class="btn-toolbar mb-2 mb-md-0"> 
                         <div class="btn-group me-2"> 
-                            <a href="<?= PROOT; ?>admin" class="btn btn-sm btn-outline-secondary">Dashboard</a> <a href="<?= PROOT; ?>admin/products?add=1" class="btn btn-sm btn-outline-secondary">Add new product</a>
+                            <a href="<?= PROOT; ?>admin" class="btn btn-sm btn-outline-secondary">Dashboard</a> <a href="<?= PROOT; ?>admin/products?add=1" class="btn btn-sm btn-outline-secondary"> Add new product</a>
                         </div> 
                         <a href="<?= PROOT; ?>admin/products" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1"> 
-                            <svg class="bi" aria-hidden="true"><use xlink:href="#calendar3"></use></svg>
+                            <i class="bi bi-arrow-clockwise"></i>
                             Refresh
                         </a> 
                     </div> 
